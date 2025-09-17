@@ -30,6 +30,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.materialIconsExtended)
+            implementation(compose.components.uiToolingPreview)
 
             // Navigation (optional but typical for a feature module)
             implementation(libs.navigation.compose)
@@ -39,18 +40,26 @@ kotlin {
             implementation(libs.koinCore)
             implementation(libs.koinComposeViewModel)
 
-            // Core/UI modules
+            // Data Store
+            implementation(libs.dataStore)
+            implementation(libs.dataStore.preferences)
+
+            // Core
             implementation(projects.core.utils)
             implementation(projects.core.preferences)
+
+            // UI
             implementation(projects.ui.theme)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
     }
+}
+
+dependencies {
+    // Compose Preview tooling only for debug builds
+    debugImplementation(libs.uiTooling)
 }
 
 android {

@@ -43,12 +43,6 @@ kotlin {
             // UI components
             implementation(projects.ui.components)
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
     }
 }
 

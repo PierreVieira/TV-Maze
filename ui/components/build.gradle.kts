@@ -27,12 +27,6 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
     }
 }
 

@@ -1,4 +1,3 @@
-import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -50,8 +49,13 @@ kotlin {
             implementation(libs.koinCore)
             implementation(libs.koinComposeViewModel)
 
+            // Data Store
+            implementation(libs.dataStore)
+            implementation(libs.dataStore.preferences)
+
             // Feature dependencies
             implementation(projects.feature.main)
+            implementation(projects.feature.themeSelection)
 
             // Core dependencies
             implementation(projects.core.preferences)

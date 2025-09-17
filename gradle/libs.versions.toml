@@ -5,6 +5,7 @@ android-minSdk = "24"
 android-targetSdk = "36"
 androidx-activity = "1.11.0"
 androidx-appcompat = "1.7.1"
+compose-bom = "2025.09.00"
 androidx-core = "1.17.0"
 androidx-espresso = "3.7.0"
 androidx-lifecycle = "2.9.4"
@@ -17,6 +18,7 @@ kotlinx-coroutines = "1.10.2"
 navigationCompose = "2.9.0"
 koinVersion = "4.1.1"
 kotzillaPlugin = "1.2.2"
+datasSoreVersion = "1.1.7"
 
 [libraries]
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
@@ -31,6 +33,16 @@ androidx-lifecycle-viewmodelCompose = { group = "org.jetbrains.androidx.lifecycl
 androidx-lifecycle-runtimeCompose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-coroutinesSwing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 
+# Compose
+composeBom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+ui = { group = "androidx.compose.ui", name = "ui" }
+uiGraphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+uiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+uiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+uiTestManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+material3 = { group = "androidx.compose.material3", name = "material3" }
+icons = { group = "androidx.compose.material", name = "material-icons-extended" }
+
 # Navigation
 navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
@@ -42,6 +54,10 @@ koinComposeViewModel = { group = "io.insert-koin", name = "koin-compose-viewmode
 koinStartup = { group = "io.insert-koin", name = "koin-android" }
 koinStartupAndroidX = { group = "io.insert-koin", name = "koin-androidx-startup" }
 kotzilla-plugin = { module = "io.kotzilla:kotzilla-plugin", version.ref = "kotzillaPlugin" }
+
+# Data Store
+dataStore = { module = "androidx.datastore:datastore", version.ref = "datasSoreVersion" }
+dataStore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datasSoreVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

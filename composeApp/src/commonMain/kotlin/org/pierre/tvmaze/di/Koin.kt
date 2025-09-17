@@ -4,6 +4,7 @@ import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.pierre.tvmaze.feature.main.di.mainModule
+import org.pierre.tvmaze.feature.theme_selection.di.themeSelectionModule
 
 expect val platformModule: Module
 
@@ -13,8 +14,10 @@ fun initializeKoin(
     startKoin {
         config?.invoke(this)
         modules(
+            appModule,
             platformModule,
             mainModule,
+            themeSelectionModule,
         )
     }
 }

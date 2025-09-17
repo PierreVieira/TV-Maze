@@ -43,12 +43,6 @@ kotlin {
             implementation(libs.koinComposeViewModel)
 
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
     }
 }
 

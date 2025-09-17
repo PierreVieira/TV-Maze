@@ -21,25 +21,22 @@ kotlin {
     jvm()
 
     sourceSets {
-        androidMain.dependencies {
-            // nothing specific for now
-        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.components.uiToolingPreview)
 
             // Core preferences
             implementation(projects.core.preferences)
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
     }
+}
+
+dependencies {
+    // Compose Preview tooling only for debug builds
+    debugImplementation(libs.uiTooling)
 }
 
 android {

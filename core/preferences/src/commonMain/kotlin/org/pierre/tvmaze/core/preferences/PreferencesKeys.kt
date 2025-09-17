@@ -1,5 +1,5 @@
 package org.pierre.tvmaze.core.preferences
 
-internal object PreferencesKeys {
+object PreferencesKeys {
     const val THEME = "theme"
 }

@@ -42,17 +42,12 @@ kotlin {
 
             // Core dependencies
             implementation(projects.core.utils)
+            implementation(projects.core.preferences)
 
             // Feature dependencies
             implementation(projects.feature.themeSelection)
             implementation(projects.feature.favorites)
             implementation(projects.feature.search)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
         }
     }
 }
