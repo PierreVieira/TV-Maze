@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -34,6 +35,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+            // Compose
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -42,6 +44,21 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            // Koin
+            implementation(project.dependencies.platform(libs.koinBom))
+            implementation(libs.koinCore)
+            implementation(libs.koinComposeViewModel)
+
+            // Feature dependencies
+            implementation(projects.feature.main)
+
+            // Core dependencies
+            implementation(projects.core.preferences)
+
+            // UI dependencies
+            implementation(projects.ui.theme)
+            implementation(projects.ui.navigation)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.composeCompiler)
 }
 
@@ -21,13 +22,26 @@ kotlin {
     jvm()
 
     sourceSets {
-        androidMain.dependencies {
-            // keep minimal
-        }
         commonMain.dependencies {
+            // Compose
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(compose.foundation)
+
+            // Navigation
+            implementation(libs.navigation.compose)
+
+            // Features
+            implementation(projects.feature.main)
+
+            // Core
+            implementation(projects.core.utils)
+
+            // Koin
+            implementation(project.dependencies.platform(libs.koinBom))
+            implementation(libs.koinCore)
+            implementation(libs.koinComposeViewModel)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

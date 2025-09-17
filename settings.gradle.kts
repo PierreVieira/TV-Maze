@@ -35,3 +35,6 @@ plugins {
 include(":composeApp")
 include(":ui:theme")
 include(":ui:navigation")
+include(":core:preferences")
+include(":core:utils")
+include(":feature:main")
