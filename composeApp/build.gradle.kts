@@ -59,6 +59,7 @@ kotlin {
 
             // Core dependencies
             implementation(projects.core.preferences)
+            implementation(projects.core.dataStoreProvider)
 
             // UI dependencies
             implementation(projects.ui.theme)

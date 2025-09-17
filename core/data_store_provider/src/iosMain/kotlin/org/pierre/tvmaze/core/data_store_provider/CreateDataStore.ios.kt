@@ -1,24 +1,16 @@
-package org.pierre.tvmaze.di
+package org.pierre.tvmaze.core.data_store_provider
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.cinterop.ExperimentalForeignApi
-import org.koin.core.module.Module
-import org.koin.dsl.module
-import org.pierre.tvmaze.utils.DATA_STORE_FILE_NAME
-import org.pierre.tvmaze.utils.createDataStore
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
-actual val platformModule: Module = module {
-    single<DataStore<Preferences>> { createIosDataStore() }
-}
-
 @OptIn(ExperimentalForeignApi::class)
-private fun createIosDataStore(): DataStore<Preferences> = createDataStore(
-    producePath = {
+actual fun createDataStore(): DataStore<Preferences> = commonCreateDataStore(
+    producePath = { dataStoreFileName ->
         val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
             directory = NSDocumentDirectory,
             inDomain = NSUserDomainMask,
@@ -26,6 +18,6 @@ private fun createIosDataStore(): DataStore<Preferences> = createDataStore(
             create = false,
             error = null,
         )
-        requireNotNull(documentDirectory).path + "/$DATA_STORE_FILE_NAME"
+        requireNotNull(documentDirectory).path + "/$dataStoreFileName"
     }
 )
