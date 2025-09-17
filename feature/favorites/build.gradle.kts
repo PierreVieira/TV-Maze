@@ -14,7 +14,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "MainFeature"
+            baseName = "FavoritesFeature"
             isStatic = true
         }
     }
@@ -28,25 +28,20 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.materialIconsExtended)
 
             // Navigation
             implementation(libs.navigation.compose)
-            implementation(compose.material3AdaptiveNavigationSuite)
+
+            // Core
+            implementation(projects.core.utils)
 
             // Koin
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
             implementation(libs.koinComposeViewModel)
 
-            // Core dependencies
-            implementation(projects.core.utils)
-
-            // Feature dependencies
-            implementation(projects.feature.themeSelection)
-            implementation(projects.feature.favorites)
-            implementation(projects.feature.search)
+            // UI components
+            implementation(projects.ui.components)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -58,7 +53,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.pierre.tvmaze.feature.main"
+    namespace = "org.pierre.tvmaze.feature.favorites"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

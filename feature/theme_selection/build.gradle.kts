@@ -14,7 +14,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "MainFeature"
+            baseName = "ThemeSelectionFeature"
             isStatic = true
         }
     }
@@ -31,22 +31,18 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.materialIconsExtended)
 
-            // Navigation
+            // Navigation (optional but typical for a feature module)
             implementation(libs.navigation.compose)
-            implementation(compose.material3AdaptiveNavigationSuite)
 
-            // Koin
+            // Koin (feature DI)
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
             implementation(libs.koinComposeViewModel)
 
-            // Core dependencies
+            // Core/UI modules
             implementation(projects.core.utils)
-
-            // Feature dependencies
-            implementation(projects.feature.themeSelection)
-            implementation(projects.feature.favorites)
-            implementation(projects.feature.search)
+            implementation(projects.core.preferences)
+            implementation(projects.ui.theme)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -58,7 +54,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.pierre.tvmaze.feature.main"
+    namespace = "org.pierre.tvmaze.feature.theme_selection"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
