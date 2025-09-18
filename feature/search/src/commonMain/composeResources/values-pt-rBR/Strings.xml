@@ -1,0 +1,5 @@
+<resources>
+    <string name="back">Voltar</string>
+    <string name="clear">Limpar</string>
+    <string name="search">Pesquisar</string>
+</resources>

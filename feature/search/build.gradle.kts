@@ -27,8 +27,10 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
             implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.uiToolingPreview)
 
             // Navigation
             implementation(libs.navigation.compose)
