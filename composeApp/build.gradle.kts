@@ -60,6 +60,8 @@ kotlin {
             // Core dependencies
             implementation(projects.core.preferences)
             implementation(projects.core.dataStoreProvider)
+            implementation(projects.core.network)
+            implementation(projects.core.koinInitializer)
 
             // UI dependencies
             implementation(projects.ui.theme)
@@ -67,10 +69,6 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutinesSwing)
         }
     }
 }

@@ -1,21 +1,16 @@
 package org.pierre.tvmaze.di
 
 import org.koin.core.KoinApplication
-import org.koin.core.context.startKoin
-import org.pierre.tvmaze.core.data_store_provider.di.dataStoreProviderModule
-import org.pierre.tvmaze.feature.main.di.mainModule
-import org.pierre.tvmaze.feature.theme_selection.di.themeSelectionModule
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.module
+import org.pierre.tvmaze.core.koin_initializer.di.commonKoinInitializer
+import org.pierre.tvmaze.presentation.AppViewModel
 
-fun initializeKoin(
-    config: (KoinApplication.() -> Unit)? = null,
-) {
-    startKoin {
-        config?.invoke(this)
-        modules(
-            appModule,
-            dataStoreProviderModule,
-            mainModule,
-            themeSelectionModule,
-        )
-    }
+fun initializeKoin(config: (KoinApplication.() -> Unit)? = null) {
+    commonKoinInitializer(
+        appModule = module {
+            viewModelOf(::AppViewModel)
+        },
+        config = config
+    )
 }
