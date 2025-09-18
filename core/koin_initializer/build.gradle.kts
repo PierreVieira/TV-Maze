@@ -29,6 +29,7 @@ kotlin {
 
             // Feature dependencies
             implementation(projects.feature.main)
+            implementation(projects.feature.search)
             implementation(projects.feature.themeSelection)
 
             // Core dependencies

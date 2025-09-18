@@ -70,6 +70,10 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        jvmMain.dependencies {
+            // DO NOT DELETE: Provide Dispatchers.Main for Desktop via Swing
+            implementation(libs.kotlinx.coroutines.swing)
+        }
     }
 }
 
