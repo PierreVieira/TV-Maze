@@ -39,17 +39,18 @@ include(":core:data_store_provider")
 include(":core:network")
 include(":core:utils")
 include(":core:koin_initializer")
-include(":core:theme")
+include(":core:model:theme")
 
 // UI
 include(":ui:theme")
 include(":ui:navigation")
-include(":ui:components")
+include(":ui:components:icon_button")
 
 // Features
 include(":feature:main")
 include(":feature:favorites:presentation")
-include(":feature:search")
+include(":feature:search:presentation")
 include(":feature:theme_selection:presentation")
 include(":feature:theme_selection:domain")
 include(":feature:theme_selection:data")
+include(":feature:search:domain")

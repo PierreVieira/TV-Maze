@@ -29,9 +29,10 @@ fun MainScreen(
         navigationSuiteItems = {
             bottomNavigationModels.forEach { bottomNavigationItemModel: BottomNavigationItemModel<Any> ->
                 val presentationItem = bottomNavigationItemModel.presentationModel
-                val isSelected = currentDestination?.isSelected(bottomNavigationItemModel).orFalse()
                 item(
-                    selected = isSelected,
+                    selected = currentDestination
+                        ?.isSelected(bottomNavigationItemModel)
+                        .orFalse(),
                     onClick = {
                         onEvent(
                             MainScreenUiEvent.BottomNavItemClicked(

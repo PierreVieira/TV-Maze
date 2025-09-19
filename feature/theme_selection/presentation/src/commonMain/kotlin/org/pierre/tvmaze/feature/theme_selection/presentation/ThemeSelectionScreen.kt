@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
-import org.pierre.core.theme.Theme
+import org.pierre.core.model.theme.Theme
 import org.pierre.tvmaze.feature.theme_selection.presentation.component.ThemeOptionCard
 import org.pierre.tvmaze.feature.theme_selection.presentation.factory.ThemeOptionsFactory
 import org.pierre.tvmaze.feature.theme_selection.presentation.model.ThemeSelectionModel

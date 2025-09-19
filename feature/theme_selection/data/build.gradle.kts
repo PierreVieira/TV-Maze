@@ -31,7 +31,7 @@ kotlin {
 
             // Core
             implementation(projects.core.utils)
-            implementation(projects.core.theme)
+            implementation(projects.core.model.theme)
 
             // Feature
             implementation(projects.feature.themeSelection.domain)

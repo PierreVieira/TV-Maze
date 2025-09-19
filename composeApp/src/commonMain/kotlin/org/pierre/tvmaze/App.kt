@@ -11,7 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
-import org.pierre.core.theme.Theme
+import org.pierre.core.model.theme.Theme
 import org.pierre.tvmaze.presentation.AppViewModel
 import org.pierre.tvmaze.ui.navigation.presentation.RootAppNavHost
 import org.pierre.tvmaze.ui.theme.AppTheme
@@ -24,10 +24,8 @@ fun App(
     getSpecificColors: @Composable ((isAppInDarkTheme: Boolean) -> ColorScheme?)? = null,
 ) {
     val viewModel: AppViewModel = koinViewModel()
-    val themeState by viewModel.themeState.collectAsState()
-    ProvideCompositionLocals(
-        theme = themeState,
-    ) {
+    val theme by viewModel.themeState.collectAsState()
+    ProvideCompositionLocals(theme) {
         AppTheme(getSpecificColors = getSpecificColors) {
             Surface(
                 modifier = Modifier.fillMaxSize(),

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
-import org.pierre.core.theme.Theme
+import org.pierre.core.model.theme.Theme
 import org.pierre.tvmaze.feature.theme_selection.domain.usecase.GetThemeOptionFlowUseCase
 
 class AppViewModel(

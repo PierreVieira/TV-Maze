@@ -32,9 +32,6 @@ kotlin {
             implementation(compose.materialIconsExtended)
             implementation(compose.components.uiToolingPreview)
 
-            // Navigation (optional but typical for a feature module)
-            implementation(libs.navigation.compose)
-
             // Koin (feature DI)
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)

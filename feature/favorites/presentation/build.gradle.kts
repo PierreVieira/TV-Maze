@@ -29,9 +29,6 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
 
-            // Navigation
-            implementation(libs.navigation.compose)
-
             // Core
             implementation(projects.core.utils)
 
@@ -39,9 +36,6 @@ kotlin {
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
             implementation(libs.koinComposeViewModel)
-
-            // UI components
-            implementation(projects.ui.components)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

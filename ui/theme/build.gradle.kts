@@ -28,9 +28,9 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
 
-            /* Every module that depends on ui.theme should also depend on core.theme
+            /* Every module that depends on ui.theme should also depend on core.model.theme
             (that's why we use api here) */
-            api(projects.core.theme)
+            api(projects.core.model.theme)
         }
     }
 }

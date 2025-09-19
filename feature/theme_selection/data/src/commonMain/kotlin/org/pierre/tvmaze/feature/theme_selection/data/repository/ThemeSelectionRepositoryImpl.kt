@@ -6,11 +6,11 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.pierre.core.theme.Theme
+import org.pierre.core.model.theme.Theme
 import org.pierre.tvmaze.feature.theme_selection.data.mapper.ThemePreferenceMapper
 import org.pierre.tvmaze.feature.theme_selection.domain.repository.ThemeSelectionRepository
 
-class ThemeSelectionRepositoryImpl(
+internal class ThemeSelectionRepositoryImpl(
     private val dataStore: DataStore<Preferences>,
     private val mapper: ThemePreferenceMapper
 ): ThemeSelectionRepository {

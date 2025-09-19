@@ -29,7 +29,8 @@ kotlin {
 
             // Feature dependencies
             implementation(projects.feature.main)
-            implementation(projects.feature.search)
+            implementation(projects.feature.search.domain)
+            implementation(projects.feature.search.presentation)
             implementation(projects.feature.themeSelection.data)
             implementation(projects.feature.themeSelection.domain)
             implementation(projects.feature.themeSelection.presentation)

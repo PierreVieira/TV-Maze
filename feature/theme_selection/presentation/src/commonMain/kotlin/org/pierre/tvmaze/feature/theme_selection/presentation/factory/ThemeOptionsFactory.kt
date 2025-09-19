@@ -4,7 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.filled.LightMode
-import org.pierre.core.theme.Theme
+import org.pierre.core.model.theme.Theme
 import org.pierre.tvmaze.feature.theme_selection.presentation.model.ThemeSelectionModel
 import tvmaze.feature.theme_selection.presentation.generated.resources.Res
 import tvmaze.feature.theme_selection.presentation.generated.resources.dark_description
