@@ -2,11 +2,14 @@ package org.pierre.tvmaze.feature.search.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.pierre.tvmaze.feature.search.domain.usecase.SearchUseCase
+import org.pierre.tvmaze.feature.search.domain.model.SearchUseCases
 import org.pierre.tvmaze.feature.search.presentation.factory.InitialSearchStateFactory
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFactory
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
@@ -14,37 +17,70 @@ import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
 class SearchViewModel(
     initialSearchStateFactory: InitialSearchStateFactory,
     private val searchBarIconsFactory: SearchBarIconsFactory,
-    private val onSearchUseCase: SearchUseCase,
+    private val searchUseCases: SearchUseCases,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(initialSearchStateFactory.create())
-    val state = _state.asStateFlow()
+    private val _uiState = MutableStateFlow(initialSearchStateFactory.create())
+    val uiState = _uiState.asStateFlow()
+
+    init {
+        searchUseCases.getSearchBarPositionFlow().onEach { position ->
+            _uiState.update {
+                it.copy(
+                    searchBarPosition = position
+                )
+            }
+        }.launchIn(viewModelScope)
+    }
 
     fun onEvent(uiEvent: SearchUiEvent) {
         when (uiEvent) {
             is SearchUiEvent.OnExpandedChange -> setExpanded(isExpanded = uiEvent.expanded)
 
-            is SearchUiEvent.OnQueryChange -> updateQuery(uiEvent.query)
+            is SearchUiEvent.OnQueryChange -> onQueryChanged(uiEvent.query.trim())
 
             is SearchUiEvent.OnSearch -> {
-                onSearch(uiEvent.query)
+                this@SearchViewModel.onSearch(uiEvent.query)
                 setExpanded(false)
             }
 
-            SearchUiEvent.OnClearClick -> updateQuery("")
+            SearchUiEvent.OnClearClick -> onQueryChanged("")
             SearchUiEvent.OnSearchIconClick -> setExpanded(true)
             SearchUiEvent.OnArrowBackClick -> setExpanded(false)
+            SearchUiEvent.OnMoreOptionsClick -> _uiState.update { it.copy(isShowingMenu = true) }
+            SearchUiEvent.OnChangeSearchBarPositionClick -> onChangeSearchBarPositionClick()
+
+            SearchUiEvent.OnDeleteHistoryClick,
+            SearchUiEvent.OnDismissMenuClick,
+                -> _uiState.update { it.copy(isShowingMenu = false) }
+        }
+    }
+
+    private fun onChangeSearchBarPositionClick() {
+        _uiState.update {
+            it.copy(
+                isShowingMenu = false,
+            )
+        }
+        searchUseCases.run {
+            val newSearchBarPosition = getNewSearchBarPositionDueToToggle(
+                currentPosition = uiState.value.searchBarPosition
+            )
+            viewModelScope.launch {
+                delay(getDurationDisappearMenuDuration())
+                saveNewSearchBarPosition(newSearchBarPosition)
+            }
         }
     }
 
     private fun onSearch(query: String) {
         viewModelScope.launch {
-            onSearchUseCase(query)
+            searchUseCases.search(query)
         }
     }
 
-    private fun updateQuery(query: String) {
-        _state.update {
+    private fun onQueryChanged(query: String) {
+        _uiState.update {
             it.copy(
                 query = query,
                 iconsModel = searchBarIconsFactory.create(
@@ -56,7 +92,7 @@ class SearchViewModel(
     }
 
     private fun setExpanded(isExpanded: Boolean) {
-        _state.update {
+        _uiState.update {
             it.copy(
                 isExpanded = isExpanded,
                 iconsModel = searchBarIconsFactory.create(

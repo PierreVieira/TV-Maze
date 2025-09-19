@@ -22,7 +22,7 @@ fun AppTheme(
 }
 
 @Composable
-private fun isAppInDarkTheme(): Boolean = when(LocalThemeOption.current) {
+fun isAppInDarkTheme(): Boolean = when(LocalThemeOption.current) {
     Theme.LIGHT -> false
     Theme.DARK -> true
     Theme.SYSTEM -> isSystemInDarkTheme()

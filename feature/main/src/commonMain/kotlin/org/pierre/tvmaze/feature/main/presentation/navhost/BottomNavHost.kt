@@ -1,8 +1,6 @@
 package org.pierre.tvmaze.feature.main.presentation.navhost
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -14,14 +12,11 @@ import org.pierre.tvmaze.feature.main.presentation.model.BottomNavRoute
 
 @Composable
 fun BottomNavHost(
-    paddingValues: PaddingValues,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(paddingValues),
+        modifier = modifier.fillMaxSize(),
         navController = navController,
         startDestination = BottomNavRoute.Search,
     ) {

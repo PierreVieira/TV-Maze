@@ -1,12 +1,16 @@
 package org.pierre.tvmaze.feature.search.presentation.component
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
+import org.pierre.tvmaze.feature.search.domain.model.SearchBarPosition
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
 import tvmaze.feature.search.presentation.generated.resources.Res
@@ -23,7 +27,11 @@ fun SearchBarComponent(
     val isExpanded = state.isExpanded
 
     SearchBar(
-        modifier = modifier,
+        modifier = if (state.searchBarPosition == SearchBarPosition.BOTTOM) {
+            modifier.padding(bottom = 16.dp)
+        } else {
+            modifier
+        },
         expanded = isExpanded,
         onExpandedChange = onExpandedChange,
         inputField = {
@@ -41,11 +49,14 @@ fun SearchBarComponent(
                     )
                 },
                 trailingIcon = {
-                    state.iconsModel.trailingIcon?.let {
-                        SearchBarIcon(
-                            model = it,
-                            onEvent = onEvent
-                        )
+                    Box {
+                        state.iconsModel.trailingIcon?.let {
+                            SearchBarIcon(
+                                model = it,
+                                onEvent = onEvent
+                            )
+                            SearchOptionsMenu(state, onEvent)
+                        }
                     }
                 },
             )

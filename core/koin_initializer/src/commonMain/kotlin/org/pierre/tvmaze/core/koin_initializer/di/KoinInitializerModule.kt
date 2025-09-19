@@ -11,6 +11,7 @@ import org.pierre.tvmaze.feature.theme_selection.data.di.themeSelectionDataModul
 import org.pierre.tvmaze.feature.theme_selection.di.themeSelectionPresentationModule
 import org.pierre.tvmaze.feature.theme_selection.domain.di.themeSelectionDomainModule
 import org.pierre.tvmaze.network.di.networkModule
+import org.pierre.tvmaze.search.data.di.searchDataModule
 
 fun commonKoinInitializer(
     appModule: Module,
@@ -18,16 +19,20 @@ fun commonKoinInitializer(
 ) {
     startKoin {
         config?.invoke(this)
-        modules(
+        val coreModules = listOf(
             appModule,
             dataStoreProviderModule,
-            mainModule,
             networkModule,
+        )
+        val featureModules = listOf(
+            mainModule,
+            searchDataModule,
             searchDomainModule,
             searchPresentationModule,
             themeSelectionDataModule,
             themeSelectionDomainModule,
             themeSelectionPresentationModule,
         )
+        modules(coreModules + featureModules)
     }
 }

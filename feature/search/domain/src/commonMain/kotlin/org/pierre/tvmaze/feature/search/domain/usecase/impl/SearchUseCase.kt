@@ -3,11 +3,11 @@ package org.pierre.tvmaze.feature.search.domain.usecase.impl
 import org.pierre.tvmaze.feature.search.domain.model.EmptySearchQueryException
 import org.pierre.tvmaze.feature.search.domain.model.SearchResultItemModel
 import org.pierre.tvmaze.feature.search.domain.repository.SearchRepository
-import org.pierre.tvmaze.feature.search.domain.usecase.SearchUseCase
+import org.pierre.tvmaze.feature.search.domain.usecase.Search
 
-internal class SearchUseCaseImpl(
+internal class SearchUseCase(
     private val repository: SearchRepository
-): SearchUseCase {
+): Search {
     override suspend fun invoke(query: String): Result<List<SearchResultItemModel>> {
         val safeQuery = query.trim()
         return if (safeQuery.isEmpty()) {

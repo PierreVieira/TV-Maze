@@ -37,7 +37,6 @@ fun NavGraphBuilder.mainScreen(
         ) {
             BottomNavHost(
                 modifier = getNavigationModifier(bottomNavController::navigateUp),
-                paddingValues = it,
                 navController = bottomNavController
             )
         }

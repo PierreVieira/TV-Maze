@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 kotlin {
@@ -11,7 +12,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "KoinInitializer"
+            baseName = "SearchData"
             isStatic = true
         }
     }
@@ -20,31 +21,29 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // Coroutines
-            implementation(libs.kotlinx.coroutines.core)
-
-            // Koin
+            // Koin (feature DI)
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
 
-            // Feature dependencies
-            implementation(projects.feature.main)
-            implementation(projects.feature.search.data)
-            implementation(projects.feature.search.domain)
-            implementation(projects.feature.search.presentation)
-            implementation(projects.feature.themeSelection.data)
-            implementation(projects.feature.themeSelection.domain)
-            implementation(projects.feature.themeSelection.presentation)
+            // Data Store
+            implementation(libs.dataStore)
+            implementation(libs.dataStore.preferences)
 
-            // Core dependencies
-            implementation(projects.core.dataStoreProvider)
-            implementation(projects.core.network)
+            // Data Store
+            implementation(libs.dataStore)
+            implementation(libs.dataStore.preferences)
+
+            // Feature
+            implementation(projects.feature.search.domain)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
     }
 }
 
 android {
-    namespace = "org.pierre.tvmaze.core.koin_initializer"
+    namespace = "org.pierre.tvmaze.feature.search.data"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

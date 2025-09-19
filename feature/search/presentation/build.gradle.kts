@@ -43,7 +43,8 @@ kotlin {
             // Core
             implementation(projects.core.utils)
 
-            // UI components
+            // UI
+            implementation(projects.ui.theme)
             implementation(projects.ui.components.iconButton)
         }
     }

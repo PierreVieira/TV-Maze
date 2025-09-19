@@ -1,13 +1,9 @@
 package org.pierre.tvmaze.feature.main.presentation
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -23,7 +19,7 @@ fun MainScreen(
     currentDestination: NavDestination?,
     bottomNavigationModels: List<BottomNavigationItemModel<Any>>,
     onEvent: (MainScreenUiEvent) -> Unit,
-    content: @Composable (PaddingValues) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -55,12 +51,7 @@ fun MainScreen(
                 )
             }
         },
-        content = {
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                content = content,
-            )
-        },
+        content = content,
     )
 }
 

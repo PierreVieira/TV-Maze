@@ -6,10 +6,10 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import org.pierre.core.model.theme.Theme
-import org.pierre.tvmaze.feature.theme_selection.domain.usecase.GetThemeOptionFlowUseCase
+import org.pierre.tvmaze.feature.theme_selection.domain.usecase.GetThemeOptionFlow
 
 class AppViewModel(
-    getThemeOptionFlow: GetThemeOptionFlowUseCase,
+    getThemeOptionFlow: GetThemeOptionFlow,
 ): ViewModel() {
     val themeState: StateFlow<Theme> =
         getThemeOptionFlow()

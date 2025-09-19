@@ -7,4 +7,8 @@ sealed interface SearchUiEvent {
     data object OnClearClick : SearchUiEvent
     data object OnSearchIconClick : SearchUiEvent
     data object OnArrowBackClick : SearchUiEvent
+    data object OnMoreOptionsClick : SearchUiEvent
+    data object OnDismissMenuClick : SearchUiEvent
+    data object OnChangeSearchBarPositionClick : SearchUiEvent
+    data object OnDeleteHistoryClick : SearchUiEvent
 }

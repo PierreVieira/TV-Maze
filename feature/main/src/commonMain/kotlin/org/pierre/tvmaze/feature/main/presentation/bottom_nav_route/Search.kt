@@ -12,7 +12,7 @@ import org.pierre.tvmaze.feature.search.presentation.viewmodel.SearchViewModel
 fun NavGraphBuilder.search() {
     composable<BottomNavRoute.Search> {
         val viewModel = koinViewModel<SearchViewModel>()
-        val state by viewModel.state.collectAsState()
+        val state by viewModel.uiState.collectAsState()
         SearchScreen(
             state = state,
             onEvent = viewModel::onEvent
