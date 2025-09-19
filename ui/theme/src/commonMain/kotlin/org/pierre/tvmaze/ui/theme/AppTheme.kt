@@ -3,10 +3,10 @@ package org.pierre.tvmaze.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import org.pierre.core.model.theme.Theme
+import org.pierre.tvmaze.ui.theme.colors.darkScheme
+import org.pierre.tvmaze.ui.theme.colors.lightScheme
 import org.pierre.tvmaze.ui.theme.utils.LocalThemeOption
 
 @Composable
@@ -30,7 +30,7 @@ fun isAppInDarkTheme(): Boolean = when(LocalThemeOption.current) {
 
 @Composable
 private fun getColorScheme(isDarkTheme: Boolean): ColorScheme = if (isDarkTheme) {
-    darkColorScheme()
+    darkScheme
 } else {
-    lightColorScheme()
+    lightScheme
 }

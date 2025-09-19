@@ -9,6 +9,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 import org.pierre.core.model.theme.Theme
@@ -20,8 +23,11 @@ import org.pierre.tvmaze.ui.theme.utils.LocalThemeOption
 @Composable
 @Preview
 fun App(
+    navHostController: NavHostController = rememberNavController(),
+    switchPlatformColorSchemeComponent: @Composable (Modifier) -> Unit = {},
     getNavigationModifier: (onBack: () -> Unit) -> Modifier = { Modifier },
     getSpecificColors: @Composable ((isAppInDarkTheme: Boolean) -> ColorScheme?)? = null,
+    extraRoute: (NavGraphBuilder) -> Unit = { },
 ) {
     val viewModel: AppViewModel = koinViewModel()
     val theme by viewModel.themeState.collectAsState()
@@ -32,7 +38,10 @@ fun App(
                 color = MaterialTheme.colorScheme.background,
             ) {
                 RootAppNavHost(
-                    getNavigationModifier = getNavigationModifier
+                    navHostController = navHostController,
+                    getNavigationModifier = getNavigationModifier,
+                    switchPlatformColorSchemeComponent = switchPlatformColorSchemeComponent,
+                    extraRoute = extraRoute
                 )
             }
         }

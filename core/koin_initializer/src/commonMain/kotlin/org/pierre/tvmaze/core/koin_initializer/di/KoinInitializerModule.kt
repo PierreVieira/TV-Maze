@@ -14,13 +14,12 @@ import org.pierre.tvmaze.network.di.networkModule
 import org.pierre.tvmaze.search.data.di.searchDataModule
 
 fun commonKoinInitializer(
-    appModule: Module,
+    extraModules: List<Module>,
     config: (KoinApplication.() -> Unit)? = null,
 ) {
     startKoin {
         config?.invoke(this)
         val coreModules = listOf(
-            appModule,
             dataStoreProviderModule,
             networkModule,
         )
@@ -33,6 +32,6 @@ fun commonKoinInitializer(
             themeSelectionDomainModule,
             themeSelectionPresentationModule,
         )
-        modules(coreModules + featureModules)
+        modules(coreModules + featureModules + extraModules)
     }
 }

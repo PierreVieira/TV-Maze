@@ -2,24 +2,28 @@ package org.pierre.tvmaze.ui.navigation.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import org.pierre.tvmaze.ui.navigation.domain.NavRoute
 
 @Composable
 fun RootAppNavHost(
-    getNavigationModifier: (onBack: () -> Unit) -> Modifier = { Modifier },
+    navHostController: NavHostController,
+    switchPlatformColorSchemeComponent: @Composable (Modifier) -> Unit,
+    getNavigationModifier: (onBack: () -> Unit) -> Modifier,
+    extraRoute: (NavGraphBuilder) -> Unit,
 ) {
-    val appNavController: NavHostController = rememberNavController()
     NavHost(
-        modifier = getNavigationModifier(appNavController::navigateUp),
-        navController = appNavController,
+        modifier = getNavigationModifier(navHostController::navigateUp),
+        navController = navHostController,
         startDestination = NavRoute.Main,
         builder = {
             buildNavHost(
-                getNavigationModifier = getNavigationModifier
+                switchPlatformColorSchemeComponent = switchPlatformColorSchemeComponent,
+                getNavigationModifier = getNavigationModifier,
             )
+            extraRoute(this)
         }
     )
 }

@@ -12,6 +12,7 @@ import org.pierre.tvmaze.feature.main.presentation.model.BottomNavRoute
 
 @Composable
 fun BottomNavHost(
+    switchPlatformColorSchemeComponent: @Composable (Modifier) -> Unit,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
@@ -22,7 +23,7 @@ fun BottomNavHost(
     ) {
         search()
         favorites()
-        themeSettings()
+        themeSettings(switchPlatformColorSchemeComponent)
     }
 }
 

@@ -5,14 +5,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.pierre.tvmaze.feature.search.domain.model.SearchUseCases
 import org.pierre.tvmaze.feature.search.presentation.factory.InitialSearchStateFactory
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFactory
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
+import org.pierre.tvmaze.ui.utils.observe
 
 class SearchViewModel(
     initialSearchStateFactory: InitialSearchStateFactory,
@@ -24,13 +23,13 @@ class SearchViewModel(
     val uiState = _uiState.asStateFlow()
 
     init {
-        searchUseCases.getSearchBarPositionFlow().onEach { position ->
+        observe(searchUseCases.getSearchBarPositionFlow()) { position ->
             _uiState.update {
                 it.copy(
                     searchBarPosition = position
                 )
             }
-        }.launchIn(viewModelScope)
+        }
     }
 
     fun onEvent(uiEvent: SearchUiEvent) {

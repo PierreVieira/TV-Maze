@@ -5,15 +5,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
 
 /**
  * A reusable composable wrapper around [IconButton] and [Icon] that standardizes
  * the appearance and accessibility of icon-only buttons across the app.
  *
- * This function ensures that all icon buttons provide a localized
- * [contentDescription] for accessibility, using a [StringResource].
+ * This function ensures that all icon buttons provide a
+ * [contentDescription] for accessibility, using a [String].
  *
  * Example usage:
  * ```
@@ -26,15 +24,15 @@ import org.jetbrains.compose.resources.stringResource
  *
  * @param modifier The [Modifier] to be applied to the [IconButton]. Defaults to [Modifier].
  * @param imageVector The [ImageVector] that defines the icon to be displayed inside the button.
- * @param contentDescription The [StringResource] providing a localized description of the icon,
- * used for accessibility (screen readers).
+ * @param contentDescription The [String] providing a description of the icon, used for
+ * accessibility (screen readers).
  * @param onClick The callback invoked when the button is clicked.
  */
 @Composable
 fun CommonIconButton(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
-    contentDescription: StringResource,
+    contentDescription: String,
     onClick: () -> Unit,
 ) {
     IconButton(
@@ -43,7 +41,7 @@ fun CommonIconButton(
     ) {
         Icon(
             imageVector = imageVector,
-            contentDescription = stringResource(contentDescription),
+            contentDescription = contentDescription,
         )
     }
 }

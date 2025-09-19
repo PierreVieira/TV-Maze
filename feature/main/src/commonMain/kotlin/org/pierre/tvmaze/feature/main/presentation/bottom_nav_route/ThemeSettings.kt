@@ -1,5 +1,7 @@
 package org.pierre.tvmaze.feature.main.presentation.bottom_nav_route
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.koin.compose.viewmodel.koinViewModel
@@ -7,12 +9,15 @@ import org.pierre.tvmaze.feature.main.presentation.model.BottomNavRoute
 import org.pierre.tvmaze.feature.theme_selection.presentation.ThemeSelectionScreen
 import org.pierre.tvmaze.feature.theme_selection.presentation.ThemeSelectionViewModel
 
-fun NavGraphBuilder.themeSettings() {
+fun NavGraphBuilder.themeSettings(
+    switchPlatformColorSchemeComponent: @Composable (Modifier) -> Unit,
+) {
     composable<BottomNavRoute.Theme> {
         val viewModel = koinViewModel<ThemeSelectionViewModel>()
         ThemeSelectionScreen(
             options = viewModel.themeOptions,
-            setTheme = viewModel::setTheme
+            setTheme = viewModel::setTheme,
+            switchPlatformColorSchemeComponent = switchPlatformColorSchemeComponent,
         )
     }
 }

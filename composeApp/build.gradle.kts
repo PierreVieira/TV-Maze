@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 kotlin {
@@ -32,6 +33,11 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            // Feature dependencies
+            implementation(projects.feature.switchAndroidColorScheme.data)
+            implementation(projects.feature.switchAndroidColorScheme.domain)
+            implementation(projects.feature.switchAndroidColorScheme.presentation)
         }
         commonMain.dependencies {
             // Compose
@@ -44,6 +50,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
+            // Navigation
+            implementation(libs.navigation.compose)
+
             // Koin
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
@@ -54,8 +63,8 @@ kotlin {
             implementation(libs.dataStore.preferences)
 
             // Feature dependencies
-            implementation(projects.feature.themeSelection.presentation)
             implementation(projects.feature.themeSelection.domain)
+            implementation(projects.feature.themeSelection.presentation)
             implementation(projects.feature.main)
 
             // Core dependencies
@@ -66,6 +75,7 @@ kotlin {
             // UI dependencies
             implementation(projects.ui.theme)
             implementation(projects.ui.navigation)
+            implementation(projects.ui.utils)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

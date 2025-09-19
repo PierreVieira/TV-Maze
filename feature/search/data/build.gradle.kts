@@ -29,10 +29,6 @@ kotlin {
             implementation(libs.dataStore)
             implementation(libs.dataStore.preferences)
 
-            // Data Store
-            implementation(libs.dataStore)
-            implementation(libs.dataStore.preferences)
-
             // Feature
             implementation(projects.feature.search.domain)
         }

@@ -37,6 +37,9 @@ kotlin {
             // Core
             implementation(projects.core.utils)
 
+            // UI
+            implementation(projects.ui.utils)
+
             // Koin
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)

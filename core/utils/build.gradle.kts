@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
@@ -13,7 +11,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "Utils"
+            baseName = "DataStoreProvider"
             isStatic = true
         }
     }
@@ -21,20 +19,14 @@ kotlin {
     jvm()
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(compose.runtime)
-        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
         }
     }
 }
 
 android {
-    namespace = "org.pierre.tvmaze.core.utils"
+    namespace = "org.pierre.tvmaze.core.data_store_provider"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

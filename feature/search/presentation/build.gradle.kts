@@ -45,6 +45,7 @@ kotlin {
 
             // UI
             implementation(projects.ui.theme)
+            implementation(projects.ui.utils)
             implementation(projects.ui.components.iconButton)
         }
     }
