@@ -30,10 +30,11 @@ kotlin {
             // Feature dependencies
             implementation(projects.feature.main)
             implementation(projects.feature.search)
-            implementation(projects.feature.themeSelection)
+            implementation(projects.feature.themeSelection.data)
+            implementation(projects.feature.themeSelection.domain)
+            implementation(projects.feature.themeSelection.presentation)
 
             // Core dependencies
-            implementation(projects.core.preferences)
             implementation(projects.core.dataStoreProvider)
             implementation(projects.core.network)
         }
@@ -46,7 +47,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
         consumerProguardFiles("consumer-rules.pro")
     }
     compileOptions {

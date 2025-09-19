@@ -33,15 +33,23 @@ plugins {
 }
 
 include(":composeApp")
+
+// Core
+include(":core:data_store_provider")
+include(":core:network")
+include(":core:utils")
+include(":core:koin_initializer")
+include(":core:theme")
+
+// UI
 include(":ui:theme")
 include(":ui:navigation")
 include(":ui:components")
-include(":core:data_store_provider")
-include(":core:network")
-include(":core:preferences")
-include(":core:utils")
-include(":core:koin_initializer")
+
+// Features
 include(":feature:main")
-include(":feature:theme_selection")
-include(":feature:favorites")
+include(":feature:favorites:presentation")
 include(":feature:search")
+include(":feature:theme_selection:presentation")
+include(":feature:theme_selection:domain")
+include(":feature:theme_selection:data")

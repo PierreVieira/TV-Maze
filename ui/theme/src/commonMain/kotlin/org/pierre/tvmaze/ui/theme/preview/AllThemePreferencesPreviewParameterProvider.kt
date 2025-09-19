@@ -1,8 +1,8 @@
 package org.pierre.tvmaze.ui.theme.preview
 
 import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
-import org.pierre.tvmaze.core.preferences.ThemePreference
+import org.pierre.core.theme.Theme
 
-class AllThemePreferencesPreviewParameterProvider: PreviewParameterProvider<ThemePreference> {
-    override val values: Sequence<ThemePreference> = ThemePreference.entries.asSequence()
+class AllThemePreferencesPreviewParameterProvider: PreviewParameterProvider<Theme> {
+    override val values: Sequence<Theme> = Theme.entries.asSequence()
 }

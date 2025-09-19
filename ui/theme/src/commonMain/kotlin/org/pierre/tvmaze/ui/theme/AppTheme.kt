@@ -6,8 +6,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import org.pierre.tvmaze.core.preferences.LocalThemeOption
-import org.pierre.tvmaze.core.preferences.ThemePreference
+import org.pierre.core.theme.Theme
+import org.pierre.tvmaze.ui.theme.utils.LocalThemeOption
 
 @Composable
 fun AppTheme(
@@ -22,10 +22,10 @@ fun AppTheme(
 }
 
 @Composable
-fun isAppInDarkTheme(): Boolean = when(LocalThemeOption.current) {
-    ThemePreference.LIGHT -> false
-    ThemePreference.DARK -> true
-    ThemePreference.SYSTEM -> isSystemInDarkTheme()
+private fun isAppInDarkTheme(): Boolean = when(LocalThemeOption.current) {
+    Theme.LIGHT -> false
+    Theme.DARK -> true
+    Theme.SYSTEM -> isSystemInDarkTheme()
 }
 
 @Composable

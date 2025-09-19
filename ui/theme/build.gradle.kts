@@ -13,7 +13,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "Theme"
+            baseName = "UiTheme"
             isStatic = true
         }
     }
@@ -28,15 +28,11 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
 
-            // Core preferences
-            implementation(projects.core.preferences)
+            /* Every module that depends on ui.theme should also depend on core.theme
+            (that's why we use api here) */
+            api(projects.core.theme)
         }
     }
-}
-
-dependencies {
-    // Compose Preview tooling only for debug builds
-    debugImplementation(libs.uiTooling)
 }
 
 android {
@@ -45,7 +41,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
         consumerProguardFiles("consumer-rules.pro")
     }
     compileOptions {

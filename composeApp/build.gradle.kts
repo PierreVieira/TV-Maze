@@ -54,11 +54,11 @@ kotlin {
             implementation(libs.dataStore.preferences)
 
             // Feature dependencies
+            implementation(projects.feature.themeSelection.presentation)
+            implementation(projects.feature.themeSelection.domain)
             implementation(projects.feature.main)
-            implementation(projects.feature.themeSelection)
 
             // Core dependencies
-            implementation(projects.core.preferences)
             implementation(projects.core.dataStoreProvider)
             implementation(projects.core.network)
             implementation(projects.core.koinInitializer)

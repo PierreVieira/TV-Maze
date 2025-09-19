@@ -29,7 +29,7 @@ fun MainScreen(
         navigationSuiteItems = {
             bottomNavigationModels.forEach { bottomNavigationItemModel: BottomNavigationItemModel<Any> ->
                 val presentationItem = bottomNavigationItemModel.presentationModel
-                val isSelected = isSelected(currentDestination, bottomNavigationItemModel)
+                val isSelected = currentDestination?.isSelected(bottomNavigationItemModel).orFalse()
                 item(
                     selected = isSelected,
                     onClick = {
@@ -63,12 +63,10 @@ fun MainScreen(
     )
 }
 
-private fun isSelected(
-    currentDestination: NavDestination?,
+private fun NavDestination.isSelected(
     bottomNavigationItemModel: BottomNavigationItemModel<Any>,
-): Boolean = currentDestination?.hierarchy
-    ?.any { navDestination: NavDestination ->
-        (bottomNavigationItemModel.route as? BottomNavRoute)?.let { route ->
-            navDestination.hasRoute(route::class)
-        }.orFalse()
+): Boolean = hierarchy.any { navDestination: NavDestination ->
+    (bottomNavigationItemModel.route as? BottomNavRoute)?.let { route ->
+        navDestination.hasRoute(route::class)
     }.orFalse()
+}

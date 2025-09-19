@@ -6,7 +6,9 @@ import org.koin.core.module.Module
 import org.pierre.tvmaze.core.data_store_provider.di.dataStoreProviderModule
 import org.pierre.tvmaze.feature.main.di.mainModule
 import org.pierre.tvmaze.feature.search.di.searchModule
-import org.pierre.tvmaze.feature.theme_selection.di.themeSelectionModule
+import org.pierre.tvmaze.feature.theme_selection.data.di.themeSelectionDataModule
+import org.pierre.tvmaze.feature.theme_selection.di.themeSelectionPresentationModule
+import org.pierre.tvmaze.feature.theme_selection.domain.di.themeSelectionDomainModule
 import org.pierre.tvmaze.network.di.networkModule
 
 fun commonKoinInitializer(
@@ -21,7 +23,9 @@ fun commonKoinInitializer(
             mainModule,
             networkModule,
             searchModule,
-            themeSelectionModule,
+            themeSelectionDataModule,
+            themeSelectionDomainModule,
+            themeSelectionPresentationModule,
         )
     }
 }

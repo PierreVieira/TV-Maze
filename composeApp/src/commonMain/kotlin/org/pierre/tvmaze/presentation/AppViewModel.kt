@@ -5,17 +5,17 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
-import org.pierre.tvmaze.core.preferences.ThemePreference
-import org.pierre.tvmaze.feature.theme_selection.domain.GetThemeOptionFlowUseCase
+import org.pierre.core.theme.Theme
+import org.pierre.tvmaze.feature.theme_selection.domain.usecase.GetThemeOptionFlowUseCase
 
 class AppViewModel(
     getThemeOptionFlow: GetThemeOptionFlowUseCase,
 ): ViewModel() {
-    val themeState: StateFlow<ThemePreference> =
+    val themeState: StateFlow<Theme> =
         getThemeOptionFlow()
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
-                initialValue = ThemePreference.SYSTEM
+                initialValue = Theme.SYSTEM
             )
 }

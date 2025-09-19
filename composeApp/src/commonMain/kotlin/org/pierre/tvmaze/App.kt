@@ -11,11 +11,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
-import org.pierre.tvmaze.core.preferences.LocalThemeOption
-import org.pierre.tvmaze.core.preferences.ThemePreference
+import org.pierre.core.theme.Theme
 import org.pierre.tvmaze.presentation.AppViewModel
 import org.pierre.tvmaze.ui.navigation.presentation.RootAppNavHost
 import org.pierre.tvmaze.ui.theme.AppTheme
+import org.pierre.tvmaze.ui.theme.utils.LocalThemeOption
 
 @Composable
 @Preview
@@ -26,7 +26,7 @@ fun App(
     val viewModel: AppViewModel = koinViewModel()
     val themeState by viewModel.themeState.collectAsState()
     ProvideCompositionLocals(
-        themePreference = themeState,
+        theme = themeState,
     ) {
         AppTheme(getSpecificColors = getSpecificColors) {
             Surface(
@@ -43,11 +43,11 @@ fun App(
 
 @Composable
 private fun ProvideCompositionLocals(
-    themePreference: ThemePreference,
+    theme: Theme,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
-        LocalThemeOption provides themePreference,
+        LocalThemeOption provides theme,
         content = content,
     )
 }
