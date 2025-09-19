@@ -1,6 +1,6 @@
 package org.pierre.tvmaze.feature.search.domain.usecase.impl
 
-import org.pierre.tvmaze.feature.search.domain.model.EmptySearchQueryException
+import org.pierre.tvmaze.feature.search.domain.model.exception.EmptySearchQueryException
 import org.pierre.tvmaze.feature.search.domain.model.SearchResultItemModel
 import org.pierre.tvmaze.feature.search.domain.repository.SearchRepository
 import org.pierre.tvmaze.feature.search.domain.usecase.Search

@@ -10,7 +10,7 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-private const val BASE_URL = "http://api.tvmaze.com"
+private const val BASE_URL = "https://api.tvmaze.com"
 private const val REQUEST_TIMEOUT_MILLIS = 10_000L
 
 internal fun getHttpClient(): HttpClient = HttpClient {

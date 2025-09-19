@@ -3,9 +3,9 @@ package org.pierre.tvmaze
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.pierre.tvmaze.di.initializeKoin
-import org.pierre.tvmaze.switch_android_color_scheme.data.di.switchAndroidColorSchemeDataModule
-import org.pierre.tvmaze.switch_android_color_scheme.domain.di.switchAndroidColorSchemeDomainModule
-import org.pierre.tvmaze.switch_android_color_scheme.presentation.di.switchAndroidColorSchemePresentationModule
+import org.pierre.tvmaze.material_you.data.di.materialYouDataModule
+import org.pierre.tvmaze.material_you.domain.di.materialYouDomainModule
+import org.pierre.tvmaze.material_you.presentation.di.switchAndroidColorSchemePresentationModule
 
 class MyApplication: Application() {
     override fun onCreate() {
@@ -15,8 +15,8 @@ class MyApplication: Application() {
                 androidContext(this@MyApplication)
             },
             platformModules = listOf(
-                switchAndroidColorSchemeDataModule,
-                switchAndroidColorSchemeDomainModule,
+                materialYouDataModule,
+                materialYouDomainModule,
                 switchAndroidColorSchemePresentationModule,
             )
         )

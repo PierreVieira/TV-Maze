@@ -17,10 +17,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.pierre.tvmaze.switch_android_color_scheme.presentation.component.AndroidColorSchemeSwitchComponent
-import org.pierre.tvmaze.switch_android_color_scheme.presentation.component.MaterialYouBottomSheet
-import org.pierre.tvmaze.switch_android_color_scheme.presentation.model.AndroidColorSchemeUiAction
-import org.pierre.tvmaze.switch_android_color_scheme.presentation.viewmodel.AndroidColorSchemeViewModel
+import org.pierre.tvmaze.material_you.presentation.component.MaterialYouSwitchComponent
+import org.pierre.tvmaze.material_you.presentation.component.MaterialYouBottomSheet
+import org.pierre.tvmaze.material_you.presentation.model.AndroidColorSchemeUiAction
+import org.pierre.tvmaze.material_you.presentation.viewmodel.AndroidColorSchemeViewModel
 import org.pierre.tvmaze.ui.utils.ActionCollector
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     )
                 },
                 switchPlatformColorSchemeComponent = {
-                    AndroidColorSchemeSwitchComponent(
+                    MaterialYouSwitchComponent(
                         isChecked = isDynamicColorsOn,
                         onEvent = onEvent
                     )

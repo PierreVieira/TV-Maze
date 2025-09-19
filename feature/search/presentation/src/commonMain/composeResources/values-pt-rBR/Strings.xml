@@ -6,4 +6,7 @@
     <string name="move_to_bottom">Mover para baixo</string>
     <string name="move_to_top">Mover para cima</string>
     <string name="delete_history">Apagar histórico</string>
+    <string name="search_error_empty_query">Digite algo para pesquisar.</string>
+    <string name="search_error_network">Não foi possível conectar ao servidor. Verifique sua conexão.</string>
+    <string name="search_error_unknown">Ocorreu um erro. Tente novamente.</string>
 </resources>

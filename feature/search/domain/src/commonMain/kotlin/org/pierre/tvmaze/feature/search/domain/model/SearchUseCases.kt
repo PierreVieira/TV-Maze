@@ -1,6 +1,7 @@
 package org.pierre.tvmaze.feature.search.domain.model
 
 import org.pierre.tvmaze.feature.search.domain.usecase.GetDurationDisappearMenuDuration
+import org.pierre.tvmaze.feature.search.domain.usecase.GetErrorTypeFromThrowable
 import org.pierre.tvmaze.feature.search.domain.usecase.GetNewSearchBarPositionDueToToggle
 import org.pierre.tvmaze.feature.search.domain.usecase.GetSearchBarPositionFlow
 import org.pierre.tvmaze.feature.search.domain.usecase.SaveNewSearchBarPosition
@@ -12,4 +13,5 @@ data class SearchUseCases(
     val saveNewSearchBarPosition: SaveNewSearchBarPosition,
     val getSearchBarPositionFlow: GetSearchBarPositionFlow,
     val getDurationDisappearMenuDuration: GetDurationDisappearMenuDuration,
+    val getErrorTypeFromThrowable: GetErrorTypeFromThrowable
 )

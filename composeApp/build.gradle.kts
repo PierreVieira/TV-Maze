@@ -35,9 +35,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
 
             // Feature dependencies
-            implementation(projects.feature.switchAndroidColorScheme.data)
-            implementation(projects.feature.switchAndroidColorScheme.domain)
-            implementation(projects.feature.switchAndroidColorScheme.presentation)
+            implementation(projects.feature.materialYou.data)
+            implementation(projects.feature.materialYou.domain)
+            implementation(projects.feature.materialYou.presentation)
         }
         commonMain.dependencies {
             // Compose
