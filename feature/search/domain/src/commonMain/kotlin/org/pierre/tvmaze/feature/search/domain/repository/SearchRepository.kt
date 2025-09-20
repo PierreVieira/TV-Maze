@@ -8,4 +8,9 @@ interface SearchRepository {
     suspend fun search(query: String): Result<List<ShowItemModel>>
     suspend fun saveNewSearchBarPosition(position: SearchBarPosition)
     fun getSearchBarPositionFlow(): Flow<SearchBarPosition>
+
+    // Recent searches
+    suspend fun addRecentSearch(query: String)
+    fun observeRecentSearches(): Flow<List<String>>
+    suspend fun clearRecentSearches()
 }

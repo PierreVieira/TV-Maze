@@ -18,7 +18,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
-import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.ui.components.show_item_card.ShowItemCardComponent
 import tvmaze.feature.search.presentation.generated.resources.Res
 import tvmaze.feature.search.presentation.generated.resources.no_history_message
@@ -26,8 +25,8 @@ import tvmaze.feature.search.presentation.generated.resources.no_results
 
 private val maxScreenWidth = 400.dp
 @Composable
-fun ColumnScope.ScreenContent(state: SearchState) {
-    when (state.content) {
+fun ColumnScope.ScreenContent(model: SearchContent) {
+    when (model) {
         SearchContent.NoHistory -> Box(modifier = Modifier.fillMaxSize()) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
@@ -51,7 +50,7 @@ fun ColumnScope.ScreenContent(state: SearchState) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            items(state.content.searchItems) { searchItem ->
+            items(model.searchItems) { searchItem ->
                 ShowItemCardComponent(
                     modifier = Modifier.fillMaxWidth(),
                     showItemModel = searchItem,
@@ -60,5 +59,7 @@ fun ColumnScope.ScreenContent(state: SearchState) {
                 )
             }
         }
+
+        is SearchContent.History -> Unit
     }
 }

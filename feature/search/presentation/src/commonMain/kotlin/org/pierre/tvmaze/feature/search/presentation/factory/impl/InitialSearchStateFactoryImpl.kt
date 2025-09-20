@@ -5,19 +5,24 @@ import org.pierre.tvmaze.feature.search.presentation.factory.InitialSearchStateF
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFactory
 import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
+import org.pierre.tvmaze.feature.search.presentation.model.bar.SearchBarState
 
 internal class InitialSearchStateFactoryImpl(
-    private val searchBarIconsFactory: SearchBarIconsFactory
-): InitialSearchStateFactory {
+    private val searchBarIconsFactory: SearchBarIconsFactory,
+) : InitialSearchStateFactory {
 
     override fun create(): SearchState = SearchState(
+        searchBar = getInitialSearchBarState(),
+        content = SearchContent.NoHistory,
+    )
+
+    private fun getInitialSearchBarState(): SearchBarState = SearchBarState(
         query = INITIAL_QUERY,
         isShowingMenu = INITIAL_IS_SHOWING_MENU,
-        content = SearchContent.NoHistory,
         iconsModel = searchBarIconsFactory.create(
             query = INITIAL_QUERY,
         ),
-        searchBarPosition = SearchBarPosition.TOP,
+        position = SearchBarPosition.TOP,
     )
 
     companion object {

@@ -6,4 +6,5 @@ sealed interface SearchContent {
     data class SearchResult(val searchItems: List<ShowItemModel>) : SearchContent
     data object NoResults : SearchContent
     data object NoHistory : SearchContent
+    data class History(val recentSearches: List<String>) : SearchContent
 }

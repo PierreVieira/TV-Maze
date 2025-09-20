@@ -40,6 +40,9 @@ kotlin {
             // Features
             implementation(projects.feature.materialYou.domain)
 
+            // Core
+            implementation(projects.core.utils)
+
             // Ui
             implementation(projects.ui.theme)
             implementation(projects.ui.utils)

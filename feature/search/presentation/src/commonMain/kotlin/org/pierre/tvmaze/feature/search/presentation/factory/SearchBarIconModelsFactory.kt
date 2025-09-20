@@ -1,6 +1,6 @@
 package org.pierre.tvmaze.feature.search.presentation.factory
 
-import org.pierre.tvmaze.feature.search.presentation.model.SearchBarIconModel
+import org.pierre.tvmaze.feature.search.presentation.model.bar.SearchBarIconModel
 
 interface SearchBarIconModelsFactory {
     fun getLeadingIcon(): SearchBarIconModel

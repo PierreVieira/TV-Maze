@@ -2,8 +2,8 @@ package org.pierre.tvmaze.feature.search.presentation.factory.impl
 
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconModelsFactory
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFactory
-import org.pierre.tvmaze.feature.search.presentation.model.SearchBarIconModel
-import org.pierre.tvmaze.feature.search.presentation.model.SearchBarIconsModel
+import org.pierre.tvmaze.feature.search.presentation.model.bar.SearchBarIconModel
+import org.pierre.tvmaze.feature.search.presentation.model.bar.SearchBarIconsModel
 
 internal class SearchBarIconsFactoryImpl(
     private val searchBarIconModelsFactory: SearchBarIconModelsFactory,

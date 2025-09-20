@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pierre.tvmaze.feature.search.domain.model.SearchBarPosition
-import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
+import org.pierre.tvmaze.feature.search.presentation.model.bar.SearchBarState
 import tvmaze.feature.search.presentation.generated.resources.Res
 import tvmaze.feature.search.presentation.generated.resources.search
 
@@ -20,11 +20,11 @@ import tvmaze.feature.search.presentation.generated.resources.search
 @Composable
 fun SearchBarComponent(
     modifier: Modifier = Modifier,
-    state: SearchState,
+    state: SearchBarState,
     onEvent: (SearchUiEvent) -> Unit,
 ) {
     SearchBar(
-        modifier = if (state.searchBarPosition == SearchBarPosition.BOTTOM) {
+        modifier = if (state.position == SearchBarPosition.BOTTOM) {
             modifier.padding(bottom = 16.dp)
         } else {
             modifier

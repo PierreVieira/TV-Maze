@@ -5,7 +5,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconModelsFactory
-import org.pierre.tvmaze.feature.search.presentation.model.SearchBarIconModel
+import org.pierre.tvmaze.feature.search.presentation.model.bar.SearchBarIconModel
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
 import tvmaze.feature.search.presentation.generated.resources.Res
 import tvmaze.feature.search.presentation.generated.resources.clear

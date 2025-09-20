@@ -46,6 +46,7 @@ kotlin {
             // Feature dependencies
             implementation(projects.feature.themeSelection.presentation)
             implementation(projects.feature.favorites.presentation)
+            implementation(projects.feature.search.domain)
             implementation(projects.feature.search.presentation)
 
             // UI

@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.pierre.tvmaze.core.utils.updateValue
 import org.pierre.tvmaze.material_you.domain.model.MaterialYouUseCases
 import org.pierre.tvmaze.material_you.presentation.model.AndroidColorSchemeUiAction
 import org.pierre.tvmaze.material_you.presentation.model.AndroidColorSchemeUiEvent
@@ -25,9 +25,10 @@ class AndroidColorSchemeViewModel(
     val isDynamicColorsOn: StateFlow<Boolean> = _uiState.asStateFlow()
 
     init {
-        observe(useCases.getIsDynamicColorsEnabledFlow()) { isEnabled ->
-            _uiState.update { isEnabled }
-        }
+        observe(
+            flow = useCases.getIsDynamicColorsEnabledFlow(),
+            collector = _uiState::updateValue,
+        )
     }
 
     fun onEvent(event: AndroidColorSchemeUiEvent) {

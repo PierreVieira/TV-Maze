@@ -3,7 +3,7 @@ package org.pierre.tvmaze.feature.search.presentation.component
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
-import org.pierre.tvmaze.feature.search.presentation.model.SearchBarIconModel
+import org.pierre.tvmaze.feature.search.presentation.model.bar.SearchBarIconModel
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
 import org.pierre.tvmaze.ui.components.icon_button.CommonIconButton
 

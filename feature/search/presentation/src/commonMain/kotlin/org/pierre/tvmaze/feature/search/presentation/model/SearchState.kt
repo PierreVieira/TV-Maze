@@ -1,11 +1,8 @@
 package org.pierre.tvmaze.feature.search.presentation.model
 
-import org.pierre.tvmaze.feature.search.domain.model.SearchBarPosition
+import org.pierre.tvmaze.feature.search.presentation.model.bar.SearchBarState
 
 data class SearchState(
-    val query: String,
-    val isShowingMenu: Boolean,
     val content: SearchContent,
-    val iconsModel: SearchBarIconsModel,
-    val searchBarPosition: SearchBarPosition,
+    val searchBar: SearchBarState,
 )

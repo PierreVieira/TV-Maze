@@ -58,6 +58,10 @@ kotlin {
             implementation(libs.koinCore)
             implementation(libs.koinComposeViewModel)
 
+            // Room
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+
             // Data Store
             implementation(libs.dataStore)
             implementation(libs.dataStore.preferences)
@@ -68,9 +72,10 @@ kotlin {
             implementation(projects.feature.main)
 
             // Core dependencies
-            implementation(projects.core.dataStoreProvider)
             implementation(projects.core.network)
-            implementation(projects.core.koinInitializer)
+            implementation(projects.core.provider.dataStore)
+            implementation(projects.core.provider.koin)
+            implementation(projects.core.provider.room)
 
             // UI dependencies
             implementation(projects.ui.theme)

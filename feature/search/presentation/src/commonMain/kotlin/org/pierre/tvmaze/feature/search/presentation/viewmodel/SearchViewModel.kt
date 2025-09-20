@@ -37,7 +37,7 @@ class SearchViewModel(
         observe(searchUseCases.getSearchBarPositionFlow()) { position ->
             _uiState.update {
                 it.copy(
-                    searchBarPosition = position
+                    searchBar = it.searchBar.copy(position = position)
                 )
             }
         }
@@ -55,20 +55,27 @@ class SearchViewModel(
             }
 
             SearchUiEvent.OnSearchIconClick -> onSearch()
-            SearchUiEvent.OnMoreOptionsClick -> _uiState.update { it.copy(isShowingMenu = true) }
+            SearchUiEvent.OnMoreOptionsClick -> _uiState.update {
+                it.copy(
+                    searchBar = it.searchBar.copy(
+                        isShowingMenu = true
+                    )
+                )
+            }
+
             SearchUiEvent.OnChangeSearchBarPositionClick -> onChangeSearchBarPositionClick()
 
             SearchUiEvent.OnDeleteHistoryClick,
             SearchUiEvent.OnDismissMenuClick,
-                -> _uiState.update { it.copy(isShowingMenu = false) }
+                -> hideMenu()
         }
     }
 
     private fun onChangeSearchBarPositionClick() {
-        _uiState.update { it.copy(isShowingMenu = false) }
+        hideMenu()
         searchUseCases.run {
             val newSearchBarPosition = getNewSearchBarPositionDueToToggle(
-                currentPosition = uiState.value.searchBarPosition
+                currentPosition = uiState.value.searchBar.position
             )
             viewModelScope.launch {
                 delay(getDurationDisappearMenuDuration())
@@ -77,11 +84,21 @@ class SearchViewModel(
         }
     }
 
-    private fun onSearch() {
-        val query = uiState.value.query
+    private fun hideMenu() {
         _uiState.update {
             it.copy(
-                isShowingMenu = false,
+                searchBar = it.searchBar.copy(
+                    isShowingMenu = false
+                )
+            )
+        }
+    }
+
+    private fun onSearch() {
+        val query = uiState.value.searchBar.query
+        hideMenu()
+        _uiState.update {
+            it.copy(
                 content = SearchContent.SearchResult(searchUseCases.getSearchItemsLoading())
             )
         }
@@ -106,9 +123,11 @@ class SearchViewModel(
     private fun onQueryChanged(query: String) {
         _uiState.update {
             it.copy(
-                query = query,
-                iconsModel = searchBarIconsFactory.create(
-                    query = query
+                searchBar = it.searchBar.copy(
+                    query = query,
+                    iconsModel = searchBarIconsFactory.create(
+                        query = query
+                    ),
                 ),
                 content =
                     if (query.isEmpty()) {
@@ -123,8 +142,10 @@ class SearchViewModel(
     private fun updateIconsModel() {
         _uiState.update {
             it.copy(
-                iconsModel = searchBarIconsFactory.create(
-                    query = it.query
+                searchBar = it.searchBar.copy(
+                    iconsModel = searchBarIconsFactory.create(
+                        query = it.searchBar.query
+                    )
                 )
             )
         }

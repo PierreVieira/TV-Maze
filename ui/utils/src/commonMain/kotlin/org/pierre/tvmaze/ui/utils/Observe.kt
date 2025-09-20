@@ -7,15 +7,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 /**
- * Observes a [Flow] returned by a use case inside a [ViewModel], collecting its emissions
+ * Observes a [Flow] returned by a flow inside a [ViewModel], collecting its emissions
  * in the [viewModelScope] and executing the provided [collector] for each value.
  *
- * This extension is particularly useful when integrating use cases that expose
- * reactive streams (via [Flow]) with the ViewModel layer. By launching the collection
+ * This extension is particularly useful when integrating flows that expose
+ * reactive streams with the ViewModel layer. By launching the collection
  * in [viewModelScope], the observation is automatically cancelled when the ViewModel
  * is cleared, preventing memory leaks and redundant work.
  *
- * Example usage with a use case:
+ * Example usage with a flow:
  * ```
  * class UserViewModel(
  *     private val getUserProfileUseCase: GetUserProfileUseCase
@@ -29,8 +29,8 @@ import kotlinx.coroutines.flow.onEach
  * }
  * ```
  *
- * @param flow The [Flow] returned by a use case to be observed.
- * @param collector A suspend function to handle each value emitted by the use case.
+ * @param flow The [Flow] returned to be observed.
+ * @param collector A suspend function to handle each value emitted by the flow.
  */
 fun <T> ViewModel.observe(
     flow: Flow<T>,
