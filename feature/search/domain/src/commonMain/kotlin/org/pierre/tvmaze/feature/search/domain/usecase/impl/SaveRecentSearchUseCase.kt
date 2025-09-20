@@ -17,7 +17,7 @@ class SaveRecentSearchUseCase(
             getAllSearches().find {
                 it.query.equals(query, ignoreCase = true)
             }?.let { current: SearchHistoryItemModel ->
-                update(current.copy(timestamp))
+                update(current.copy(timestamp = timestamp))
             } ?: insert(query, timestamp)
         }
         enforceSearchHistoryMaxSize()
