@@ -54,9 +54,15 @@ class SearchViewModel(
 
     private fun onHistoryModelObserveCallback(models: List<SearchHistoryItemModel>) {
         searchHistory = models
-        if (_uiState.value.content is SearchContent.Error.NoHistory && searchHistory.isNotEmpty()) {
-            _uiState.update { currentState ->
-                currentState.copy(content = SearchContent.History(searchHistory))
+        _uiState.update { currentState ->
+            when (currentState.content) {
+                is SearchContent.History, is SearchContent.Error.NoHistory -> {
+                    val query = currentState.searchBar.query
+                    currentState.copy(
+                        content = searchHistoryContentFactory.create(searchHistory, query)
+                    )
+                }
+                else -> currentState
             }
         }
     }
