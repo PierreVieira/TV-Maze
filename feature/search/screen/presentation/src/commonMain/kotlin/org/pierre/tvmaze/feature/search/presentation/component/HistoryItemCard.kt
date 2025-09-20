@@ -35,7 +35,7 @@ internal fun HistoryItemCard(
         modifier = modifier
             .combinedClickable(
                 onClick = { onEvent(SearchUiEvent.OnHistoryItemClick(query)) },
-                onLongClick = { onEvent(SearchUiEvent.OnHistoryItemLongClick(id)) },
+                onLongClick = { onEvent(SearchUiEvent.OnHistoryItemLongClick(query, id)) },
             ),
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
@@ -61,7 +61,7 @@ internal fun HistoryItemCard(
             )
 
             CommonIconButton(
-                onClick = { onEvent(SearchUiEvent.OnHistoryItemDeleteClick(id)) },
+                onClick = { onEvent(SearchUiEvent.OnHistoryItemDeleteClick(query, id)) },
                 contentDescription = stringResource(Res.string.delete_history_item, query),
                 modifier = Modifier.size(24.dp),
                 imageVector = Icons.Outlined.Close,

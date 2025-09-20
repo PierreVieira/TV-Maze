@@ -13,10 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
 import org.pierre.tvmaze.feature.search.domain.model.SearchUseCases
-import org.pierre.tvmaze.feature.search.presentation.factory.InitialSearchStateFactory
-import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFactory
-import org.pierre.tvmaze.feature.search.presentation.factory.SearchHistoryContentFactory
 import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
+import org.pierre.tvmaze.feature.search.presentation.model.SearchFactories
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiAction
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
@@ -24,10 +22,8 @@ import org.pierre.tvmaze.model.common.ShowItemModel
 import org.pierre.tvmaze.ui.utils.observe
 
 class SearchViewModel(
-    initialSearchStateFactory: InitialSearchStateFactory,
-    private val searchBarIconsFactory: SearchBarIconsFactory,
-    private val searchHistoryContentFactory: SearchHistoryContentFactory,
-    private val searchUseCases: SearchUseCases,
+    private val useCases: SearchUseCases,
+    private val factories: SearchFactories,
 ) : ViewModel() {
 
     private var searchHistory: List<SearchHistoryItemModel> = emptyList()
@@ -35,11 +31,11 @@ class SearchViewModel(
     private val _uiAction: Channel<SearchUiAction> = Channel()
     val uiAction: Flow<SearchUiAction> = _uiAction.receiveAsFlow()
 
-    private val _uiState = MutableStateFlow(initialSearchStateFactory.create())
+    private val _uiState = MutableStateFlow(factories.initialState.create())
     val uiState: StateFlow<SearchState> = _uiState.asStateFlow()
 
     init {
-        observe(searchUseCases.getSearchBarPositionFlow()) { position ->
+        observe(useCases.getSearchBarPositionFlow()) { position ->
             _uiState.update {
                 it.copy(
                     searchBar = it.searchBar.copy(position = position)
@@ -47,7 +43,7 @@ class SearchViewModel(
             }
         }
         observe(
-            flow = searchUseCases.getSearchHistoryFlow(),
+            flow = useCases.getSearchHistoryFlow(),
             collector = ::onHistoryModelObserveCallback
         )
     }
@@ -55,15 +51,7 @@ class SearchViewModel(
     private fun onHistoryModelObserveCallback(models: List<SearchHistoryItemModel>) {
         searchHistory = models
         _uiState.update { currentState ->
-            when (currentState.content) {
-                is SearchContent.History, is SearchContent.Error.NoHistory -> {
-                    val query = currentState.searchBar.query
-                    currentState.copy(
-                        content = searchHistoryContentFactory.create(searchHistory, query)
-                    )
-                }
-                else -> currentState
-            }
+            factories.newSearchStateFromHistory.create(searchHistory, currentState)
         }
     }
 
@@ -103,13 +91,19 @@ class SearchViewModel(
             is SearchUiEvent.OnFavoriteSearchResultItemClick -> Unit
             is SearchUiEvent.OnSearchResultItemClick -> Unit
 
-            is SearchUiEvent.OnHistoryItemLongClick -> showDeleteItemDialog(uiEvent.id)
-            is SearchUiEvent.OnHistoryItemDeleteClick -> showDeleteItemDialog(uiEvent.id)
+            is SearchUiEvent.OnHistoryItemLongClick -> showDeleteItemDialog(
+                name = uiEvent.name,
+                id = uiEvent.id
+            )
+
+            is SearchUiEvent.OnHistoryItemDeleteClick -> showDeleteItemDialog(
+                name = uiEvent.name,
+                id = uiEvent.id
+            )
         }
     }
 
-    private fun showDeleteItemDialog(id: Long) {
-        val name = searchHistory.find { it.id == id }?.query.orEmpty()
+    private fun showDeleteItemDialog(name: String, id: Long) {
         viewModelScope.launch {
             _uiAction.send(SearchUiAction.NavigateToDeleteSearchHistoryItem(id, name))
         }
@@ -117,7 +111,7 @@ class SearchViewModel(
 
     private fun onChangeSearchBarPositionClick() {
         hideMenu()
-        searchUseCases.run {
+        useCases.run {
             val newSearchBarPosition = getNewSearchBarPositionDueToToggle(
                 currentPosition = uiState.value.searchBar.position
             )
@@ -144,11 +138,11 @@ class SearchViewModel(
         val previousState = uiState.value
         _uiState.update {
             it.copy(
-                content = SearchContent.SearchResults(searchUseCases.getSearchItemsLoading())
+                content = SearchContent.SearchResults(useCases.getSearchItemsLoading())
             )
         }
         viewModelScope.launch {
-            searchUseCases.run {
+            useCases.run {
                 search(query)
                     .onSuccess { shows: List<ShowItemModel> ->
                         _uiState.update {
@@ -168,11 +162,9 @@ class SearchViewModel(
             currentState.copy(
                 searchBar = currentState.searchBar.copy(
                     query = query,
-                    iconsModel = searchBarIconsFactory.create(
-                        query = query
-                    ),
+                    iconsModel = factories.searchBarIcons.create(query),
                 ),
-                content = searchHistoryContentFactory.create(searchHistory, query),
+                content = factories.searchHistoryContent.create(searchHistory, query),
             )
         }
     }
@@ -181,7 +173,7 @@ class SearchViewModel(
         _uiState.update {
             it.copy(
                 searchBar = it.searchBar.copy(
-                    iconsModel = searchBarIconsFactory.create(
+                    iconsModel = factories.searchBarIcons.create(
                         query = it.searchBar.query
                     )
                 )
