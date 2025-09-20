@@ -20,6 +20,7 @@ fun RootAppNavHost(
         startDestination = NavRoute.Main,
         builder = {
             buildNavHost(
+                navHostController = navHostController,
                 switchPlatformColorSchemeComponent = switchPlatformColorSchemeComponent,
                 getNavigationModifier = getNavigationModifier,
             )

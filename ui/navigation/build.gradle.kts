@@ -33,6 +33,7 @@ kotlin {
 
             // Features
             implementation(projects.feature.main)
+            implementation(projects.feature.search.warning.deleteItem.presentation)
 
             // Core
             implementation(projects.core.utils)

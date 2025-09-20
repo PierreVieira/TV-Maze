@@ -44,10 +44,11 @@ kotlin {
             implementation(projects.core.utils)
 
             // Feature dependencies
+            implementation(projects.feature.search.warning.deleteItem.presentation)
             implementation(projects.feature.themeSelection.presentation)
             implementation(projects.feature.favorites.presentation)
-            implementation(projects.feature.search.domain)
-            implementation(projects.feature.search.presentation)
+            implementation(projects.feature.search.screen.domain)
+            implementation(projects.feature.search.screen.presentation)
 
             // UI
             implementation(projects.ui.theme)

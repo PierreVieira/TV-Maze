@@ -5,21 +5,26 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import org.koin.compose.viewmodel.koinViewModel
+import org.pierre.feature.search.warning.delete_item.presentation.model.DeleteSearchItemDialogRoute
 import org.pierre.tvmaze.feature.main.presentation.model.BottomNavRoute
 import org.pierre.tvmaze.feature.search.presentation.SearchScreen
 import org.pierre.tvmaze.feature.search.presentation.utils.SearchActionCollector
 import org.pierre.tvmaze.feature.search.presentation.viewmodel.SearchViewModel
 
-fun NavGraphBuilder.search() {
+fun NavGraphBuilder.search(appNavHostController: NavHostController) {
     composable<BottomNavRoute.Search> {
         val viewModel = koinViewModel<SearchViewModel>()
         val state by viewModel.uiState.collectAsState()
         val snackbarHostState = remember { SnackbarHostState() }
         SearchActionCollector(
             uiAction = viewModel.uiAction,
-            snackbarHostState = snackbarHostState
+            snackbarHostState = snackbarHostState,
+            goToDeleteSearchHistoryItem = { id: Long, name: String ->
+                appNavHostController.navigate(DeleteSearchItemDialogRoute(id, name))
+            }
         )
         SearchScreen(
             snackbarHostState = snackbarHostState,

@@ -18,7 +18,8 @@ import org.pierre.tvmaze.feature.main.presentation.model.MainScreenUiAction
 import org.pierre.tvmaze.feature.main.presentation.navhost.BottomNavHost
 import org.pierre.tvmaze.ui.navigation.domain.NavRoute
 
-fun NavGraphBuilder.mainScreen(
+internal fun NavGraphBuilder.mainScreen(
+    appNavController: NavHostController,
     switchPlatformColorSchemeComponent: @Composable (Modifier) -> Unit,
     getNavigationModifier: (onBack: () -> Unit) -> Modifier,
 ) {
@@ -38,8 +39,9 @@ fun NavGraphBuilder.mainScreen(
             onEvent = mainViewModel::onEvent,
         ) {
             BottomNavHost(
+                appNavHostController = appNavController,
                 modifier = getNavigationModifier(bottomNavController::navigateUp),
-                navController = bottomNavController,
+                bottomNavController = bottomNavController,
                 switchPlatformColorSchemeComponent = switchPlatformColorSchemeComponent,
             )
         }

@@ -12,16 +12,17 @@ import org.pierre.tvmaze.feature.main.presentation.model.BottomNavRoute
 
 @Composable
 fun BottomNavHost(
+    appNavHostController: NavHostController,
     switchPlatformColorSchemeComponent: @Composable (Modifier) -> Unit,
-    navController: NavHostController,
+    bottomNavController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
         modifier = modifier.fillMaxSize(),
-        navController = navController,
+        navController = bottomNavController,
         startDestination = BottomNavRoute.Search,
     ) {
-        search()
+        search(appNavHostController)
         favorites()
         themeSettings(switchPlatformColorSchemeComponent)
     }

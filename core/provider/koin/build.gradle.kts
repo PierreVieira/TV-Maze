@@ -29,9 +29,12 @@ kotlin {
 
             // Feature dependencies
             implementation(projects.feature.main)
-            implementation(projects.feature.search.data)
-            implementation(projects.feature.search.domain)
-            implementation(projects.feature.search.presentation)
+            implementation(projects.feature.search.screen.data)
+            implementation(projects.feature.search.screen.domain)
+            implementation(projects.feature.search.screen.presentation)
+            implementation(projects.feature.search.warning.deleteItem.data)
+            implementation(projects.feature.search.warning.deleteItem.domain)
+            implementation(projects.feature.search.warning.deleteItem.presentation)
             implementation(projects.feature.themeSelection.data)
             implementation(projects.feature.themeSelection.domain)
             implementation(projects.feature.themeSelection.presentation)

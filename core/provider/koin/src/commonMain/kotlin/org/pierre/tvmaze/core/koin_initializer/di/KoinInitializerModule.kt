@@ -3,6 +3,9 @@ package org.pierre.tvmaze.core.koin_initializer.di
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
+import org.pierre.feature.search.warning.delete_item.data.di.deleteItemSearchDataModule
+import org.pierre.feature.search.warning.delete_item.domain.di.deleteItemSearchDomainModule
+import org.pierre.feature.search.warning.delete_item.presentation.di.deleteItemSearchPresentationModule
 import org.pierre.tvmaze.core.data_store_provider.di.dataStoreProviderModule
 import org.pierre.tvmaze.core.room_provider.di.roomModule
 import org.pierre.tvmaze.feature.main.di.mainModule
@@ -32,6 +35,9 @@ fun commonKoinInitializer(
             searchDataModule,
             searchDomainModule,
             searchPresentationModule,
+            deleteItemSearchDataModule,
+            deleteItemSearchDomainModule,
+            deleteItemSearchPresentationModule,
             themeSelectionDataModule,
             themeSelectionDomainModule,
             themeSelectionPresentationModule,
