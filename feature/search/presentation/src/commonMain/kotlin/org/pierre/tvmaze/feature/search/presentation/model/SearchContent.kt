@@ -11,7 +11,7 @@ sealed interface SearchContent {
     data class SearchResults(val data: List<ShowItemModel>) : SearchContent
     data class History(val data: List<SearchHistoryItemModel>): SearchContent
     sealed class Error(val errorResourceId: StringResource) : SearchContent {
-        data class NoHistoryForSpecificQuery(val query: String) : Error(Res.string.no_history_message)
-        data object NoHistory : Error(Res.string.no_history_for_specific_query)
+        data class NoHistoryForSpecificQuery(val query: String) : Error(Res.string.no_history_for_specific_query)
+        data object NoHistory : Error(Res.string.no_history_message)
     }
 }

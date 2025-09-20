@@ -14,13 +14,11 @@ class SaveRecentSearchUseCase(
     override suspend fun invoke(query: String) {
         val timestamp = getCurrentTime()
         repository.run {
-            insert(query, timestamp).onFailure {
-                getAllSearches().find {
-                    it.query.equals(query, ignoreCase = true)
-                }?.let { current: SearchHistoryItemModel ->
-                    update(current.copy(timestamp))
-                }
-            }
+            getAllSearches().find {
+                it.query.equals(query, ignoreCase = true)
+            }?.let { current: SearchHistoryItemModel ->
+                update(current.copy(timestamp))
+            } ?: insert(query, timestamp)
         }
         enforceSearchHistoryMaxSize()
     }

@@ -20,10 +20,13 @@ internal fun SearchErrorScreenContent(
             modifier = Modifier.align(Alignment.Center),
             text = when (model) {
                 SearchContent.Error.NoHistory -> stringResource(model.errorResourceId)
-                is SearchContent.Error.NoHistoryForSpecificQuery -> stringResource(
-                    model.errorResourceId,
-                    model.query
-                )
+                is SearchContent.Error.NoHistoryForSpecificQuery -> {
+                    val queryWithCotes = "\"${model.query}\""
+                    stringResource(
+                        model.errorResourceId,
+                        queryWithCotes,
+                    )
+                }
             },
             style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
         )

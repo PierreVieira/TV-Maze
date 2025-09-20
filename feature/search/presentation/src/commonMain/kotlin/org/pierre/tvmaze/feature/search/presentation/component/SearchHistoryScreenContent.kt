@@ -2,6 +2,7 @@ package org.pierre.tvmaze.feature.search.presentation.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -20,12 +21,16 @@ internal fun SearchHistoryScreenContent(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
+        item {
+            SearchHistoryHeaderTitle(modifier = Modifier.padding(vertical = 8.dp))
+        }
         items(
             items = model.data,
             key = { it.id },
         ) { item ->
             HistoryItemCard(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 id = item.id,
                 query = item.query,
                 range = item.searchedRange,

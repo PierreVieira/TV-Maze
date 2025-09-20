@@ -10,7 +10,9 @@ internal class SearchUseCase(
     private val repository: SearchRepository,
     private val saveRecentSearch: SaveRecentSearch,
 ): Search {
-    override suspend fun invoke(query: String): Result<List<ShowItemModel>> {
+    override suspend fun invoke(
+        query: String
+    ): Result<List<ShowItemModel>> {
         val safeQuery = query.trim()
         return if (safeQuery.isEmpty()) {
             Result.failure(EmptySearchQueryException())

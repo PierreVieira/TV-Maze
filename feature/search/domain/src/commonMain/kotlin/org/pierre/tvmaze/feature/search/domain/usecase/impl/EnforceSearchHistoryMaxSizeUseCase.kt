@@ -20,6 +20,6 @@ internal class EnforceSearchHistoryMaxSizeUseCase(
     }
 
     companion object {
-        private const val MAX_RECENT_ITEMS = 15
+        private const val MAX_RECENT_ITEMS = 20
     }
 }

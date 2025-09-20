@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.components.shimmer.ToContent
+import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
 import org.pierre.tvmaze.model.common.ShowItemModel
 import org.pierre.tvmaze.ui.components.icon_button.FavoriteIconButton
 import org.pierre.tvmaze.ui.components.picture.PictureCommon
@@ -46,11 +47,11 @@ fun ShowItemCardComponent(
                 isFavorite.ToContent(
                     modifier = Modifier
                         .padding(
-                            top = 8.dp,
-                            end = 8.dp
+                            top = 16.dp,
+                            end = 16.dp
                         )
                         .size(24.dp),
-                    shape = CircleShape,
+                    variant = ShimmerVariant.Heart(),
                 ) { loadedIsFavorite ->
                     FavoriteIconButton(
                         isFavorite = loadedIsFavorite,
@@ -109,7 +110,7 @@ private fun NameWithStars(
                 modifier = Modifier
                     .fillMaxWidth(0.5f)
                     .height(12.dp),
-                shape = CircleShape,
+                variant = ShimmerVariant.Rectangle(CircleShape),
             ) { loadedName ->
                 Text(loadedName, fontWeight = FontWeight.Bold)
             }
@@ -119,7 +120,7 @@ private fun NameWithStars(
                     modifier = Modifier
                         .fillMaxWidth(0.3f)
                         .height(8.dp),
-                    shape = CircleShape,
+                    variant = ShimmerVariant.StarsRow(spacing = 4.dp),
                 ) { safeStars ->
                     StarsComponent(safeStars)
                 }

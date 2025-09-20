@@ -8,9 +8,9 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.takeOrElse
 import org.pierre.tvmaze.components.shimmer.GradientShimmerModel
-import org.pierre.tvmaze.components.shimmer.loading.PlaceholderHighlight
-import org.pierre.tvmaze.components.shimmer.loading.placeholder
-import org.pierre.tvmaze.components.shimmer.loading.shimmer
+import org.pierre.tvmaze.components.shimmer.placeholder.PlaceholderHighlight
+import org.pierre.tvmaze.components.shimmer.placeholder.placeholder
+import org.pierre.tvmaze.components.shimmer.placeholder.shimmer
 
 fun Modifier.shimmer(
     isLoading: Boolean,

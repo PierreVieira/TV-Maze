@@ -1,4 +1,4 @@
-package org.pierre.tvmaze.components.shimmer.loading
+package org.pierre.tvmaze.components.shimmer.placeholder
 
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.AnimationSpec

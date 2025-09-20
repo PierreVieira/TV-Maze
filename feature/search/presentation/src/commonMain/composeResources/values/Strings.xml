@@ -11,6 +11,7 @@
     <string name="search_error_network">Can’t reach the server. Check your connection.</string>
     <string name="search_error_unknown">Something went wrong. Please try again.</string>
     <string name="no_history_message">You don't have any history yet, search for something!</string>
-    <string name="no_history_for_specific_query">You don't have any history for %s yet, click on the search icon!</string>
+    <string name="no_history_for_specific_query">You don't have any history for %1$s yet, click on the search icon!</string>
     <string name="no_results">No result!</string>
+    <string name="search_history_header_title">Search history</string>
 </resources>

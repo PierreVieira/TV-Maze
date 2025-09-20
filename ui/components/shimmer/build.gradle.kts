@@ -30,6 +30,9 @@ kotlin {
 
             // Core
             implementation(projects.core.model.dataStatus)
+
+            // UI
+            implementation(projects.ui.components.spacer)
         }
     }
 }

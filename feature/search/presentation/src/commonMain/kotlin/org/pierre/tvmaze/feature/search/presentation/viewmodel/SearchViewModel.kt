@@ -46,12 +46,17 @@ class SearchViewModel(
                 )
             }
         }
-        observe(searchUseCases.getSearchHistoryFlow()) {
-            searchHistory = it
-            if (_uiState.value.content is SearchContent.Error.NoHistory && searchHistory.isNotEmpty()) {
-                _uiState.update { currentState ->
-                    currentState.copy(content = SearchContent.History(searchHistory))
-                }
+        observe(
+            flow = searchUseCases.getSearchHistoryFlow(),
+            collector = ::onHistoryModelObserveCallback
+        )
+    }
+
+    private fun onHistoryModelObserveCallback(models: List<SearchHistoryItemModel>) {
+        searchHistory = models
+        if (_uiState.value.content is SearchContent.Error.NoHistory && searchHistory.isNotEmpty()) {
+            _uiState.update { currentState ->
+                currentState.copy(content = SearchContent.History(searchHistory))
             }
         }
     }
@@ -123,6 +128,7 @@ class SearchViewModel(
     private fun onSearch() {
         val query = uiState.value.searchBar.query
         hideMenu()
+        val previousState = uiState.value
         _uiState.update {
             it.copy(
                 content = SearchContent.SearchResults(searchUseCases.getSearchItemsLoading())
@@ -137,6 +143,7 @@ class SearchViewModel(
                         }
                     }
                     .onFailure { failure ->
+                        _uiState.update { previousState }
                         _uiAction.send(SearchUiAction.ShowError(getErrorTypeFromThrowable(failure)))
                     }
             }
