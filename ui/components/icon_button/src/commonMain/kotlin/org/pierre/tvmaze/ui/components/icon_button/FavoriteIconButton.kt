@@ -1,0 +1,28 @@
+package org.pierre.tvmaze.ui.components.icon_button
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.stringResource
+import tvmaze.ui.components.icon_button.generated.resources.Res
+import tvmaze.ui.components.icon_button.generated.resources.add_to_favorites
+
+@Composable
+fun FavoriteIconButton(
+    modifier: Modifier = Modifier,
+    isFavorite: Boolean,
+    onClick: () -> Unit,
+) {
+    CommonIconButton(
+        modifier = modifier,
+        imageVector = if (isFavorite) {
+            Icons.Filled.Favorite
+        } else {
+            Icons.Outlined.FavoriteBorder
+        },
+        contentDescription = stringResource(Res.string.add_to_favorites),
+        onClick = onClick,
+    )
+}

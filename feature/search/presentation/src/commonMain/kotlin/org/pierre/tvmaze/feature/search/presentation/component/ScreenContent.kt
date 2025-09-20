@@ -16,25 +16,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
 import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.ui.components.show_item_card.ShowItemCardComponent
+import tvmaze.feature.search.presentation.generated.resources.Res
+import tvmaze.feature.search.presentation.generated.resources.no_history_message
+import tvmaze.feature.search.presentation.generated.resources.no_results
 
-private val maxScreenWidth = 500.dp
+private val maxScreenWidth = 400.dp
 @Composable
 fun ColumnScope.ScreenContent(state: SearchState) {
     when (state.content) {
         SearchContent.NoHistory -> Box(modifier = Modifier.fillMaxSize()) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = "You don't have any history yet, search for something!",
+                text = stringResource(Res.string.no_history_message),
                 style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
             )
         }
         SearchContent.NoResults -> Box(modifier = Modifier.fillMaxSize()) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = "No result",
+                text = stringResource(Res.string.no_results),
                 style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
             )
         }
@@ -51,6 +55,8 @@ fun ColumnScope.ScreenContent(state: SearchState) {
                 ShowItemCardComponent(
                     modifier = Modifier.fillMaxWidth(),
                     showItemModel = searchItem,
+                    onCardClick = {},
+                    onFavoriteClick = {}
                 )
             }
         }

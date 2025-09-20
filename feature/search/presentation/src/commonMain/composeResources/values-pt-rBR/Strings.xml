@@ -9,4 +9,6 @@
     <string name="search_error_empty_query">Digite algo para pesquisar.</string>
     <string name="search_error_network">Não foi possível conectar ao servidor. Verifique sua conexão.</string>
     <string name="search_error_unknown">Ocorreu um erro. Tente novamente.</string>
+    <string name="no_history_message">Você não tem nenhum histórico ainda, faça uma pesquisa!</string>
+    <string name="no_results">Sem resultados!</string>
 </resources>

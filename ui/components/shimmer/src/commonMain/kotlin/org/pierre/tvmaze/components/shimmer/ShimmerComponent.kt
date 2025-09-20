@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import org.pierre.tvmaze.components.shimmer.ai.aiShimmer
 import org.pierre.tvmaze.components.shimmer.shimmer.shimmer
@@ -15,10 +14,10 @@ import org.pierre.tvmaze.components.shimmer.shimmer.shimmer
 fun ShimmerComponent(
     modifier: Modifier = Modifier,
     isAiShimmer: Boolean = false,
-    shape: Shape = RectangleShape,
+    shape: Shape? = null,
 ) {
     Box(
-        modifier = modifier.clip(shape)
+        modifier = shape?.let { modifier.clip(it) } ?: modifier
     ) {
         val baseSpacerModifier = Modifier.fillMaxSize()
         Spacer(
