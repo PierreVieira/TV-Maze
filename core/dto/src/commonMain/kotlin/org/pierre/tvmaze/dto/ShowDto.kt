@@ -13,6 +13,6 @@ data class ShowDto(
     @SerialName("status") val status: String?,
     @SerialName("premiered") val premiered: String?,
     @SerialName("ended") val ended: String?,
-    @SerialName("ranting") val ranting: RantingDto?,
+    @SerialName("rating") val rating: RantingDto?,
     @SerialName("summary") val summary: String?,
 )

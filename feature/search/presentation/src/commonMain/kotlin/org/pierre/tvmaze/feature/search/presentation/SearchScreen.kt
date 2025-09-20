@@ -1,8 +1,5 @@
 package org.pierre.tvmaze.feature.search.presentation
 
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,7 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -38,68 +34,67 @@ fun SearchScreen(
     state: SearchState,
     onEvent: (SearchUiEvent) -> Unit,
 ) {
-    // Target bias: top = -1f, bottom = 1f
-    val targetBias = if (state.searchBarPosition == SearchBarPosition.TOP) -1f else 1f
-    val animatedBias by animateFloatAsState(
-        targetValue = targetBias,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioNoBouncy,
-            stiffness = Spring.StiffnessMedium,
-        ),
-        label = "searchBarBias",
-    )
-
-    val verticalArrangement =
-        if (animatedBias < 0f) Arrangement.Top else Arrangement.Bottom
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    if (verticalArrangement == Arrangement.Top) {
-                        PaddingValues(0.dp)
-                    } else {
-                        paddingValues
-                    }
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = verticalArrangement,
-        ) {
-            if (verticalArrangement == Arrangement.Top) {
-                SearchBarComponent(
-                    state = state,
-                    onEvent = onEvent,
-                )
-                VerticalSpacer()
-            }
+        SearchScreenContent(
+            state = state,
+            paddingValues = paddingValues,
+            onEvent = onEvent,
+        )
+    }
+}
 
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .widthIn(max = maxScreenWidth)
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                items(state.searchItems) { searchItem ->
-                    ShowItemCardComponent(
-                        modifier = Modifier.fillMaxWidth(),
-                        showItemModel = searchItem,
-                    )
+@Composable
+private fun SearchScreenContent(
+    state: SearchState,
+    paddingValues: PaddingValues,
+    onEvent: (SearchUiEvent) -> Unit,
+) {
+    val isSearchBarOnTop = state.searchBarPosition == SearchBarPosition.TOP
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(
+                if (isSearchBarOnTop) {
+                    PaddingValues(0.dp)
+                } else {
+                    paddingValues
                 }
-            }
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        if (isSearchBarOnTop) {
+            SearchBarComponent(
+                state = state,
+                onEvent = onEvent,
+            )
+            VerticalSpacer()
+        }
 
-            if (verticalArrangement == Arrangement.Bottom) {
-                VerticalSpacer()
-                SearchBarComponent(
-                    state = state,
-                    onEvent = onEvent,
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .widthIn(max = maxScreenWidth)
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            items(state.searchItems) { searchItem ->
+                ShowItemCardComponent(
+                    modifier = Modifier.fillMaxWidth(),
+                    showItemModel = searchItem,
                 )
             }
+        }
+
+        if (!isSearchBarOnTop) {
+            VerticalSpacer()
+            SearchBarComponent(
+                state = state,
+                onEvent = onEvent,
+            )
         }
     }
 }

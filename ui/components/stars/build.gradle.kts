@@ -13,7 +13,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ShowItemCardComponent"
+            baseName = "StarsCompoent"
             isStatic = true
         }
     }
@@ -22,26 +22,31 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            // Compose
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.uiToolingPreview)
 
             // Core
-            implementation(projects.core.model.dataStatus)
             implementation(projects.core.model.common)
 
             // Ui
-            implementation(projects.ui.components.shimmer)
-            implementation(projects.ui.components.stars)
-            implementation(projects.ui.components.spacer)
+            implementation(projects.ui.theme)
         }
     }
 }
 
+dependencies {
+    debugImplementation(libs.uiTooling)
+    debugImplementation(libs.uiTestManifest)
+}
+
 android {
-    namespace = "org.pierre.tvmaze.ui.components.show_item_card"
+    namespace = "org.pierre.tvmaze.ui.components.stars"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

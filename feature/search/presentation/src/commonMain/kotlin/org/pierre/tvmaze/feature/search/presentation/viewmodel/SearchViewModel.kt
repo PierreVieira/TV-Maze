@@ -64,6 +64,7 @@ class SearchViewModel(
     }
 
     private fun onChangeSearchBarPositionClick() {
+        _uiState.update { it.copy(isShowingMenu = false) }
         searchUseCases.run {
             val newSearchBarPosition = getNewSearchBarPositionDueToToggle(
                 currentPosition = uiState.value.searchBarPosition

@@ -15,7 +15,7 @@ class ShowItemModelMapperImpl(private val starsMapper: StarsMapper) : ShowItemMo
             image = image?.medium?.toLoadedStatus(),
             premieredYear = premiered?.toLoadedStatus(),
             endedYear = ended?.toLoadedStatus(),
-            stars = ranting?.average?.let(starsMapper::map)?.toLoadedStatus(),
+            stars = rating?.average?.let(starsMapper::map)?.toLoadedStatus(),
             isFavorite = false.toLoadedStatus(),
         )
     }
