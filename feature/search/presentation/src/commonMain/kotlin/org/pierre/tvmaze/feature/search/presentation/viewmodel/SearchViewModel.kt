@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import org.pierre.tvmaze.feature.search.domain.model.SearchUseCases
 import org.pierre.tvmaze.feature.search.presentation.factory.InitialSearchStateFactory
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFactory
+import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiAction
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
@@ -81,7 +82,7 @@ class SearchViewModel(
         _uiState.update {
             it.copy(
                 isShowingMenu = false,
-                searchItems = searchUseCases.getSearchItemsLoading()
+                content = SearchContent.SearchResult(searchUseCases.getSearchItemsLoading())
             )
         }
         viewModelScope.launch {
@@ -89,12 +90,12 @@ class SearchViewModel(
                 search(query)
                     .onSuccess { shows: List<ShowItemModel> ->
                         _uiState.update {
-                            it.copy(searchItems = shows)
+                            it.copy(content = SearchContent.SearchResult(shows))
                         }
                     }
                     .onFailure { failure ->
                         _uiState.update {
-                            it.copy(searchItems = emptyList())
+                            it.copy(content = SearchContent.SearchResult(emptyList()))
                         }
                         _uiAction.send(SearchUiAction.ShowError(getErrorTypeFromThrowable(failure)))
                     }
@@ -109,11 +110,12 @@ class SearchViewModel(
                 iconsModel = searchBarIconsFactory.create(
                     query = query
                 ),
-                searchItems = if (query.isEmpty()) {
-                    emptyList()
-                } else {
-                    it.searchItems
-                }
+                content =
+                    if (query.isEmpty()) {
+                        SearchContent.SearchResult(emptyList())
+                    } else {
+                        it.content
+                    }
             )
         }
     }

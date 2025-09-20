@@ -3,6 +3,7 @@ package org.pierre.tvmaze.feature.search.presentation.factory.impl
 import org.pierre.tvmaze.feature.search.domain.model.SearchBarPosition
 import org.pierre.tvmaze.feature.search.presentation.factory.InitialSearchStateFactory
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFactory
+import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 
 internal class InitialSearchStateFactoryImpl(
@@ -12,7 +13,7 @@ internal class InitialSearchStateFactoryImpl(
     override fun create(): SearchState = SearchState(
         query = INITIAL_QUERY,
         isShowingMenu = INITIAL_IS_SHOWING_MENU,
-        searchItems = emptyList(),
+        content = SearchContent.NoHistory,
         iconsModel = searchBarIconsFactory.create(
             query = INITIAL_QUERY,
         ),
