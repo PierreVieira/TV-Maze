@@ -9,26 +9,17 @@ internal class SearchBarIconsFactoryImpl(
     private val searchBarIconModelsFactory: SearchBarIconModelsFactory,
 ) : SearchBarIconsFactory {
 
-    override fun create(isExpanded: Boolean, query: String): SearchBarIconsModel =
+    override fun create(query: String): SearchBarIconsModel =
         SearchBarIconsModel(
-            leadingIcon = getLeadingIconModel(isExpanded),
-            trailingIcon = getTrailingIconModel(isExpanded, query)
+            leadingIcon = searchBarIconModelsFactory.getLeadingIcon(),
+            trailingIcon = getTrailingIconModel(query)
         )
 
 
-    private fun getLeadingIconModel(isExpanded: Boolean): SearchBarIconModel =
+    private fun getTrailingIconModel(query: String): SearchBarIconModel =
         searchBarIconModelsFactory.run {
-            if (isExpanded) {
-                getExpandedLeadingIconModel()
-            } else {
-                getNotExpandedLeadingIconModel()
-            }
-        }
-
-    private fun getTrailingIconModel(isExpanded: Boolean, query: String): SearchBarIconModel? =
-        searchBarIconModelsFactory.run {
-            if (isExpanded) {
-                getCloseModel().takeIf { query.isNotEmpty() }
+            if (query.isNotEmpty()) {
+                getCloseModel()
             } else {
                 getMoreOptionsModel()
             }

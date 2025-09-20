@@ -8,6 +8,7 @@ compose-bom = "2025.09.00"
 androidx-lifecycle = "2.9.4"
 composeHotReload = "1.0.0-beta07"
 composeMultiplatform = "1.9.0"
+kotlinSerializationJson = "1.9.0"
 kotlin = "2.2.20"
 kotlinxCoroutinesCore = "1.10.2"
 navigationCompose = "2.9.0"
@@ -66,6 +67,10 @@ ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 # Data Store
 dataStore = { module = "androidx.datastore:datastore", version.ref = "datasSoreVersion" }
 dataStore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datasSoreVersion" }
+
+# Serialiazation
+kotlinSerializationJson = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
+
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }

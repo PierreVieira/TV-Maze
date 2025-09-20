@@ -3,8 +3,7 @@ package org.pierre.tvmaze.feature.search.presentation.factory
 import org.pierre.tvmaze.feature.search.presentation.model.SearchBarIconModel
 
 interface SearchBarIconModelsFactory {
-    fun getExpandedLeadingIconModel(): SearchBarIconModel
-    fun getNotExpandedLeadingIconModel(): SearchBarIconModel
+    fun getLeadingIcon(): SearchBarIconModel
     fun getCloseModel(): SearchBarIconModel
     fun getMoreOptionsModel(): SearchBarIconModel
 }

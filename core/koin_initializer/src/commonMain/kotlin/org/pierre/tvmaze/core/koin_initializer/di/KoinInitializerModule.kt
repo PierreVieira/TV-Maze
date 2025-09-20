@@ -10,6 +10,7 @@ import org.pierre.tvmaze.feature.search.domain.di.searchDomainModule
 import org.pierre.tvmaze.feature.theme_selection.data.di.themeSelectionDataModule
 import org.pierre.tvmaze.feature.theme_selection.di.themeSelectionPresentationModule
 import org.pierre.tvmaze.feature.theme_selection.domain.di.themeSelectionDomainModule
+import org.pierre.tvmaze.mapper.di.mapperModule
 import org.pierre.tvmaze.network.di.networkModule
 import org.pierre.tvmaze.search.data.di.searchDataModule
 
@@ -21,6 +22,7 @@ fun commonKoinInitializer(
         config?.invoke(this)
         val coreModules = listOf(
             dataStoreProviderModule,
+            mapperModule,
             networkModule,
         )
         val featureModules = listOf(

@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 kotlin {
@@ -12,7 +11,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "DatStatus"
+            baseName = "DataStatus"
             isStatic = true
         }
     }

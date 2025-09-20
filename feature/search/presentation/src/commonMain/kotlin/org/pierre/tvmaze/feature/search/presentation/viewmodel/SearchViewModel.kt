@@ -17,6 +17,7 @@ import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFacto
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiAction
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
+import org.pierre.tvmaze.model.common.ShowItemModel
 import org.pierre.tvmaze.ui.utils.observe
 
 class SearchViewModel(
@@ -43,18 +44,16 @@ class SearchViewModel(
 
     fun onEvent(uiEvent: SearchUiEvent) {
         when (uiEvent) {
-            is SearchUiEvent.OnExpandedChange -> setExpanded(isExpanded = uiEvent.expanded)
-
             is SearchUiEvent.OnQueryChange -> onQueryChanged(uiEvent.query)
 
-            is SearchUiEvent.OnSearch -> {
-                this@SearchViewModel.onSearch(uiEvent.query)
-                setExpanded(false)
+            is SearchUiEvent.OnSearch -> onSearch()
+
+            SearchUiEvent.OnClearClick -> {
+                onQueryChanged("")
+                updateIconsModel()
             }
 
-            SearchUiEvent.OnClearClick -> onQueryChanged("")
-            SearchUiEvent.OnSearchIconClick -> setExpanded(true)
-            SearchUiEvent.OnArrowBackClick -> setExpanded(false)
+            SearchUiEvent.OnSearchIconClick -> onSearch()
             SearchUiEvent.OnMoreOptionsClick -> _uiState.update { it.copy(isShowingMenu = true) }
             SearchUiEvent.OnChangeSearchBarPositionClick -> onChangeSearchBarPositionClick()
 
@@ -65,11 +64,6 @@ class SearchViewModel(
     }
 
     private fun onChangeSearchBarPositionClick() {
-        _uiState.update {
-            it.copy(
-                isShowingMenu = false,
-            )
-        }
         searchUseCases.run {
             val newSearchBarPosition = getNewSearchBarPositionDueToToggle(
                 currentPosition = uiState.value.searchBarPosition
@@ -81,12 +75,28 @@ class SearchViewModel(
         }
     }
 
-    private fun onSearch(query: String) {
+    private fun onSearch() {
+        val query = uiState.value.query
+        _uiState.update {
+            it.copy(
+                isShowingMenu = false,
+                searchItems = searchUseCases.getSearchItemsLoading()
+            )
+        }
         viewModelScope.launch {
             searchUseCases.run {
-                search(query).onFailure { failure ->
-                    _uiAction.send(SearchUiAction.ShowError(getErrorTypeFromThrowable(failure)))
-                }
+                search(query)
+                    .onSuccess { shows: List<ShowItemModel> ->
+                        _uiState.update {
+                            it.copy(searchItems = shows)
+                        }
+                    }
+                    .onFailure { failure ->
+                        _uiState.update {
+                            it.copy(searchItems = emptyList())
+                        }
+                        _uiAction.send(SearchUiAction.ShowError(getErrorTypeFromThrowable(failure)))
+                    }
             }
         }
     }
@@ -96,19 +106,21 @@ class SearchViewModel(
             it.copy(
                 query = query,
                 iconsModel = searchBarIconsFactory.create(
-                    isExpanded = it.isExpanded,
                     query = query
-                )
+                ),
+                searchItems = if (query.isEmpty()) {
+                    emptyList()
+                } else {
+                    it.searchItems
+                }
             )
         }
     }
 
-    private fun setExpanded(isExpanded: Boolean) {
+    private fun updateIconsModel() {
         _uiState.update {
             it.copy(
-                isExpanded = isExpanded,
                 iconsModel = searchBarIconsFactory.create(
-                    isExpanded = isExpanded,
                     query = it.query
                 )
             )

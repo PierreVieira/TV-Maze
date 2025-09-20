@@ -27,6 +27,10 @@ kotlin {
 
             // Coroutines
             implementation(libs.kotlinx.coroutines.core)
+
+            // Models
+            implementation(projects.core.model.dataStatus)
+            implementation(projects.core.model.common)
         }
     }
 }

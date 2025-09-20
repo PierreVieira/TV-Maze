@@ -9,12 +9,14 @@ import org.pierre.tvmaze.feature.search.domain.usecase.GetErrorTypeFromThrowable
 import org.pierre.tvmaze.feature.search.domain.usecase.Search
 import org.pierre.tvmaze.feature.search.domain.usecase.GetNewSearchBarPositionDueToToggle
 import org.pierre.tvmaze.feature.search.domain.usecase.GetSearchBarPositionFlow
+import org.pierre.tvmaze.feature.search.domain.usecase.GetSearchItemsLoading
 import org.pierre.tvmaze.feature.search.domain.usecase.SaveNewSearchBarPosition
 import org.pierre.tvmaze.feature.search.domain.usecase.impl.GetDurationDisappearMenuDurationUseCase
 import org.pierre.tvmaze.feature.search.domain.usecase.impl.GetErrorTypeFromThrowableUseCase
 import org.pierre.tvmaze.feature.search.domain.usecase.impl.SearchUseCase
 import org.pierre.tvmaze.feature.search.domain.usecase.impl.GetNewSearchBarPositionDueToToggleUseCase
 import org.pierre.tvmaze.feature.search.domain.usecase.impl.GetSearchBarPositionFlowUseCase
+import org.pierre.tvmaze.feature.search.domain.usecase.impl.GetSearchItemsLoadingUseCase
 import org.pierre.tvmaze.feature.search.domain.usecase.impl.SaveNewSearchBarPositionUseCase
 
 val searchDomainModule = module {
@@ -25,4 +27,5 @@ val searchDomainModule = module {
     factoryOf(::GetSearchBarPositionFlowUseCase).bind<GetSearchBarPositionFlow>()
     factoryOf(::GetDurationDisappearMenuDurationUseCase).bind<GetDurationDisappearMenuDuration>()
     factoryOf(::GetErrorTypeFromThrowableUseCase).bind<GetErrorTypeFromThrowable>()
+    factoryOf(::GetSearchItemsLoadingUseCase).bind<GetSearchItemsLoading>()
 }

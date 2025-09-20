@@ -38,6 +38,7 @@ kotlin {
 
             // Core dependencies
             implementation(projects.core.dataStoreProvider)
+            implementation(projects.core.mapper)
             implementation(projects.core.network)
         }
     }

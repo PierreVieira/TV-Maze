@@ -23,24 +23,21 @@ fun SearchBarComponent(
     state: SearchState,
     onEvent: (SearchUiEvent) -> Unit,
 ) {
-    val onExpandedChange: (Boolean) -> Unit = { onEvent(SearchUiEvent.OnExpandedChange(it)) }
-    val isExpanded = state.isExpanded
-
     SearchBar(
         modifier = if (state.searchBarPosition == SearchBarPosition.BOTTOM) {
             modifier.padding(bottom = 16.dp)
         } else {
             modifier
         },
-        expanded = isExpanded,
-        onExpandedChange = onExpandedChange,
+        expanded = false,
+        onExpandedChange = {},
         inputField = {
             SearchBarDefaults.InputField(
                 query = state.query,
                 onQueryChange = { onEvent(SearchUiEvent.OnQueryChange(it)) },
-                onSearch = { onEvent(SearchUiEvent.OnSearch(it)) },
-                expanded = isExpanded,
-                onExpandedChange = onExpandedChange,
+                onSearch = { onEvent(SearchUiEvent.OnSearch) },
+                expanded = false,
+                onExpandedChange = {},
                 placeholder = { Text(stringResource(Res.string.search)) },
                 leadingIcon = {
                     SearchBarIcon(
@@ -50,17 +47,16 @@ fun SearchBarComponent(
                 },
                 trailingIcon = {
                     Box {
-                        state.iconsModel.trailingIcon?.let {
-                            SearchBarIcon(
-                                model = it,
-                                onEvent = onEvent
-                            )
-                            SearchOptionsMenu(state, onEvent)
-                        }
+                        SearchBarIcon(
+                            model = state.iconsModel.trailingIcon,
+                            onEvent = onEvent
+                        )
+                        SearchOptionsMenu(state, onEvent)
                     }
                 },
             )
         },
     ) {
+
     }
 }

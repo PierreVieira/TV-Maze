@@ -29,6 +29,18 @@ kotlin {
             implementation(libs.dataStore)
             implementation(libs.dataStore.preferences)
 
+            // Kotlin Serialization
+            implementation(libs.kotlinSerializationJson)
+
+            // Ktor
+            implementation(libs.ktor.client.core)
+
+            // Core
+            implementation(projects.core.network)
+            implementation(projects.core.dto)
+            implementation(projects.core.model.common)
+            implementation(projects.core.mapper)
+
             // Feature
             implementation(projects.feature.search.domain)
         }

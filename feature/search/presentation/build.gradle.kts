@@ -42,11 +42,15 @@ kotlin {
 
             // Core
             implementation(projects.core.utils)
+            implementation(projects.core.model.dataStatus)
+            implementation(projects.core.model.common)
 
             // UI
             implementation(projects.ui.theme)
             implementation(projects.ui.utils)
+            implementation(projects.ui.components.spacer)
             implementation(projects.ui.components.iconButton)
+            implementation(projects.ui.components.showItemCard)
         }
     }
 }
