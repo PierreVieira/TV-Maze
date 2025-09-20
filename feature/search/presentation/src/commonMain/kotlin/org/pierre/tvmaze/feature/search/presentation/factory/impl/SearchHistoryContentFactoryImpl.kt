@@ -28,14 +28,17 @@ class SearchHistoryContentFactoryImpl : SearchHistoryContentFactory {
                     val start = item.query.indexOf(safeQuery, ignoreCase = true)
                     if (start >= 0) {
                         val end = start + safeQuery.length - 1 // IntRange is inclusive
-                        item.copy(searchedRange = start..end)
+                        item.copy(
+                            searchedRange = start..end,
+                            query = item.query,
+                        )
                     } else {
                         null
                     }
                 }
 
             if (filteredWithRanges.isEmpty()) {
-                SearchContent.Error.NoHistoryForSpecificQuery
+                SearchContent.Error.NoHistoryForSpecificQuery(safeQuery)
             } else {
                 SearchContent.History(filteredWithRanges)
             }

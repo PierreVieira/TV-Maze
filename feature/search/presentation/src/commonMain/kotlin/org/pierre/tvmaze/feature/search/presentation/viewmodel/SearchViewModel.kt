@@ -49,7 +49,9 @@ class SearchViewModel(
         observe(searchUseCases.getSearchHistoryFlow()) {
             searchHistory = it
             if (_uiState.value.content is SearchContent.Error.NoHistory && searchHistory.isNotEmpty()) {
-                _uiState.update { it.copy(content = SearchContent.History(searchHistory)) }
+                _uiState.update { currentState ->
+                    currentState.copy(content = SearchContent.History(searchHistory))
+                }
             }
         }
     }
@@ -143,7 +145,6 @@ class SearchViewModel(
 
     private fun onQueryChanged(query: String) {
         _uiState.update { currentState ->
-            val newContent = searchHistoryContentFactory.create(searchHistory, query)
             currentState.copy(
                 searchBar = currentState.searchBar.copy(
                     query = query,
@@ -151,7 +152,7 @@ class SearchViewModel(
                         query = query
                     ),
                 ),
-                content = newContent,
+                content = searchHistoryContentFactory.create(searchHistory, query),
             )
         }
     }

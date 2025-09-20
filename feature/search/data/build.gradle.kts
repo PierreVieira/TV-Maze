@@ -45,6 +45,7 @@ kotlin {
             implementation(projects.core.dto)
             implementation(projects.core.model.common)
             implementation(projects.core.mapper)
+            implementation(projects.core.utils)
 
             // Feature
             implementation(projects.feature.search.domain)

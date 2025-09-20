@@ -15,7 +15,9 @@ class SaveRecentSearchUseCase(
         val timestamp = getCurrentTime()
         repository.run {
             insert(query, timestamp).onFailure {
-                getAllSearches().find { it.query == query }?.let { current: SearchHistoryItemModel ->
+                getAllSearches().find {
+                    it.query.equals(query, ignoreCase = true)
+                }?.let { current: SearchHistoryItemModel ->
                     update(current.copy(timestamp))
                 }
             }

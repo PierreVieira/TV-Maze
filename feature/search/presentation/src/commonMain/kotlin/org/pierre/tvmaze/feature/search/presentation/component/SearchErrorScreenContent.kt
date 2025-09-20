@@ -13,12 +13,18 @@ import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
 @Composable
 internal fun SearchErrorScreenContent(
     modifier: Modifier = Modifier,
-    model: SearchContent.Error
+    model: SearchContent.Error,
 ) {
     Box(modifier = modifier) {
         Text(
             modifier = Modifier.align(Alignment.Center),
-            text = stringResource(model.errorResourceId),
+            text = when (model) {
+                SearchContent.Error.NoHistory -> stringResource(model.errorResourceId)
+                is SearchContent.Error.NoHistoryForSpecificQuery -> stringResource(
+                    model.errorResourceId,
+                    model.query
+                )
+            },
             style = MaterialTheme.typography.titleLarge.copy(textAlign = TextAlign.Center),
         )
     }

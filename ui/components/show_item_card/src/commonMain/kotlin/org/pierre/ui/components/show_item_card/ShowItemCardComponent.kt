@@ -42,48 +42,15 @@ fun ShowItemCardComponent(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Row {
-                    val imageModifier = Modifier
-                        .width(64.dp)
-                    image?.ToContent(
-                        modifier = imageModifier.height(96.dp),
-                    ) { safeImage ->
-                        PictureCommon(
-                            modifier = imageModifier.heightIn(min = 96.dp),
-                            url = safeImage,
-                            contentDescription = null,
-                        )
-                    }
-                    HorizontalSpacer(16)
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.fillMaxHeight()
-                    ) {
-                        name.ToContent(
-                            modifier = Modifier
-                                .fillMaxWidth(0.5f)
-                                .height(12.dp),
-                            shape = CircleShape,
-                        ) { loadedName ->
-                            Text(loadedName, fontWeight = FontWeight.Bold)
-                        }
-                        stars?.run {
-                            VerticalSpacer(8)
-                            ToContent(
-                                modifier = Modifier
-                                    .fillMaxWidth(0.3f)
-                                    .height(8.dp),
-                                shape = CircleShape,
-                            ) { safeStars ->
-                                StarsComponent(safeStars)
-                            }
-                        }
-                    }
-                }
+                LeftContent(showItemModel)
                 isFavorite.ToContent(
                     modifier = Modifier
-                        .size(32.dp)
-                        .padding(16.dp)
+                        .padding(
+                            top = 8.dp,
+                            end = 8.dp
+                        )
+                        .size(24.dp),
+                    shape = CircleShape,
                 ) { loadedIsFavorite ->
                     FavoriteIconButton(
                         isFavorite = loadedIsFavorite,
@@ -91,6 +58,70 @@ fun ShowItemCardComponent(
                             onFavoriteClick(id)
                         },
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun LeftContent(
+    showItemModel: ShowItemModel,
+    modifier: Modifier = Modifier,
+) {
+    showItemModel.run {
+        Row(modifier = modifier) {
+            val minImageHeight = 96.dp
+            val imageModifier = Modifier
+                .width(64.dp)
+            image?.ToContent(
+                modifier = imageModifier.height(minImageHeight),
+            ) { safeImage ->
+                PictureCommon(
+                    modifier = imageModifier.heightIn(min = minImageHeight),
+                    url = safeImage,
+                    contentDescription = null,
+                )
+            }
+            HorizontalSpacer(16)
+            Column {
+                VerticalSpacer(8)
+                NameWithStars(
+                    modifier = Modifier.fillMaxHeight(),
+                    showItemModel = showItemModel,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun NameWithStars(
+    showItemModel: ShowItemModel,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        showItemModel.run {
+            name.ToContent(
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .height(12.dp),
+                shape = CircleShape,
+            ) { loadedName ->
+                Text(loadedName, fontWeight = FontWeight.Bold)
+            }
+            stars?.run {
+                VerticalSpacer(8)
+                ToContent(
+                    modifier = Modifier
+                        .fillMaxWidth(0.3f)
+                        .height(8.dp),
+                    shape = CircleShape,
+                ) { safeStars ->
+                    StarsComponent(safeStars)
                 }
             }
         }
