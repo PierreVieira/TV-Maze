@@ -1,66 +1,33 @@
 package org.pierre.tvmaze.feature.search.presentation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.pierre.tvmaze.feature.search.domain.model.SearchBarPosition
+import org.pierre.tvmaze.feature.search.presentation.component.SearchBarComponent
+import org.pierre.tvmaze.feature.search.presentation.component.SearchScreenContent
+import org.pierre.tvmaze.feature.search.presentation.component.SearchScreenLayout
+import org.pierre.tvmaze.feature.search.presentation.model.SearchState
+import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     snackbarHostState: SnackbarHostState,
-    searchBarPosition: SearchBarPosition,
-    searchBarComponent: @Composable RowScope.() -> Unit,
-    content: @Composable ColumnScope.() -> Unit,
+    state: SearchState,
+    onEvent: (SearchUiEvent) -> Unit,
 ) {
-    val isSearchBarOnTop = searchBarPosition == SearchBarPosition.TOP
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = {
-            CentralizedRow(
-                isVisible = isSearchBarOnTop,
-                content = searchBarComponent
+    SearchScreenLayout(
+        snackbarHostState = snackbarHostState,
+        searchBarPosition = state.searchBar.position,
+        searchBarComponent = {
+            SearchBarComponent(
+                state = state.searchBar,
+                onEvent = onEvent
             )
         },
-        bottomBar = {
-            CentralizedRow(
-                isVisible = !isSearchBarOnTop,
-                content = searchBarComponent
+        content = {
+            SearchScreenContent(
+                model = state.content,
+                onEvent = onEvent
             )
-        },
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            content = content
-        )
-    }
-}
-
-@Composable
-private fun CentralizedRow(
-    isVisible: Boolean,
-    content: @Composable RowScope.() -> Unit,
-) {
-    if (!isVisible) return
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center,
-        content = content
+        }
     )
 }

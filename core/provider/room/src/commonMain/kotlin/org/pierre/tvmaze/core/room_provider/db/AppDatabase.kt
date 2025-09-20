@@ -4,10 +4,10 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import org.pierre.tvmaze.core.room_provider.dao.LastSearchesDao
-import org.pierre.tvmaze.core.room_provider.entity.LastSearchEntity
+import org.pierre.tvmaze.core.room_provider.entity.SearchHistoryItemEntity
 
 @Database(
-    entities = [LastSearchEntity::class],
+    entities = [SearchHistoryItemEntity::class],
     version = 1,
     exportSchema = false,
 )

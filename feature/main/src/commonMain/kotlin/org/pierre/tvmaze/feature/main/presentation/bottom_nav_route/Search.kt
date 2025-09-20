@@ -9,8 +9,6 @@ import androidx.navigation.compose.composable
 import org.koin.compose.viewmodel.koinViewModel
 import org.pierre.tvmaze.feature.main.presentation.model.BottomNavRoute
 import org.pierre.tvmaze.feature.search.presentation.SearchScreen
-import org.pierre.tvmaze.feature.search.presentation.component.ScreenContent
-import org.pierre.tvmaze.feature.search.presentation.component.SearchBarComponent
 import org.pierre.tvmaze.feature.search.presentation.utils.SearchActionCollector
 import org.pierre.tvmaze.feature.search.presentation.viewmodel.SearchViewModel
 
@@ -25,15 +23,8 @@ fun NavGraphBuilder.search() {
         )
         SearchScreen(
             snackbarHostState = snackbarHostState,
-            searchBarPosition = state.searchBar.position,
-            searchBarComponent = {
-                SearchBarComponent(
-                    state = state.searchBar,
-                    onEvent = viewModel::onEvent
-                )
-            }
-        ) {
-            ScreenContent(state.content)
-        }
+            state = state,
+            onEvent = viewModel::onEvent
+        )
     }
 }

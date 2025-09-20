@@ -9,4 +9,9 @@ sealed interface SearchUiEvent {
     data object OnDismissMenuClick : SearchUiEvent
     data object OnChangeSearchBarPositionClick : SearchUiEvent
     data object OnDeleteHistoryClick : SearchUiEvent
+    data class OnHistoryItemClick(val itemName: String) : SearchUiEvent
+    data class OnHistoryItemLongClick(val id: Long) : SearchUiEvent
+    data class OnHistoryItemDeleteClick(val id: Long) : SearchUiEvent
+    data class OnSearchResultItemClick(val id: Long) : SearchUiEvent
+    data class OnFavoriteSearchResultItemClick(val id: Long) : SearchUiEvent
 }

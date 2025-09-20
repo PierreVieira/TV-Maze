@@ -10,4 +10,5 @@ data class ShowItemModel(
     val endedYear: DataStatus<String>?,
     val stars: DataStatus<StarsModel>?,
     val isFavorite: DataStatus<Boolean>,
+    val averageRanting: DataStatus<Double>?,
 )

@@ -18,7 +18,7 @@ import tvmaze.feature.search.presentation.generated.resources.search
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBarComponent(
+internal fun SearchBarComponent(
     modifier: Modifier = Modifier,
     state: SearchBarState,
     onEvent: (SearchUiEvent) -> Unit,

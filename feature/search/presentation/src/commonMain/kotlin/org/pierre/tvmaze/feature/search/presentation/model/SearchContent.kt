@@ -1,10 +1,16 @@
 package org.pierre.tvmaze.feature.search.presentation.model
 
+import org.jetbrains.compose.resources.StringResource
+import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
 import org.pierre.tvmaze.model.common.ShowItemModel
+import tvmaze.feature.search.presentation.generated.resources.Res
+import tvmaze.feature.search.presentation.generated.resources.no_history_message
 
 sealed interface SearchContent {
-    data class SearchResult(val searchItems: List<ShowItemModel>) : SearchContent
-    data object NoResults : SearchContent
-    data object NoHistory : SearchContent
-    data class History(val recentSearches: List<String>) : SearchContent
+    data class SearchResults(val data: List<ShowItemModel>) : SearchContent
+    data class History(val data: List<SearchHistoryItemModel>): SearchContent
+    sealed class Error(val errorResourceId: StringResource) : SearchContent {
+        data object NoHistory : Error(Res.string.no_history_message)
+        data object NoHistoryForSpecificQuery : Error(Res.string.no_history_message)
+    }
 }

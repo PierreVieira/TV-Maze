@@ -1,16 +1,17 @@
 package org.pierre.tvmaze.feature.search.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import org.pierre.tvmaze.feature.search.domain.model.SearchBarPosition
+import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
 import org.pierre.tvmaze.model.common.ShowItemModel
 
 interface SearchRepository {
+    suspend fun insert(query: String, timestamp: Long): Result<Unit>
     suspend fun search(query: String): Result<List<ShowItemModel>>
-    suspend fun saveNewSearchBarPosition(position: SearchBarPosition)
-    fun getSearchBarPositionFlow(): Flow<SearchBarPosition>
+    suspend fun getAllSearches(): List<SearchHistoryItemModel>
+    suspend fun deleteSearchesByIds(ids: List<Long>)
+    suspend fun update(current: SearchHistoryItemModel)
 
     // Recent searches
-    suspend fun addRecentSearch(query: String)
-    fun observeRecentSearches(): Flow<List<String>>
+    fun getRecentSearchesFlow(): Flow<List<SearchHistoryItemModel>>
     suspend fun clearRecentSearches()
 }

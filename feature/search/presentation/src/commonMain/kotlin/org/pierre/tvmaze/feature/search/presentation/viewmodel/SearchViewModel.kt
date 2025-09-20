@@ -11,9 +11,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
 import org.pierre.tvmaze.feature.search.domain.model.SearchUseCases
 import org.pierre.tvmaze.feature.search.presentation.factory.InitialSearchStateFactory
 import org.pierre.tvmaze.feature.search.presentation.factory.SearchBarIconsFactory
+import org.pierre.tvmaze.feature.search.presentation.factory.SearchHistoryContentFactory
 import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiAction
@@ -24,8 +26,11 @@ import org.pierre.tvmaze.ui.utils.observe
 class SearchViewModel(
     initialSearchStateFactory: InitialSearchStateFactory,
     private val searchBarIconsFactory: SearchBarIconsFactory,
+    private val searchHistoryContentFactory: SearchHistoryContentFactory,
     private val searchUseCases: SearchUseCases,
 ) : ViewModel() {
+
+    private var searchHistory: List<SearchHistoryItemModel> = emptyList()
 
     private val _uiAction: Channel<SearchUiAction> = Channel()
     val uiAction: Flow<SearchUiAction> = _uiAction.receiveAsFlow()
@@ -41,11 +46,19 @@ class SearchViewModel(
                 )
             }
         }
+        observe(searchUseCases.getSearchHistoryFlow()) {
+            searchHistory = it
+            if (_uiState.value.content is SearchContent.Error.NoHistory && searchHistory.isNotEmpty()) {
+                _uiState.update { it.copy(content = SearchContent.History(searchHistory)) }
+            }
+        }
     }
 
     fun onEvent(uiEvent: SearchUiEvent) {
         when (uiEvent) {
-            is SearchUiEvent.OnQueryChange -> onQueryChanged(uiEvent.query)
+            is SearchUiEvent.OnQueryChange -> {
+                onQueryChanged(uiEvent.query)
+            }
 
             is SearchUiEvent.OnSearch -> onSearch()
 
@@ -68,6 +81,17 @@ class SearchViewModel(
             SearchUiEvent.OnDeleteHistoryClick,
             SearchUiEvent.OnDismissMenuClick,
                 -> hideMenu()
+
+            is SearchUiEvent.OnHistoryItemClick -> {
+                onQueryChanged(uiEvent.itemName)
+                onSearch()
+            }
+            is SearchUiEvent.OnFavoriteSearchResultItemClick -> Unit
+            is SearchUiEvent.OnSearchResultItemClick -> Unit
+
+            is SearchUiEvent.OnHistoryItemLongClick,
+            is SearchUiEvent.OnHistoryItemDeleteClick,
+                -> Unit
         }
     }
 
@@ -99,7 +123,7 @@ class SearchViewModel(
         hideMenu()
         _uiState.update {
             it.copy(
-                content = SearchContent.SearchResult(searchUseCases.getSearchItemsLoading())
+                content = SearchContent.SearchResults(searchUseCases.getSearchItemsLoading())
             )
         }
         viewModelScope.launch {
@@ -107,13 +131,10 @@ class SearchViewModel(
                 search(query)
                     .onSuccess { shows: List<ShowItemModel> ->
                         _uiState.update {
-                            it.copy(content = SearchContent.SearchResult(shows))
+                            it.copy(content = SearchContent.SearchResults(shows))
                         }
                     }
                     .onFailure { failure ->
-                        _uiState.update {
-                            it.copy(content = SearchContent.SearchResult(emptyList()))
-                        }
                         _uiAction.send(SearchUiAction.ShowError(getErrorTypeFromThrowable(failure)))
                     }
             }
@@ -121,20 +142,16 @@ class SearchViewModel(
     }
 
     private fun onQueryChanged(query: String) {
-        _uiState.update {
-            it.copy(
-                searchBar = it.searchBar.copy(
+        _uiState.update { currentState ->
+            val newContent = searchHistoryContentFactory.create(searchHistory, query)
+            currentState.copy(
+                searchBar = currentState.searchBar.copy(
                     query = query,
                     iconsModel = searchBarIconsFactory.create(
                         query = query
                     ),
                 ),
-                content =
-                    if (query.isEmpty()) {
-                        SearchContent.SearchResult(emptyList())
-                    } else {
-                        it.content
-                    }
+                content = newContent,
             )
         }
     }

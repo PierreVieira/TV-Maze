@@ -2,8 +2,10 @@ package org.pierre.tvmaze.ui.components.icon_button
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
@@ -26,6 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * @param imageVector The [ImageVector] that defines the icon to be displayed inside the button.
  * @param contentDescription The [String] providing a description of the icon, used for
  * accessibility (screen readers).
+ * @param tint The [Color] to be applied to the icon. Defaults to [LocalContentColor.current].
  * @param onClick The callback invoked when the button is clicked.
  */
 @Composable
@@ -33,6 +36,7 @@ fun CommonIconButton(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     contentDescription: String,
+    tint: Color = LocalContentColor.current,
     onClick: () -> Unit,
 ) {
     IconButton(
@@ -42,6 +46,7 @@ fun CommonIconButton(
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
+            tint = tint
         )
     }
 }

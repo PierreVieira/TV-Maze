@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     tableName = "last_searches",
     indices = [Index(value = ["query"], unique = true)]
 )
-data class LastSearchEntity(
+data class SearchHistoryItemEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val query: String,
     val timestamp: Long,

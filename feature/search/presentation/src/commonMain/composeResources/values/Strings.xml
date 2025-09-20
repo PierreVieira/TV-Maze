@@ -6,9 +6,11 @@
     <string name="move_to_bottom">Move to bottom</string>
     <string name="move_to_top">Move to top</string>
     <string name="delete_history">Delete history</string>
+    <string name="delete_history_item">Delete %s from history</string>
     <string name="search_error_empty_query">Type something to search.</string>
     <string name="search_error_network">Can’t reach the server. Check your connection.</string>
     <string name="search_error_unknown">Something went wrong. Please try again.</string>
     <string name="no_history_message">You don't have any history yet, search for something!</string>
+    <string name="no_history_for_specific_query">You don't have any history for this search yet, search for something!</string>
     <string name="no_results">No result!</string>
 </resources>

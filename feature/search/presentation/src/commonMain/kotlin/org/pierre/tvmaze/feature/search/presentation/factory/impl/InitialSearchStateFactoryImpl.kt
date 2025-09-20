@@ -13,7 +13,7 @@ internal class InitialSearchStateFactoryImpl(
 
     override fun create(): SearchState = SearchState(
         searchBar = getInitialSearchBarState(),
-        content = SearchContent.NoHistory,
+        content = SearchContent.Error.NoHistory,
     )
 
     private fun getInitialSearchBarState(): SearchBarState = SearchBarState(

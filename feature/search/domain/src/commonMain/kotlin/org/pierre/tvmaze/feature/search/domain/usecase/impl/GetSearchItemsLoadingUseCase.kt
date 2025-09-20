@@ -4,7 +4,7 @@ import org.pierre.tvmaze.feature.search.domain.usecase.GetSearchItemsLoading
 import org.pierre.tvmaze.model.common.ShowItemModel
 import org.pierre.tvmaze.model.data_status.DataStatusUtils
 
-class GetSearchItemsLoadingUseCase : GetSearchItemsLoading {
+internal class GetSearchItemsLoadingUseCase : GetSearchItemsLoading {
     override fun invoke(): List<ShowItemModel> {
         val loadingItem = DataStatusUtils.run {
             ShowItemModel(
@@ -15,6 +15,7 @@ class GetSearchItemsLoadingUseCase : GetSearchItemsLoading {
                 endedYear = loading,
                 stars = loading,
                 isFavorite = loading,
+                averageRanting = loading,
             )
         }
         return List(size = 8) { loadingItem }

@@ -1,29 +1,22 @@
 package org.pierre.tvmaze.search.data.repository
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import io.ktor.client.request.get
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.pierre.tvmaze.core.room_provider.dao.LastSearchesDao
-import org.pierre.tvmaze.core.room_provider.entity.LastSearchEntity
+import org.pierre.tvmaze.core.room_provider.entity.SearchHistoryItemEntity
 import org.pierre.tvmaze.dto.ShowResultDto
-import org.pierre.tvmaze.feature.search.domain.model.SearchBarPosition
+import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
 import org.pierre.tvmaze.feature.search.domain.repository.SearchRepository
 import org.pierre.tvmaze.mapper.ShowItemModelMapper
 import org.pierre.tvmaze.model.common.ShowItemModel
 import org.pierre.tvmaze.network.data.handler.RequestHandler
-import org.pierre.tvmaze.search.data.mapper.SearchPositionPreferencesMapper
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
+import org.pierre.tvmaze.search.data.mapper.SearchHistoryItemMapper
 
 internal class SearchRepositoryImpl(
-    private val dataStore: DataStore<Preferences>,
-    private val searchPositionMapper: SearchPositionPreferencesMapper,
     private val requestHandler: RequestHandler,
-    private val mapper: ShowItemModelMapper,
+    private val showItemModelMapper: ShowItemModelMapper,
+    private val searchHistoryItemMapper: SearchHistoryItemMapper,
     private val lastSearchesDao: LastSearchesDao,
 ) : SearchRepository {
 
@@ -31,33 +24,33 @@ internal class SearchRepositoryImpl(
         requestHandler.call<List<ShowResultDto>> {
             get("/search/shows?q=$query")
         }.map { shows ->
-            shows.mapNotNull(mapper::map)
+            shows.mapNotNull(showItemModelMapper::map)
         }
 
-    override suspend fun saveNewSearchBarPosition(position: SearchBarPosition) {
-        dataStore.edit {
-            it[stringPreferencesKey(SEARCH_BAR_POSITION)] =
-                searchPositionMapper.mapPositionToPreference(position)
+    override suspend fun getAllSearches(): List<SearchHistoryItemModel> =
+        lastSearchesDao.getAll().map(searchHistoryItemMapper::mapToDomain)
+
+    override suspend fun deleteSearchesByIds(ids: List<Long>) {
+        lastSearchesDao.deleteByIds(ids)
+    }
+
+    override suspend fun insert(query: String, timestamp: Long): Result<Unit> {
+        val insertId =
+            lastSearchesDao.insert(SearchHistoryItemEntity(query = query, timestamp = timestamp))
+        return if (insertId == NOT_FOUND_ID) {
+            Result.failure(IllegalArgumentException("Item already exists"))
+        } else {
+            Result.success(Unit)
         }
     }
 
-    override fun getSearchBarPositionFlow(): Flow<SearchBarPosition> = dataStore.data.map { value ->
-        searchPositionMapper.mapPreferenceToPosition(value[stringPreferencesKey(SEARCH_BAR_POSITION)])
+    override suspend fun update(current: SearchHistoryItemModel) {
+        lastSearchesDao.update(searchHistoryItemMapper.mapToEntity(current))
     }
 
-    // Recent searches
-    @OptIn(ExperimentalTime::class)
-    override suspend fun addRecentSearch(query: String) {
-        lastSearchesDao.upsertByQuery(
-            query = query.trim(),
-            timestamp = Clock.System.now().epochSeconds,
-            maxItems = MAX_RECENT_ITEMS,
-        )
-    }
-
-    override fun observeRecentSearches(): Flow<List<String>> =
-        lastSearchesDao.observeAll().map { list: List<LastSearchEntity> ->
-            list.map { it.query }
+    override fun getRecentSearchesFlow(): Flow<List<SearchHistoryItemModel>> =
+        lastSearchesDao.getAllAsFlow().map { entities: List<SearchHistoryItemEntity> ->
+            entities.map(searchHistoryItemMapper::mapToDomain)
         }
 
     override suspend fun clearRecentSearches() {
@@ -65,7 +58,6 @@ internal class SearchRepositoryImpl(
     }
 
     companion object {
-        private const val SEARCH_BAR_POSITION = "SEARCH_BAR_POSITION"
-        private const val MAX_RECENT_ITEMS = 15
+        private const val NOT_FOUND_ID = -1L
     }
 }
