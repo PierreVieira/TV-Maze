@@ -1,17 +1,12 @@
 package org.pierre.tvmaze.ui.components.picture
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import org.jetbrains.compose.resources.painterResource
-import org.pierre.tvmaze.components.shimmer.ShimmerComponent
 import org.pierre.tvmaze.ui.theme.isAppInDarkTheme
 import tvmaze.ui.components.picture.generated.resources.Res
 import tvmaze.ui.components.picture.generated.resources.img_fallback_dark
@@ -27,30 +22,14 @@ fun PictureCommon(
     onError: ((AsyncImagePainter.State.Error) -> Unit)? = null,
     contentDescription: String?,
 ) {
-
-    var isLoading by remember { mutableStateOf(false) }
-
-    if (isLoading) {
-        ShimmerComponent(modifier = modifier)
-    }
-
     AsyncImage(
         modifier = modifier,
-        model = url?.takeIf { it.isNotBlank() } ?: getDefaultImage(),
+        model = url?.takeIf { it.isNotBlank() },
         contentDescription = contentDescription,
         contentScale = contentScale,
         error = error ?: getDefaultImage(),
-        placeholder = placeholder,
-        onLoading = {
-            isLoading = true
-        },
-        onError = { state ->
-            isLoading = false
-            onError?.invoke(state)
-        },
-        onSuccess = {
-            isLoading = false
-        }
+        placeholder = placeholder ?: getDefaultImage(),
+        onError = { state -> onError?.invoke(state) }
     )
 }
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,6 +20,8 @@ import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
 import org.pierre.ui.components.stars.StarsComponent
 import tvmaze.ui.components.show_item_card.generated.resources.Res
 import tvmaze.ui.components.show_item_card.generated.resources.show_item_current
+import tvmaze.ui.components.show_item_card.generated.resources.show_item_no_dates
+import tvmaze.ui.components.show_item_card.generated.resources.show_item_no_stars
 
 @Composable
 internal fun NameWithDateAndStars(
@@ -58,7 +61,10 @@ internal fun NameWithDateAndStars(
                     }
                     Text(datesText)
                 }
-            }
+            } ?: Text(
+                text = stringResource(Res.string.show_item_no_dates),
+                style = MaterialTheme.typography.bodySmall,
+            )
 
             stars?.run {
                 VerticalSpacer(8)
@@ -70,7 +76,10 @@ internal fun NameWithDateAndStars(
                 ) { safeStars ->
                     StarsComponent(safeStars)
                 }
-            }
+            } ?: Text(
+                text = stringResource(Res.string.show_item_no_stars),
+                style = MaterialTheme.typography.bodySmall,
+            )
         }
     }
 }

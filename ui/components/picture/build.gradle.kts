@@ -39,6 +39,9 @@ kotlin {
 
             // Component
             implementation(projects.ui.components.shimmer)
+
+            // Core
+            implementation(projects.core.model.dataStatus)
         }
     }
 }

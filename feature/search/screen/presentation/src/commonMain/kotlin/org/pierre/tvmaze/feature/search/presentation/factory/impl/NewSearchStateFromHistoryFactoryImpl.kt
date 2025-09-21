@@ -15,13 +15,18 @@ class NewSearchStateFromHistoryFactoryImpl(
         currentState: SearchState,
     ): SearchState =
         when (currentState.content) {
-            is SearchContent.History, is SearchContent.Error.NoHistory -> {
+            SearchContent.Loading,
+            is SearchContent.History,
+            is SearchContent.Error.NoHistory,
+                -> {
                 val query = currentState.searchBar.query
                 currentState.copy(
                     content = searchHistoryContentFactory.create(searchHistory, query)
                 )
             }
 
-            else -> currentState
+            is SearchContent.Error.NoHistoryForSpecificQuery,
+            is SearchContent.SearchResults,
+                -> currentState
         }
 }
