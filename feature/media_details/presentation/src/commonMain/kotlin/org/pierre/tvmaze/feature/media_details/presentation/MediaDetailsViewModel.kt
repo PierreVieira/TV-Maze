@@ -12,25 +12,21 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.pierre.tvmaze.feature.favorites.domain.usecase.GetFavoritesFlow
-import org.pierre.tvmaze.feature.favorites.domain.usecase.ToggleFavorite
-import org.pierre.tvmaze.feature.media_details.domain.usecase.GetMediaDetails
+import org.pierre.tvmaze.feature.media_details.domain.model.MediaDetailsUseCases
 import org.pierre.tvmaze.feature.media_details.presentation.factory.LoadingMediaItemsModelFactory
-import org.pierre.tvmaze.model.common.route.MediaDetailsRoute
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiAction
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiState
 import org.pierre.tvmaze.model.common.media.MediaItemModel
+import org.pierre.tvmaze.model.common.route.MediaDetailsRoute
 import org.pierre.tvmaze.model.data_status.DataStatus
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.utils.observe
 
 class MediaDetailsViewModel(
     savedStateHandle: SavedStateHandle,
-    getFavoritesFlow: GetFavoritesFlow,
     loadingMediaItemsModelFactory: LoadingMediaItemsModelFactory,
-    private val getMediaDetails: GetMediaDetails,
-    private val toggleFavorite: ToggleFavorite,
+    private val useCases: MediaDetailsUseCases,
 ) : ViewModel() {
 
     private var favorites = emptyList<MediaItemModel>()
@@ -49,12 +45,12 @@ class MediaDetailsViewModel(
     private val mediaId: Long = savedStateHandle.toRoute<MediaDetailsRoute>().id
 
     init {
-        observe(getFavoritesFlow()) { favorites ->
+        observe(useCases.getFavoritesFlow()) { favorites ->
             this.favorites = favorites
             updateIsFavorite()
         }
         viewModelScope.launch {
-            val result = getMediaDetails(mediaId)
+            val result = useCases.getMediaDetails(mediaId)
             result.onSuccess { model ->
                 _uiState.update {
                     it.copy(itemModel = model)
@@ -93,7 +89,7 @@ class MediaDetailsViewModel(
         viewModelScope.launch {
             val current = _uiState.value.itemModel
             if ((current.id as? DataStatus.Loaded)?.data == id) {
-                toggleFavorite(current)
+                useCases.toggleFavorite(current)
             }
         }
     }

@@ -12,6 +12,7 @@ internal class EpisodeMapperImpl(
     override fun map(
         dto: EpisodeDto,
         mediaId: Long,
+        watchedIds: Set<Long>,
     ): EpisodeModel? = dto.run {
         EpisodeModel(
             id = id?.toLoadedStatus() ?: return null,
@@ -20,7 +21,7 @@ internal class EpisodeMapperImpl(
             number = number?.toLoadedStatus(),
             mediaId = mediaId,
             image = image?.let(mediaModelMapper::map)?.toLoadedStatus(),
-            isWatched = false.toLoadedStatus()
+            isWatched = watchedIds.contains(id).toLoadedStatus()
         )
     }
 }

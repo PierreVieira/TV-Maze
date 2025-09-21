@@ -28,6 +28,9 @@ kotlin {
             // Core
             implementation(projects.core.model.common)
 
+            // Features
+            implementation(projects.feature.favorites.domain)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

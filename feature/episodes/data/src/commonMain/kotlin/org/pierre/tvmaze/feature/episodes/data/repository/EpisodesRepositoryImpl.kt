@@ -7,11 +7,10 @@ import org.pierre.tvmaze.core.room_provider.dao.WatchedEpisodesDao
 import org.pierre.tvmaze.dto.episode.EpisodeDto
 import org.pierre.tvmaze.feature.episodes.data.mapper.EpisodeWatchedEntityMapper
 import org.pierre.tvmaze.feature.episodes.data.mapper.EpisodeWatchedModelMapper
+import org.pierre.tvmaze.feature.episodes.data.mapper.WatchedEpisodesIdsMapper
 import org.pierre.tvmaze.feature.episodes.domain.repository.EpisodesRepository
 import org.pierre.tvmaze.mapper.EpisodeMapper
 import org.pierre.tvmaze.model.common.episode.EpisodeModel
-import org.pierre.tvmaze.model.data_status.toLoadedInformation
-import org.pierre.tvmaze.model.data_status.toLoadedStatus
 import org.pierre.tvmaze.network.data.handler.RequestHandler
 
 internal class EpisodesRepositoryImpl(
@@ -20,6 +19,7 @@ internal class EpisodesRepositoryImpl(
     private val watchedEpisodesDao: WatchedEpisodesDao,
     private val episodeWatchedModelMapper: EpisodeWatchedModelMapper,
     private val episodeWatchedEntityMapper: EpisodeWatchedEntityMapper,
+    private val watchedEpisodesIdsMapper: WatchedEpisodesIdsMapper
 ) : EpisodesRepository {
     override suspend fun getEpisodes(mediaId: Long): Result<List<EpisodeModel>> =
         requestHandler.call<List<EpisodeDto>> {
@@ -27,7 +27,7 @@ internal class EpisodesRepositoryImpl(
         }.map { episodes: List<EpisodeDto> ->
             episodes.toDomain(
                 mediaId = mediaId,
-                watchedIds = watchedEpisodesDao.getByMediaId(mediaId).map { it.id }.toSet(),
+                watchedIds = watchedEpisodesIdsMapper.map(watchedEpisodesDao.getByMediaId(mediaId)),
             )
         }
 
@@ -38,15 +38,8 @@ internal class EpisodesRepositoryImpl(
         episodeMapper.map(
             dto = it,
             mediaId = mediaId,
+            watchedIds = watchedIds,
         )
-    }.map { model ->
-        val id = model.id.toLoadedInformation()?.data
-        val isWatched = id != null && watchedIds.contains(id)
-        if (isWatched) {
-            model.copy(isWatched = true.toLoadedStatus())
-        } else {
-            model
-        }
     }
 
     override fun getWatchedEpisodesFlow(mediaId: Long): Flow<List<EpisodeModel>> =
