@@ -60,6 +60,8 @@ include(":ui:components:picture")
 // Features
 include(":feature:main")
 include(":feature:favorites:presentation")
+include(":feature:favorites:domain")
+include(":feature:favorites:data")
 include(":feature:search:screen:presentation")
 include(":feature:search:screen:domain")
 include(":feature:search:screen:data")

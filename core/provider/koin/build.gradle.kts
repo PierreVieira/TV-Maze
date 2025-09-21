@@ -38,6 +38,8 @@ kotlin {
             implementation(projects.feature.search.warning.deleteAll.data)
             implementation(projects.feature.search.warning.deleteAll.domain)
             implementation(projects.feature.search.warning.deleteAll.presentation)
+            implementation(projects.feature.favorites.data)
+            implementation(projects.feature.favorites.domain)
             implementation(projects.feature.favorites.presentation)
             implementation(projects.feature.themeSelection.data)
             implementation(projects.feature.themeSelection.domain)
