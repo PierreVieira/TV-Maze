@@ -16,6 +16,7 @@ internal fun NavGraphBuilder.detailMedia(navHostController: NavHostController) {
     composable<MediaDetailsRoute> {
         val viewModel: MediaDetailsViewModel = koinViewModel()
         val state by viewModel.uiState.collectAsState()
+        val isSummaryExpanded by viewModel.isSummaryExpanded.collectAsState()
         ActionCollector(viewModel.uiAction) { action ->
             when (action) {
                 MediaDetailsUiAction.NavigateBack -> navHostController.navigateUp()
@@ -23,6 +24,7 @@ internal fun NavGraphBuilder.detailMedia(navHostController: NavHostController) {
         }
         MediaDetailsScreen(
             mediaItemModel = state,
+            isSummaryExpanded = isSummaryExpanded,
             onEvent = viewModel::onEvent,
         )
     }

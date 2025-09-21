@@ -2,4 +2,8 @@
     <string name="show_item_current">Em exibição</string>
     <string name="show_item_no_dates">Sem datas disponíveis</string>
     <string name="show_item_no_stars">Sem avaliação disponível</string>
+    <string name="media_details_start_label">Início:</string>
+    <string name="media_details_end_label">Fim:</string>
+    <string name="media_details_show_more">Ver mais</string>
+    <string name="media_details_show_less">Ver menos</string>
 </resources>

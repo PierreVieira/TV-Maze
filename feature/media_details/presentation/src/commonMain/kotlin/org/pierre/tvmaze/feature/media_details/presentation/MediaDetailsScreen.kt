@@ -17,6 +17,7 @@ import org.pierre.tvmaze.model.common.MediaItemModel
 @Composable
 fun MediaDetailsScreen(
     mediaItemModel: MediaItemModel,
+    isSummaryExpanded: Boolean,
     onEvent: (MediaDetailsUiEvent) -> Unit,
 ) {
     Scaffold(
@@ -40,6 +41,8 @@ fun MediaDetailsScreen(
             item {
                 MediaDetailsContent(
                     mediaItemModel = mediaItemModel,
+                    isSummaryExpanded = isSummaryExpanded,
+                    onEvent = onEvent,
                 )
             }
         }

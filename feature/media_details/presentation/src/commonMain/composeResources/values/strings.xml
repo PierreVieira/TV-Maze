@@ -2,4 +2,8 @@
     <string name="show_item_current">Current</string>
     <string name="show_item_no_dates">No dates available</string>
     <string name="show_item_no_stars">No rating available</string>
+    <string name="media_details_start_label">Start:</string>
+    <string name="media_details_end_label">End:</string>
+    <string name="media_details_show_more">Show more</string>
+    <string name="media_details_show_less">Show less</string>
 </resources>

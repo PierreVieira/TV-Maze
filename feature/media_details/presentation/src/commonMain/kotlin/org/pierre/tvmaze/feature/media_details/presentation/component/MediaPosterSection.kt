@@ -2,10 +2,8 @@ package org.pierre.tvmaze.feature.media_details.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,17 +12,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.compose.AsyncImagePainter
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
 import org.pierre.tvmaze.model.common.MediaItemModel
-import org.pierre.tvmaze.ui.utils.blendOver
-import org.pierre.tvmaze.ui.utils.dominantColorOf
 
 @Composable
 internal fun MediaPosterSection(
@@ -33,33 +28,31 @@ internal fun MediaPosterSection(
     val neutralColor = MaterialTheme.colorScheme.surfaceVariant
     var backdropColor by remember { mutableStateOf(neutralColor) }
 
+    val posterShape = RectangleShape
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(backdropColor)
-            .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 12.dp),
+            .background(backdropColor),
         contentAlignment = Alignment.Center
     ) {
+        val baseModifier = Modifier
+            .fillMaxWidth(0.72f)
+            .aspectRatio(2f / 3f)
         mediaItemModel.image?.ToContent(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(360.dp),
-            variant = ShimmerVariant.Rectangle(RoundedCornerShape(12.dp)),
+            modifier = baseModifier,
+            variant = ShimmerVariant.Rectangle(posterShape),
         ) { url ->
             AsyncImage(
                 model = url,
                 contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(360.dp)
-                    .shadow(12.dp, RoundedCornerShape(12.dp), clip = false)
-                    .clip(RoundedCornerShape(12.dp)),
-                onSuccess = { success: AsyncImagePainter.State.Success ->
-                    val image = success.result.image
-                    if (image is ImageBitmap) {
-                        backdropColor = dominantColorOf(image).blendOver(neutralColor)
-                    }
-                }
+                contentScale = ContentScale.Crop,
+                modifier = baseModifier
+                    .graphicsLayer {
+                        shape = posterShape
+                        clip = true
+                        shadowElevation = 12.dp.toPx()
+                    },
             )
         }
     }

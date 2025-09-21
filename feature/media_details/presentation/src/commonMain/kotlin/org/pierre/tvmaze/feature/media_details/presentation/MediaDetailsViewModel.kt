@@ -35,6 +35,9 @@ class MediaDetailsViewModel(
     private val _uiState: MutableStateFlow<MediaItemModel> = MutableStateFlow(createLoadingModel())
     val uiState: StateFlow<MediaItemModel> = _uiState.asStateFlow()
 
+    private val _isSummaryExpanded = MutableStateFlow(false)
+    val isSummaryExpanded: StateFlow<Boolean> = _isSummaryExpanded.asStateFlow()
+
     private val mediaId: Long = savedStateHandle.toRoute<MediaDetailsRoute>().id
 
     init {
@@ -56,7 +59,12 @@ class MediaDetailsViewModel(
         when (event) {
             MediaDetailsUiEvent.OnBackClick -> onBack()
             is MediaDetailsUiEvent.OnFavoriteClick -> onFavoriteClick(event.id)
+            MediaDetailsUiEvent.OnToggleSummaryExpansion -> toggleSummaryExpansion()
         }
+    }
+
+    private fun toggleSummaryExpansion() {
+        _isSummaryExpanded.value = !_isSummaryExpanded.value
     }
 
     private fun onBack() {
