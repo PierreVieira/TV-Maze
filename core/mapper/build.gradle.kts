@@ -30,6 +30,9 @@ kotlin {
             implementation(projects.core.model.common)
             implementation(projects.core.model.dataStatus)
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
     }
 }
 
