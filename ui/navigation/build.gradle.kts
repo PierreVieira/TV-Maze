@@ -37,10 +37,12 @@ kotlin {
             implementation(projects.feature.search.warning.deleteItem.presentation)
             implementation(projects.feature.search.warning.deleteAll.presentation)
             implementation(projects.feature.mediaDetails.presentation)
+            implementation(projects.feature.episodes.presentation)
 
             // Core
             implementation(projects.core.utils)
             implementation(projects.core.model.common)
+            implementation(projects.core.model.dataStatus)
 
             // UI
             implementation(projects.ui.utils)
