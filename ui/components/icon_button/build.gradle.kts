@@ -28,6 +28,9 @@ kotlin {
             implementation(compose.materialIconsExtended)
             implementation(compose.ui)
             implementation(compose.components.resources)
+
+            // Theme
+            implementation(projects.ui.theme)
         }
     }
 }
