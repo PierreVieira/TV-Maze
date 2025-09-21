@@ -39,6 +39,7 @@ kotlin {
 
             // Features
             implementation(projects.feature.search.screen.domain)
+            implementation(projects.feature.favorites.domain)
 
             // Core
             implementation(projects.core.utils)

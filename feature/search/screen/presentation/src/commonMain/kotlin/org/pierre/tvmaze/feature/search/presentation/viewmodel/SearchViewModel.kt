@@ -19,6 +19,8 @@ import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiAction
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
 import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.model.data_status.DataStatus
+import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.utils.observe
 
 class SearchViewModel(
@@ -27,6 +29,7 @@ class SearchViewModel(
 ) : ViewModel() {
 
     private var searchHistory: List<SearchHistoryItemModel> = emptyList()
+    private var favorites = emptyList<ShowItemModel>()
 
     private val _uiAction: Channel<SearchUiAction> = Channel()
     val uiAction: Flow<SearchUiAction> = _uiAction.receiveAsFlow()
@@ -46,12 +49,37 @@ class SearchViewModel(
             flow = useCases.getSearchHistoryFlow(),
             collector = ::onHistoryModelObserveCallback
         )
+        observe(
+            flow = useCases.getFavoritesFlow(),
+            collector = ::onFavoritesModelObserveCallback
+        )
     }
 
     private fun onHistoryModelObserveCallback(models: List<SearchHistoryItemModel>) {
         searchHistory = models
         _uiState.update { currentState ->
             factories.newSearchStateFromHistory.create(searchHistory, currentState)
+        }
+    }
+
+    private fun onFavoritesModelObserveCallback(newFavoritesModel: List<ShowItemModel>) {
+        favorites = newFavoritesModel
+        _uiState.update { currentState ->
+            if (currentState.content is SearchContent.SearchResults) {
+                currentState.copy(
+                    content = SearchContent.SearchResults(
+                        data = currentState.content.data.map {
+                            it.copy(
+                                isFavorite = newFavoritesModel.find { model ->
+                                    model.id.toLoadedData() == it.id.toLoadedData()
+                                }?.isFavorite ?: DataStatus.Loaded(false)
+                            )
+                        }
+                    )
+                )
+            } else {
+                currentState
+            }
         }
     }
 
@@ -85,6 +113,7 @@ class SearchViewModel(
                     _uiAction.send(SearchUiAction.NavigateToDeleteAllSearchHistory)
                 }
             }
+
             SearchUiEvent.OnDismissMenuClick,
                 -> hideMenu()
 
@@ -93,7 +122,14 @@ class SearchViewModel(
                 onSearch()
             }
 
-            is SearchUiEvent.OnFavoriteSearchResultItemClick -> Unit
+            is SearchUiEvent.OnFavoriteSearchResultItemClick -> viewModelScope.launch {
+                (uiState.value.content as? SearchContent.SearchResults)
+                    ?.data
+                    ?.find { searchResultItem ->
+                        searchResultItem.id.toLoadedData() == uiEvent.id
+                    }?.let { useCases.toggleFavorite(it) }
+            }
+
             is SearchUiEvent.OnSearchResultItemClick -> Unit
 
             is SearchUiEvent.OnHistoryItemLongClick -> showDeleteItemDialog(

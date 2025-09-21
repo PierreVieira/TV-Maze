@@ -1,5 +1,7 @@
 package org.pierre.tvmaze.feature.search.domain.model
 
+import org.pierre.tvmaze.feature.favorites.domain.usecase.GetFavoritesFlow
+import org.pierre.tvmaze.feature.favorites.domain.usecase.ToggleFavorite
 import org.pierre.tvmaze.feature.search.domain.usecase.GetDurationDisappearMenuDuration
 import org.pierre.tvmaze.feature.search.domain.usecase.GetErrorTypeFromThrowable
 import org.pierre.tvmaze.feature.search.domain.usecase.GetNewSearchBarPositionDueToToggle
@@ -18,4 +20,6 @@ data class SearchUseCases(
     val getErrorTypeFromThrowable: GetErrorTypeFromThrowable,
     val getSearchItemsLoading: GetSearchItemsLoading,
     val getSearchHistoryFlow: GetSearchHistoryFlow,
+    val toggleFavorite: ToggleFavorite,
+    val getFavoritesFlow: GetFavoritesFlow
 )

@@ -21,6 +21,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            // Coroutines
+            implementation(libs.kotlinx.coroutines.core)
+
             // Koin (feature DI)
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)

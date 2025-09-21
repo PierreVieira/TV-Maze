@@ -15,4 +15,6 @@ data class FavoriteShowEntity(
     val startYear: Int?,
     val endYear: Int?,
     val averageRating: Double?,
+    val fullStarsAmount: Int?,
+    val showStarInAHalf: Boolean?,
 )

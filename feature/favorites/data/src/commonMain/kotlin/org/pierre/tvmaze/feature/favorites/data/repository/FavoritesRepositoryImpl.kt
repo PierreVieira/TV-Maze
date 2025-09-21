@@ -1,7 +1,10 @@
 package org.pierre.tvmaze.feature.favorites.data.repository
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.pierre.tvmaze.core.room_provider.dao.FavoriteShowsDao
 import org.pierre.tvmaze.feature.favorites.data.mapper.FavoriteShowEntityMapper
+import org.pierre.tvmaze.feature.favorites.data.mapper.FavoriteShowModelMapper
 import org.pierre.tvmaze.feature.favorites.domain.repository.FavoritesRepository
 import org.pierre.tvmaze.model.common.ShowItemModel
 import org.pierre.tvmaze.model.data_status.toLoadedData
@@ -9,6 +12,7 @@ import org.pierre.tvmaze.model.data_status.toLoadedData
 class FavoritesRepositoryImpl(
     private val dao: FavoriteShowsDao,
     private val favoriteShowEntityMapper: FavoriteShowEntityMapper,
+    private val favoriteShowModelMapper: FavoriteShowModelMapper,
 ) : FavoritesRepository {
 
     override suspend fun toggleFavorite(show: ShowItemModel): Result<Unit> {
@@ -22,6 +26,13 @@ class FavoritesRepositoryImpl(
             runCatching { dao.upsert(entity) }
         }
     }
+
+    override fun getAllFavoritesAsFlow(): Flow<List<ShowItemModel>> =
+        dao.getAllAsFlow().map { favoriteShowEntities ->
+            favoriteShowEntities.map(favoriteShowModelMapper::map)
+        }
+
+    override suspend fun getAllFavorites(): List<ShowItemModel> = dao.getAll().map(favoriteShowModelMapper::map)
 
     private fun failure(message: String): Result<Unit> = Result.failure(IllegalStateException(message))
 

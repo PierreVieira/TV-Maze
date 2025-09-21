@@ -17,6 +17,9 @@ class FavoriteShowEntityMapperImpl : FavoriteShowEntityMapper {
             null -> null to null
         }
         val averageRating = averageRanting?.toLoadedData()
+        val starsLoaded = stars?.toLoadedData()
+        val fullStarsAmount = starsLoaded?.fullStarsAmount
+        val showInAHalf = starsLoaded?.showInAHalf
         return FavoriteShowEntity(
             id = id,
             name = name,
@@ -24,6 +27,8 @@ class FavoriteShowEntityMapperImpl : FavoriteShowEntityMapper {
             startYear = startYear,
             endYear = endYear,
             averageRating = averageRating,
+            fullStarsAmount = fullStarsAmount,
+            showStarInAHalf = showInAHalf,
         )
     }
 }

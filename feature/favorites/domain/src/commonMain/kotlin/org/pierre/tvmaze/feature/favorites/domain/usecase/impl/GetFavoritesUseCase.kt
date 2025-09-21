@@ -1,11 +1,11 @@
 package org.pierre.tvmaze.feature.favorites.domain.usecase.impl
 
 import org.pierre.tvmaze.feature.favorites.domain.repository.FavoritesRepository
-import org.pierre.tvmaze.feature.favorites.domain.usecase.ToggleFavorite
+import org.pierre.tvmaze.feature.favorites.domain.usecase.GetFavorites
 import org.pierre.tvmaze.model.common.ShowItemModel
 
-class ToggleFavoriteUseCase(
+internal class GetFavoritesUseCase(
     private val repository: FavoritesRepository,
-) : ToggleFavorite {
-    override suspend fun invoke(show: ShowItemModel): Result<Unit> = repository.toggleFavorite(show)
+) : GetFavorites {
+    override suspend fun invoke(): List<ShowItemModel> = repository.getAllFavorites()
 }

@@ -13,4 +13,5 @@
     <string name="no_history_for_specific_query">Você não tem nenhum histórico para %1$s ainda, faça uma pesquisa!</string>
     <string name="no_results">Sem resultados!</string>
     <string name="search_history_header_title">Histórico de pesquisa</string>
+    <string name="search_error_not_possible_to_perform_favorite_toggle">Não foi possível atualizar o status de favorito. Tente novamente.</string>
 </resources>

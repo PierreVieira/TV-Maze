@@ -31,6 +31,9 @@ kotlin {
             // Models
             implementation(projects.core.model.dataStatus)
             implementation(projects.core.model.common)
+
+            // Favorites Domain
+            implementation(projects.feature.favorites.domain)
         }
     }
 }
