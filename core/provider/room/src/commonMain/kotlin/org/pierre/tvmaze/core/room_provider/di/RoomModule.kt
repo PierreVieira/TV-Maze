@@ -13,8 +13,10 @@ val roomModule = module {
         builder
             .setDriver(BundledSQLiteDriver())
             .setQueryCoroutineContext(Dispatchers.IO)
+            .fallbackToDestructiveMigration(true)
             .build()
     }
 
     single { get<AppDatabase>().lastSearchDao() }
+    single { get<AppDatabase>().favoriteShowsDao() }
 }

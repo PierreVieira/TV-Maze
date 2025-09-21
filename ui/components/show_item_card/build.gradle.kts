@@ -28,6 +28,10 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
 
+            // Coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network)
+
             // Core
             implementation(projects.core.model.dataStatus)
             implementation(projects.core.model.common)
