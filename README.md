@@ -1,6 +1,6 @@
 # TV Maze - Aplicativo de Séries de TV
 
-Este é um projeto **Kotlin Multiplatform** que tem como objetivo criar uma experiência interativa e completa para explorar, pesquisar e gerenciar séries de TV. O aplicativo utiliza a API pública [The TV Maze](https://www.tvmaze.com/api) para fornecer informações detalhadas sobre séries e episódios.
+Este é um projeto **Kotlin Multiplatform**/**Compose Multiplatform** que tem como objetivo criar uma experiência interativa e completa para explorar, pesquisar e gerenciar séries de TV. O aplicativo utiliza a API pública [The TV Maze](https://www.tvmaze.com/api) para fornecer informações detalhadas sobre séries e episódios.
 
 ## 🎯 O que o projeto faz?
 
