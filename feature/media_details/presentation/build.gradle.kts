@@ -51,6 +51,8 @@ kotlin {
             // Features
             implementation(projects.feature.mediaDetails.domain)
             implementation(projects.feature.favorites.domain)
+            implementation(projects.feature.episodes.domain)
+            implementation(projects.feature.episodes.presentation)
 
             // Components
             implementation(projects.ui.utils)

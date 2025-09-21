@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.pierre.tvmaze.core.room_provider.dao.WatchedEpisodesDao
 import org.pierre.tvmaze.dto.episode.EpisodeDto
+import org.pierre.tvmaze.feature.episodes.data.mapper.EpisodeWatchedEntityMapper
 import org.pierre.tvmaze.feature.episodes.data.mapper.EpisodeWatchedModelMapper
 import org.pierre.tvmaze.feature.episodes.domain.repository.EpisodesRepository
 import org.pierre.tvmaze.mapper.EpisodeMapper
@@ -16,6 +17,7 @@ internal class EpisodesRepositoryImpl(
     private val episodeMapper: EpisodeMapper,
     private val watchedEpisodesDao: WatchedEpisodesDao,
     private val episodeWatchedModelMapper: EpisodeWatchedModelMapper,
+    private val episodeWatchedEntityMapper: EpisodeWatchedEntityMapper,
 ) : EpisodesRepository {
     override suspend fun getEpisodes(mediaId: Long): Result<List<EpisodeModel>> =
         requestHandler.call<List<EpisodeDto>> {
@@ -33,4 +35,13 @@ internal class EpisodesRepositoryImpl(
         watchedEpisodesDao.getByMediaIdAsFlow(mediaId).map { episodes ->
             episodes.map(episodeWatchedModelMapper::map)
         }
+
+    override suspend fun upsertWatchedEpisode(episode: EpisodeModel) {
+        val entity = episodeWatchedEntityMapper.mapOrNull(episode) ?: return
+        watchedEpisodesDao.upsert(entity)
+    }
+
+    override suspend fun deleteWatchedEpisodeById(id: Long) {
+        watchedEpisodesDao.deleteById(id)
+    }
 }

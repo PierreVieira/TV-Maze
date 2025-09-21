@@ -6,4 +6,7 @@ import org.pierre.tvmaze.model.common.episode.EpisodeModel
 interface EpisodesRepository {
     suspend fun getEpisodes(mediaId: Long): Result<List<EpisodeModel>>
     fun getWatchedEpisodesFlow(mediaId: Long): Flow<List<EpisodeModel>>
+
+    suspend fun upsertWatchedEpisode(episode: EpisodeModel)
+    suspend fun deleteWatchedEpisodeById(id: Long)
 }

@@ -17,9 +17,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Event
@@ -39,7 +39,10 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
+import org.pierre.tvmaze.feature.episodes.domain.model.SeasonModel
+import org.pierre.tvmaze.feature.episodes.presentation.component.episodesSeasonsList
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
+import org.pierre.tvmaze.model.common.episode.EpisodeModel
 import org.pierre.tvmaze.model.common.media.MediaItemDatesModel
 import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
@@ -51,28 +54,51 @@ import tvmaze.feature.media_details.presentation.generated.resources.media_detai
 import tvmaze.feature.media_details.presentation.generated.resources.media_details_show_less
 import tvmaze.feature.media_details.presentation.generated.resources.media_details_show_more
 
-@Composable
-internal fun MediaDetailsContent(
-    modifier: Modifier = Modifier,
+internal fun LazyListScope.mediaDetailsContent(
     mediaItemModel: MediaItemModel,
+    seasons: List<SeasonModel>,
+    collapsedSeasons: Set<Int>,
     isSummaryExpanded: Boolean,
     onEvent: (MediaDetailsUiEvent) -> Unit,
+    onEpisodeCheckedChange: (EpisodeModel) -> Unit,
+    onToggleSeason: (Int) -> Unit,
 ) {
-    Column(
-        modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-            .fillMaxWidth()
-    ) {
+    item {
         Title(mediaItemModel)
+    }
+    item {
         VerticalSpacer(8)
+    }
+    item {
         DatesRow(mediaItemModel)
+    }
+    item {
         VerticalSpacer(8)
+    }
+    item {
         GenresText(mediaItemModel)
+    }
+    item {
         VerticalSpacer(12)
+    }
+    item {
         StarsRow(mediaItemModel)
+    }
+    item {
         VerticalSpacer(12)
+    }
+    item {
         SummaryText(mediaItemModel, isSummaryExpanded, onEvent)
     }
+    item {
+        VerticalSpacer()
+    }
+    episodesSeasonsList(
+        seasons = seasons,
+        onEpisodeCheckedChange = onEpisodeCheckedChange,
+        onToggleSeason = onToggleSeason,
+        collapsedSeasons = collapsedSeasons
+    )
 }
 
 @Composable
@@ -201,7 +227,10 @@ private fun SummaryText(
                 exit = fadeOut() + shrinkVertically()
             ) {
                 VerticalSpacer(4)
-                Crossfade(targetState = isExpanded, label = "summary-action-crossfade") { expanded ->
+                Crossfade(
+                    targetState = isExpanded,
+                    label = "summary-action-crossfade"
+                ) { expanded ->
                     val actionText = stringResource(
                         if (expanded) Res.string.media_details_show_less
                         else Res.string.media_details_show_more

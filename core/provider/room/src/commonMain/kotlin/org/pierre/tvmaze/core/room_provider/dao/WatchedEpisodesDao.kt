@@ -14,4 +14,7 @@ interface WatchedEpisodesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(entity: WatchedEpisodeEntity)
+
+    @Query("DELETE FROM watched_episodes WHERE id = :id")
+    suspend fun deleteById(id: Long)
 }

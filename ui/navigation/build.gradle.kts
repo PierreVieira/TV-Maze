@@ -33,6 +33,7 @@ kotlin {
 
             // Features
             implementation(projects.feature.main)
+            implementation(projects.feature.episodes.domain)
             implementation(projects.feature.search.warning.deleteItem.presentation)
             implementation(projects.feature.search.warning.deleteAll.presentation)
             implementation(projects.feature.mediaDetails.presentation)

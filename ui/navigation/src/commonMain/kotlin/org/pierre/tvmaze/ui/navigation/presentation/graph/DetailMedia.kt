@@ -11,11 +11,13 @@ import org.pierre.tvmaze.feature.media_details.presentation.MediaDetailsViewMode
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsRoute
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiAction
 import org.pierre.tvmaze.ui.utils.ActionCollector
+import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
 
 internal fun NavGraphBuilder.detailMedia(navHostController: NavHostController) {
     composable<MediaDetailsRoute> {
         val viewModel: MediaDetailsViewModel = koinViewModel()
         val state by viewModel.uiState.collectAsState()
+        val seasons by viewModel.seasons.collectAsState()
         val isSummaryExpanded by viewModel.isSummaryExpanded.collectAsState()
         ActionCollector(viewModel.uiAction) { action ->
             when (action) {
@@ -24,8 +26,10 @@ internal fun NavGraphBuilder.detailMedia(navHostController: NavHostController) {
         }
         MediaDetailsScreen(
             mediaItemModel = state,
+            seasons = seasons,
             isSummaryExpanded = isSummaryExpanded,
             onEvent = viewModel::onEvent,
+            onEpisodeCheckedChange = { episode -> viewModel.onEvent(MediaDetailsUiEvent.OnToggleEpisodeWatched(episode)) },
         )
     }
 }
