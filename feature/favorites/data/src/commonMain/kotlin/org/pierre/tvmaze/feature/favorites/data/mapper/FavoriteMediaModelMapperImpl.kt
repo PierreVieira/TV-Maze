@@ -7,7 +7,7 @@ import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.common.media.StarsModel
 import org.pierre.tvmaze.model.data_status.DataStatus
 
-class FavoriteShowModelMapperImpl : FavoriteShowModelMapper {
+class FavoriteMediaModelMapperImpl : FavoriteMediaModelMapper {
     override fun map(entity: FavoriteMediaEntity): MediaItemModel = with(entity) {
         val start = startYear
         val end = endYear

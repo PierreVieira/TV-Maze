@@ -5,7 +5,7 @@ import org.pierre.tvmaze.model.common.media.MediaItemDatesModel
 import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.toLoadedData
 
-class FavoriteShowEntityMapperImpl : FavoriteShowEntityMapper {
+class FavoriteMediaEntityMapperImpl : FavoriteMediaEntityMapper {
     override fun mapOrNull(model: MediaItemModel): FavoriteMediaEntity? = with(model) {
         val id = id.toLoadedData() ?: return null
         val name = name.toLoadedData() ?: return null
