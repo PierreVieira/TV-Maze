@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import org.pierre.tvmaze.ui.navigation.presentation.graph.deleteSearchItem
 import org.pierre.tvmaze.ui.navigation.presentation.graph.mainScreen
 import org.pierre.tvmaze.ui.navigation.presentation.graph.deleteAllSearch
+import org.pierre.tvmaze.ui.navigation.presentation.graph.detailMedia
 
 fun NavGraphBuilder.buildNavHost(
     navHostController: NavHostController,
@@ -20,4 +21,5 @@ fun NavGraphBuilder.buildNavHost(
     )
     deleteSearchItem(navHostController)
     deleteAllSearch(navHostController)
+    detailMedia(navHostController)
 }

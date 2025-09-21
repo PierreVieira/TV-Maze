@@ -19,6 +19,7 @@ fun SearchActionCollector(
     snackbarHostState: SnackbarHostState,
     goToDeleteSearchHistoryItem: (id: Long, name: String) -> Unit,
     goToDeleteAllSearchHistory: () -> Unit,
+    goToMediaDetails: (id: Long) -> Unit,
 ) {
     val emptyQueryMsg = stringResource(Res.string.search_error_empty_query)
     val networkErrorMsg = stringResource(Res.string.search_error_network)
@@ -45,6 +46,7 @@ fun SearchActionCollector(
                 action.name
             )
             SearchUiAction.NavigateToDeleteAllSearchHistory -> goToDeleteAllSearchHistory()
+            is SearchUiAction.NavigateToMediaDetails -> goToMediaDetails(action.id)
         }
     }
 }

@@ -51,9 +51,11 @@ kotlin {
             implementation(projects.feature.favorites.presentation)
             implementation(projects.feature.search.screen.domain)
             implementation(projects.feature.search.screen.presentation)
+            implementation(projects.feature.mediaDetails.presentation)
 
             // UI
             implementation(projects.ui.theme)
+            implementation(projects.ui.utils)
         }
     }
 }

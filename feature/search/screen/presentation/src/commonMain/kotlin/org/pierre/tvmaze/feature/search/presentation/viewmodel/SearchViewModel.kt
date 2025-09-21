@@ -130,7 +130,9 @@ class SearchViewModel(
                     }?.let { useCases.toggleFavorite(it) }
             }
 
-            is SearchUiEvent.OnSearchResultItemClick -> Unit
+            is SearchUiEvent.OnSearchResultItemClick -> viewModelScope.launch {
+                _uiAction.send(SearchUiAction.NavigateToMediaDetails(uiEvent.id))
+            }
 
             is SearchUiEvent.OnHistoryItemLongClick -> showDeleteItemDialog(
                 name = uiEvent.name,

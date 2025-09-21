@@ -23,7 +23,7 @@ fun BottomNavHost(
         startDestination = BottomNavRoute.Search,
     ) {
         search(appNavHostController)
-        favorites()
+        favorites(appNavHostController)
         themeSettings(switchPlatformColorSchemeComponent)
     }
 }
