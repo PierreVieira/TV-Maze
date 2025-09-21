@@ -11,29 +11,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
-import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.model.common.MediaItemCard
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.components.icon_button.FavoriteIconButton
 
 @Composable
-fun ShowItemCardComponent(
-    showItemModel: ShowItemModel,
+fun MediaItemCard(
+    mediaItemCard: MediaItemCard,
     onCardClick: (id: Long) -> Unit,
     onFavoriteClick: (id: Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val loadedId = showItemModel.id.toLoadedData()
+    val loadedId = mediaItemCard.id.toLoadedData()
     Card(
         onClick = { loadedId?.let(onCardClick) },
         modifier = modifier,
     ) {
-        showItemModel.run {
+        mediaItemCard.run {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                ShowItemCardLeftContent(
-                    showItemModel = showItemModel,
+                MediaItemCardLeftContent(
+                    mediaItemCard = mediaItemCard,
                     modifier = Modifier.weight(1f),
                 )
                 isFavorite.ToContent(

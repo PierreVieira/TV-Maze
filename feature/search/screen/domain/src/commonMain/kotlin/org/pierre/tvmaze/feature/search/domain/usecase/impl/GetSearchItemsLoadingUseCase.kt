@@ -1,13 +1,13 @@
 package org.pierre.tvmaze.feature.search.domain.usecase.impl
 
 import org.pierre.tvmaze.feature.search.domain.usecase.GetSearchItemsLoading
-import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.model.common.MediaItemCard
 import org.pierre.tvmaze.model.data_status.DataStatusUtils
 
 internal class GetSearchItemsLoadingUseCase : GetSearchItemsLoading {
-    override fun invoke(): List<ShowItemModel> {
+    override fun invoke(): List<MediaItemCard> {
         val loadingItem = DataStatusUtils.run {
-            ShowItemModel(
+            MediaItemCard(
                 id = loading,
                 name = loading,
                 image = loading,

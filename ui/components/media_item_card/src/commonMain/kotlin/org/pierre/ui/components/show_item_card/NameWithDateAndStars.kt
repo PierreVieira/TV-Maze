@@ -1,4 +1,4 @@
-package org.pierre.ui.components.show_item_card
+package org.pierre.ui.components.media_item_card
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,25 +14,25 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
-import org.pierre.tvmaze.model.common.ShowItemDatesModel
-import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.model.common.MediaItemDatesModel
+import org.pierre.tvmaze.model.common.MediaItemCard
 import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
 import org.pierre.ui.components.stars.StarsComponent
-import tvmaze.ui.components.show_item_card.generated.resources.Res
-import tvmaze.ui.components.show_item_card.generated.resources.show_item_current
-import tvmaze.ui.components.show_item_card.generated.resources.show_item_no_dates
-import tvmaze.ui.components.show_item_card.generated.resources.show_item_no_stars
+import tvmaze.ui.components.media_item_card.generated.resources.Res
+import tvmaze.ui.components.media_item_card.generated.resources.show_item_current
+import tvmaze.ui.components.media_item_card.generated.resources.show_item_no_dates
+import tvmaze.ui.components.media_item_card.generated.resources.show_item_no_stars
 
 @Composable
 internal fun NameWithDateAndStars(
-    showItemModel: ShowItemModel,
+    mediaItemCard: MediaItemCard,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
     ) {
-        showItemModel.run {
+        mediaItemCard.run {
             name.ToContent(
                 modifier = Modifier
                     .fillMaxWidth(0.5f)
@@ -54,9 +54,9 @@ internal fun NameWithDateAndStars(
                         .height(10.dp),
                 ) { datesModel ->
                     val datesText = when (datesModel) {
-                        is ShowItemDatesModel.Running ->
+                        is MediaItemDatesModel.Running ->
                             "${datesModel.startYear} - ${stringResource(Res.string.show_item_current)}"
-                        is ShowItemDatesModel.StartAndEnd ->
+                        is MediaItemDatesModel.StartAndEnd ->
                             "${datesModel.startYear} - ${datesModel.endYear}"
                     }
                     Text(datesText)

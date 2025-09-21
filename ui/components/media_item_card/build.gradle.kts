@@ -13,7 +13,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ShowItemCardComponent"
+            baseName = "MediaItemCardComponent"
             isStatic = true
         }
     }
@@ -47,7 +47,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.pierre.tvmaze.ui.components.show_item_card"
+    namespace = "org.pierre.tvmaze.ui.components.media_item_card"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

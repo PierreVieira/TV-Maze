@@ -51,7 +51,7 @@ kotlin {
             implementation(projects.ui.utils)
             implementation(projects.ui.components.spacer)
             implementation(projects.ui.components.iconButton)
-            implementation(projects.ui.components.showItemCard)
+            implementation(projects.ui.components.mediaItemCard)
         }
     }
 }

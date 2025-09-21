@@ -1,7 +1,7 @@
 package org.pierre.tvmaze.feature.search.domain.usecase
 
-import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.model.common.MediaItemCard
 
 fun interface Search {
-    suspend operator fun invoke(query: String): Result<List<ShowItemModel>>
+    suspend operator fun invoke(query: String): Result<List<MediaItemCard>>
 }

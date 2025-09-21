@@ -5,26 +5,26 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.pierre.tvmaze.core.room_provider.dao.LastSearchesDao
 import org.pierre.tvmaze.core.room_provider.entity.SearchHistoryItemEntity
-import org.pierre.tvmaze.dto.ShowResultDto
+import org.pierre.tvmaze.dto.MediaResultDto
 import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
 import org.pierre.tvmaze.feature.search.domain.repository.SearchRepository
-import org.pierre.tvmaze.mapper.ShowItemModelMapper
-import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.mapper.MediaItemModelMapper
+import org.pierre.tvmaze.model.common.MediaItemCard
 import org.pierre.tvmaze.network.data.handler.RequestHandler
 import org.pierre.tvmaze.search.data.mapper.SearchHistoryItemMapper
 
 internal class SearchRepositoryImpl(
     private val requestHandler: RequestHandler,
-    private val showItemModelMapper: ShowItemModelMapper,
+    private val mediaItemModelMapper: MediaItemModelMapper,
     private val searchHistoryItemMapper: SearchHistoryItemMapper,
     private val lastSearchesDao: LastSearchesDao,
 ) : SearchRepository {
 
-    override suspend fun search(query: String): Result<List<ShowItemModel>> =
-        requestHandler.call<List<ShowResultDto>> {
+    override suspend fun search(query: String): Result<List<MediaItemCard>> =
+        requestHandler.call<List<MediaResultDto>> {
             get("/search/shows?q=$query")
         }.map { shows ->
-            shows.mapNotNull(showItemModelMapper::map)
+            shows.mapNotNull(mediaItemModelMapper::map)
         }
 
     override suspend fun getAllSearches(): List<SearchHistoryItemModel> =

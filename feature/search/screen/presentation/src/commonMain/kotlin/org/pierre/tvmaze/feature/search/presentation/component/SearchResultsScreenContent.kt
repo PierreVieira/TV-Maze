@@ -11,7 +11,7 @@ import org.pierre.tvmaze.core.utils.isLastIndex
 import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
 import org.pierre.tvmaze.model.data_status.toLoadedData
-import org.pierre.ui.components.show_item_card.ShowItemCardComponent
+import org.pierre.ui.components.show_item_card.MediaItemCard
 
 @Composable
 internal fun SearchResultsScreenContent(
@@ -26,9 +26,9 @@ internal fun SearchResultsScreenContent(
     ) {
         itemsIndexed(model.data) { index, searchItem ->
             val itemId = searchItem.id.toLoadedData()
-            ShowItemCardComponent(
+            MediaItemCard(
                 modifier = Modifier.fillMaxWidth(),
-                showItemModel = searchItem,
+                mediaItemCard = searchItem,
                 onCardClick = {
                     itemId?.let { onEvent(SearchUiEvent.OnSearchResultItemClick(it)) }
                 },

@@ -1,11 +1,11 @@
 package org.pierre.tvmaze.mapper
 
-import org.pierre.tvmaze.model.common.ShowItemDatesModel
+import org.pierre.tvmaze.model.common.MediaItemDatesModel
 
-interface ShowItemDatesMapper {
+interface MediaItemDatesMapper {
     fun map(
         status: String?,
         premiered: String?,
         ended: String?,
-    ): ShowItemDatesModel?
+    ): MediaItemDatesModel?
 }

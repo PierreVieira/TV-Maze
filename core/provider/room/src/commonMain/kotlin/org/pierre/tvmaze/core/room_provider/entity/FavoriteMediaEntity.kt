@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     tableName = "favorite_shows",
     indices = [Index(value = ["name"], unique = false)]
 )
-data class FavoriteShowEntity(
+data class FavoriteMediaEntity(
     @PrimaryKey val id: Long,
     val name: String,
     val imageUrl: String?,

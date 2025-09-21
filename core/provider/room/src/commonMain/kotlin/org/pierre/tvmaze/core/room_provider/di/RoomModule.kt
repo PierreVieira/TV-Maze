@@ -18,5 +18,5 @@ val roomModule = module {
     }
 
     single { get<AppDatabase>().lastSearchDao() }
-    single { get<AppDatabase>().favoriteShowsDao() }
+    single { get<AppDatabase>().favoriteMediasDao() }
 }

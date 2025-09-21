@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ShowResultDto(
+data class MediaResultDto(
     @SerialName("score") val score: Double,
-    @SerialName("show") val show: ShowDto
+    @SerialName("show") val media: MediaDto
 )

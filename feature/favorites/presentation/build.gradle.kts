@@ -39,7 +39,7 @@ kotlin {
             implementation(projects.feature.favorites.domain)
 
             // UI Components
-            implementation(projects.ui.components.showItemCard)
+            implementation(projects.ui.components.mediaItemCard)
 
             // UI Utils (observe extension)
             implementation(projects.ui.utils)

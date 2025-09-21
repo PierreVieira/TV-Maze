@@ -1,8 +1,8 @@
 package org.pierre.tvmaze.feature.favorites.data.mapper
 
-import org.pierre.tvmaze.core.room_provider.entity.FavoriteShowEntity
-import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.core.room_provider.entity.FavoriteMediaEntity
+import org.pierre.tvmaze.model.common.MediaItemCard
 
 interface FavoriteShowEntityMapper {
-    fun mapOrNull(model: ShowItemModel): FavoriteShowEntity?
+    fun mapOrNull(model: MediaItemCard): FavoriteMediaEntity?
 }

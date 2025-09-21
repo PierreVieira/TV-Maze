@@ -53,7 +53,7 @@ include(":ui:utils")
 include(":ui:components:icon_button")
 include(":ui:components:spacer")
 include(":ui:components:shimmer")
-include(":ui:components:show_item_card")
+include(":ui:components:media_item_card")
 include(":ui:components:stars")
 include(":ui:components:picture")
 

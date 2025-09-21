@@ -10,7 +10,7 @@ import org.pierre.tvmaze.core.utils.updateValue
 import org.pierre.tvmaze.feature.favorites.domain.usecase.GetFavoritesFlow
 import org.pierre.tvmaze.feature.favorites.domain.usecase.ToggleFavorite
 import org.pierre.tvmaze.feature.favorites.presentation.model.FavoritesUiEvent
-import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.model.common.MediaItemCard
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.utils.observe
 
@@ -19,8 +19,8 @@ class FavoritesViewModel(
     private val toggleFavorite: ToggleFavorite,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<List<ShowItemModel>>(emptyList())
-    val uiState: StateFlow<List<ShowItemModel>> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<List<MediaItemCard>>(emptyList())
+    val uiState: StateFlow<List<MediaItemCard>> = _uiState.asStateFlow()
 
     init {
         observe(

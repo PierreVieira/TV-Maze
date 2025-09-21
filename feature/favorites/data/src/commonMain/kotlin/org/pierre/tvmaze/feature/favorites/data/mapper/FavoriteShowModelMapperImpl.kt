@@ -1,18 +1,18 @@
 package org.pierre.tvmaze.feature.favorites.data.mapper
 
-import org.pierre.tvmaze.core.room_provider.entity.FavoriteShowEntity
-import org.pierre.tvmaze.model.common.ShowItemDatesModel
-import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.core.room_provider.entity.FavoriteMediaEntity
+import org.pierre.tvmaze.model.common.MediaItemDatesModel
+import org.pierre.tvmaze.model.common.MediaItemCard
 import org.pierre.tvmaze.model.common.StarsModel
 import org.pierre.tvmaze.model.data_status.DataStatus
 
 class FavoriteShowModelMapperImpl : FavoriteShowModelMapper {
-    override fun map(entity: FavoriteShowEntity): ShowItemModel = with(entity) {
+    override fun map(entity: FavoriteMediaEntity): MediaItemCard = with(entity) {
         val start = startYear
         val end = endYear
-        val dates: ShowItemDatesModel? = when {
-            start != null && end == null -> ShowItemDatesModel.Running(start)
-            start != null && end != null -> ShowItemDatesModel.StartAndEnd(start, end)
+        val dates: MediaItemDatesModel? = when {
+            start != null && end == null -> MediaItemDatesModel.Running(start)
+            start != null && end != null -> MediaItemDatesModel.StartAndEnd(start, end)
             else -> null
         }
         val fullStars = fullStarsAmount
@@ -20,7 +20,7 @@ class FavoriteShowModelMapperImpl : FavoriteShowModelMapper {
         val starsModel: StarsModel? = if (fullStars != null && half != null) {
             StarsModel(fullStars, half)
         } else null
-        return ShowItemModel(
+        return MediaItemCard(
             id = DataStatus.Loaded(id),
             name = DataStatus.Loaded(name),
             image = imageUrl?.let { DataStatus.Loaded(it) },
