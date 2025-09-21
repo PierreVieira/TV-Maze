@@ -10,6 +10,8 @@ import org.pierre.tvmaze.feature.episodes.data.mapper.EpisodeWatchedModelMapper
 import org.pierre.tvmaze.feature.episodes.domain.repository.EpisodesRepository
 import org.pierre.tvmaze.mapper.EpisodeMapper
 import org.pierre.tvmaze.model.common.episode.EpisodeModel
+import org.pierre.tvmaze.model.data_status.toLoadedInformation
+import org.pierre.tvmaze.model.data_status.toLoadedStatus
 import org.pierre.tvmaze.network.data.handler.RequestHandler
 
 internal class EpisodesRepositoryImpl(
@@ -22,14 +24,30 @@ internal class EpisodesRepositoryImpl(
     override suspend fun getEpisodes(mediaId: Long): Result<List<EpisodeModel>> =
         requestHandler.call<List<EpisodeDto>> {
             get("/shows/$mediaId/episodes")
-        }.map { episodes ->
-            episodes.mapNotNull {
-                episodeMapper.map(
-                    dto = it,
-                    mediaId = mediaId,
-                )
-            }
+        }.map { episodes: List<EpisodeDto> ->
+            episodes.toDomain(
+                mediaId = mediaId,
+                watchedIds = watchedEpisodesDao.getByMediaId(mediaId).map { it.id }.toSet(),
+            )
         }
+
+    private fun List<EpisodeDto>.toDomain(
+        mediaId: Long,
+        watchedIds: Set<Long>,
+    ): List<EpisodeModel> = mapNotNull {
+        episodeMapper.map(
+            dto = it,
+            mediaId = mediaId,
+        )
+    }.map { model ->
+        val id = model.id.toLoadedInformation()?.data
+        val isWatched = id != null && watchedIds.contains(id)
+        if (isWatched) {
+            model.copy(isWatched = true.toLoadedStatus())
+        } else {
+            model
+        }
+    }
 
     override fun getWatchedEpisodesFlow(mediaId: Long): Flow<List<EpisodeModel>> =
         watchedEpisodesDao.getByMediaIdAsFlow(mediaId).map { episodes ->

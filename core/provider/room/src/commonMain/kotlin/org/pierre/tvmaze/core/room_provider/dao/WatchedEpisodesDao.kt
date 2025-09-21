@@ -12,6 +12,9 @@ interface WatchedEpisodesDao {
     @Query("SELECT * FROM watched_episodes WHERE mediaId = :mediaId ORDER BY season ASC, number ASC")
     fun getByMediaIdAsFlow(mediaId: Long): Flow<List<WatchedEpisodeEntity>>
 
+    @Query("SELECT * FROM watched_episodes WHERE mediaId = :mediaId ORDER BY season ASC, number ASC")
+    suspend fun getByMediaId(mediaId: Long): List<WatchedEpisodeEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(entity: WatchedEpisodeEntity)
 
