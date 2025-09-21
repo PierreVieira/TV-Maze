@@ -11,13 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.feature.favorites.presentation.model.FavoritesUiEvent
-import org.pierre.tvmaze.model.common.MediaItemCard
+import org.pierre.tvmaze.model.common.MediaItemModel
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.ui.components.show_item_card.MediaItemCard
 
 @Composable
 fun FavoritesScreen(
-    items: List<MediaItemCard>,
+    items: List<MediaItemModel>,
     onEvent: (FavoritesUiEvent) -> Unit,
 ) {
     Scaffold { contentPadding ->
@@ -38,7 +38,7 @@ fun FavoritesScreen(
             ) { item ->
                 MediaItemCard(
                     modifier = Modifier.fillMaxWidth(),
-                    mediaItemCard = item,
+                    mediaItemModel = item,
                     onCardClick = { safeId ->
                         onEvent(FavoritesUiEvent.OnItemClick(safeId))
                     },

@@ -28,7 +28,7 @@ internal fun SearchResultsScreenContent(
             val itemId = searchItem.id.toLoadedData()
             MediaItemCard(
                 modifier = Modifier.fillMaxWidth(),
-                mediaItemCard = searchItem,
+                mediaItemModel = searchItem,
                 onCardClick = {
                     itemId?.let { onEvent(SearchUiEvent.OnSearchResultItemClick(it)) }
                 },

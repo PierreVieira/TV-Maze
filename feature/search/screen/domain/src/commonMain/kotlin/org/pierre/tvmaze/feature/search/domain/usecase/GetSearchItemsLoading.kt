@@ -1,7 +1,7 @@
 package org.pierre.tvmaze.feature.search.domain.usecase
 
-import org.pierre.tvmaze.model.common.MediaItemCard
+import org.pierre.tvmaze.model.common.MediaItemModel
 
 interface GetSearchItemsLoading {
-    operator fun invoke(): List<MediaItemCard>
+    operator fun invoke(): List<MediaItemModel>
 }

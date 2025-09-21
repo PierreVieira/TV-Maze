@@ -1,9 +1,8 @@
 package org.pierre.tvmaze.mapper
 
-import org.pierre.tvmaze.dto.MediaResultDto
-import org.pierre.tvmaze.model.common.MediaItemCard
+import org.pierre.tvmaze.dto.MediaDto
+import org.pierre.tvmaze.model.common.MediaItemModel
 
-interface MediaItemModelMapper {
-
-    fun map(dto: MediaResultDto): MediaItemCard?
+fun interface MediaItemModelMapper {
+    fun map(dto: MediaDto): MediaItemModel?
 }

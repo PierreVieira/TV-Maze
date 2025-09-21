@@ -18,7 +18,7 @@ import org.pierre.tvmaze.feature.search.presentation.model.SearchFactories
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiAction
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
-import org.pierre.tvmaze.model.common.MediaItemCard
+import org.pierre.tvmaze.model.common.MediaItemModel
 import org.pierre.tvmaze.model.data_status.DataStatus
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.utils.observe
@@ -29,7 +29,7 @@ class SearchViewModel(
 ) : ViewModel() {
 
     private var searchHistory: List<SearchHistoryItemModel> = emptyList()
-    private var favorites = emptyList<MediaItemCard>()
+    private var favorites = emptyList<MediaItemModel>()
 
     private val _uiAction: Channel<SearchUiAction> = Channel()
     val uiAction: Flow<SearchUiAction> = _uiAction.receiveAsFlow()
@@ -62,7 +62,7 @@ class SearchViewModel(
         }
     }
 
-    private fun onFavoritesModelObserveCallback(newFavoritesModel: List<MediaItemCard>) {
+    private fun onFavoritesModelObserveCallback(newFavoritesModel: List<MediaItemModel>) {
         favorites = newFavoritesModel
         _uiState.update { currentState ->
             if (currentState.content is SearchContent.SearchResults) {
@@ -187,7 +187,7 @@ class SearchViewModel(
         viewModelScope.launch {
             useCases.run {
                 search(query)
-                    .onSuccess { shows: List<MediaItemCard> ->
+                    .onSuccess { shows: List<MediaItemModel> ->
                         _uiState.update {
                             it.copy(content = SearchContent.SearchResults(shows))
                         }

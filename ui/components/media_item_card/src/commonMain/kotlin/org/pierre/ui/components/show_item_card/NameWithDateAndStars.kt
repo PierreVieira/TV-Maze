@@ -15,7 +15,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
 import org.pierre.tvmaze.model.common.MediaItemDatesModel
-import org.pierre.tvmaze.model.common.MediaItemCard
+import org.pierre.tvmaze.model.common.MediaItemModel
 import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
 import org.pierre.ui.components.stars.StarsComponent
 import tvmaze.ui.components.media_item_card.generated.resources.Res
@@ -25,14 +25,14 @@ import tvmaze.ui.components.media_item_card.generated.resources.show_item_no_sta
 
 @Composable
 internal fun NameWithDateAndStars(
-    mediaItemCard: MediaItemCard,
+    mediaItemModel: MediaItemModel,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
     ) {
-        mediaItemCard.run {
+        mediaItemModel.run {
             name.ToContent(
                 modifier = Modifier
                     .fillMaxWidth(0.5f)

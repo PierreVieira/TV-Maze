@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.components.shimmer.ToContent
-import org.pierre.tvmaze.model.common.MediaItemCard
+import org.pierre.tvmaze.model.common.MediaItemModel
 import org.pierre.tvmaze.ui.components.picture.PictureCommon
 import org.pierre.tvmaze.ui.components.spacer.HorizontalSpacer
 import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
@@ -18,10 +18,10 @@ import org.pierre.ui.components.media_item_card.NameWithDateAndStars
 
 @Composable
 internal fun MediaItemCardLeftContent(
-    mediaItemCard: MediaItemCard,
+    mediaItemModel: MediaItemModel,
     modifier: Modifier = Modifier,
 ) {
-    mediaItemCard.run {
+    mediaItemModel.run {
         Row(modifier = modifier) {
             val minImageHeight = 96.dp
             val imageModifier = Modifier
@@ -43,7 +43,7 @@ internal fun MediaItemCardLeftContent(
                 VerticalSpacer(8)
                 NameWithDateAndStars(
                     modifier = Modifier.fillMaxHeight(),
-                    mediaItemCard = mediaItemCard,
+                    mediaItemModel = mediaItemModel,
                 )
             }
         }

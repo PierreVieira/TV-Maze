@@ -2,7 +2,7 @@ package org.pierre.tvmaze.model.common
 
 import org.pierre.tvmaze.model.data_status.DataStatus
 
-data class MediaItemCard(
+data class MediaItemModel(
     val id: DataStatus<Long>,
     val name: DataStatus<String>,
     val image: DataStatus<String>?,

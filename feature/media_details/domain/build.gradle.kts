@@ -24,6 +24,10 @@ kotlin {
             // Koin (feature DI)
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
+
+            // Core
+            implementation(projects.core.model.common)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

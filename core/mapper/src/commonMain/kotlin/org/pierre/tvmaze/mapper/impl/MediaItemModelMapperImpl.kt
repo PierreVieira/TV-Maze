@@ -1,19 +1,18 @@
 package org.pierre.tvmaze.mapper.impl
 
-import org.pierre.tvmaze.dto.MediaResultDto
+import org.pierre.tvmaze.dto.MediaDto
 import org.pierre.tvmaze.mapper.MediaItemDatesMapper
 import org.pierre.tvmaze.mapper.MediaItemModelMapper
 import org.pierre.tvmaze.mapper.StarsMapper
-import org.pierre.tvmaze.model.common.MediaItemCard
+import org.pierre.tvmaze.model.common.MediaItemModel
 import org.pierre.tvmaze.model.data_status.toLoadedStatus
 
 class MediaItemModelMapperImpl(
     private val starsMapper: StarsMapper,
     private val datesMapper: MediaItemDatesMapper,
-) : MediaItemModelMapper {
-
-    override fun map(dto: MediaResultDto): MediaItemCard? = with(dto.media) {
-        MediaItemCard(
+): MediaItemModelMapper {
+    override fun map(dto: MediaDto): MediaItemModel? = dto.run {
+        MediaItemModel(
             id = id?.toLoadedStatus() ?: return null,
             name = name.orEmpty().toLoadedStatus(),
             image = image?.medium?.toLoadedStatus(),

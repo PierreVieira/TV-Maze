@@ -8,23 +8,23 @@ import org.pierre.tvmaze.core.room_provider.entity.SearchHistoryItemEntity
 import org.pierre.tvmaze.dto.MediaResultDto
 import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
 import org.pierre.tvmaze.feature.search.domain.repository.SearchRepository
-import org.pierre.tvmaze.mapper.MediaItemModelMapper
-import org.pierre.tvmaze.model.common.MediaItemCard
+import org.pierre.tvmaze.mapper.MediaResultMapper
+import org.pierre.tvmaze.model.common.MediaItemModel
 import org.pierre.tvmaze.network.data.handler.RequestHandler
 import org.pierre.tvmaze.search.data.mapper.SearchHistoryItemMapper
 
 internal class SearchRepositoryImpl(
     private val requestHandler: RequestHandler,
-    private val mediaItemModelMapper: MediaItemModelMapper,
+    private val mediaResultMapper: MediaResultMapper,
     private val searchHistoryItemMapper: SearchHistoryItemMapper,
     private val lastSearchesDao: LastSearchesDao,
 ) : SearchRepository {
 
-    override suspend fun search(query: String): Result<List<MediaItemCard>> =
+    override suspend fun search(query: String): Result<List<MediaItemModel>> =
         requestHandler.call<List<MediaResultDto>> {
             get("/search/shows?q=$query")
         }.map { shows ->
-            shows.mapNotNull(mediaItemModelMapper::map)
+            shows.mapNotNull(mediaResultMapper::map)
         }
 
     override suspend fun getAllSearches(): List<SearchHistoryItemModel> =

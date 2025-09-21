@@ -21,9 +21,21 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            // Ktor
+            implementation(libs.ktor.client.core)
+
             // Koin (feature DI)
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
+
+            // Core
+            implementation(projects.core.network)
+            implementation(projects.core.dto)
+            implementation(projects.core.model.common)
+            implementation(projects.core.mapper)
+
+            // Features
+            implementation(projects.feature.mediaDetails.domain)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
