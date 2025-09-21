@@ -4,12 +4,15 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import org.pierre.tvmaze.feature.episodes.domain.usecase.GetEpisodes
-import org.pierre.tvmaze.feature.episodes.domain.usecase.GetWatchedEpisodesFlow
-import org.pierre.tvmaze.feature.episodes.domain.usecase.impl.GetEpisodesUseCase
-import org.pierre.tvmaze.feature.episodes.domain.usecase.impl.GetWatchedEpisodesFlowUseCase
+import org.pierre.tvmaze.feature.episodes.domain.usecase.EpisodesToSeason
+import org.pierre.tvmaze.feature.episodes.domain.usecase.GetEpisodesBySeason
+import org.pierre.tvmaze.feature.episodes.domain.usecase.GetWatchedEpisodesBySeasonFlow
+import org.pierre.tvmaze.feature.episodes.domain.usecase.impl.EpisodesToSeasonsUseCase
+import org.pierre.tvmaze.feature.episodes.domain.usecase.impl.GetEpisodesBySeasonUseCase
+import org.pierre.tvmaze.feature.episodes.domain.usecase.impl.GetWatchedEpisodesBySeasonFlowUseCase
 
 val episodesDomainModule: Module = module {
-    factoryOf(::GetEpisodesUseCase).bind<GetEpisodes>()
-    factoryOf(::GetWatchedEpisodesFlowUseCase).bind<GetWatchedEpisodesFlow>()
+    factoryOf(::GetEpisodesBySeasonUseCase).bind<GetEpisodesBySeason>()
+    factoryOf(::GetWatchedEpisodesBySeasonFlowUseCase).bind<GetWatchedEpisodesBySeasonFlow>()
+    factoryOf(::EpisodesToSeasonsUseCase).bind<EpisodesToSeason>()
 }
