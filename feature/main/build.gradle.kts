@@ -45,6 +45,7 @@ kotlin {
 
             // Feature dependencies
             implementation(projects.feature.search.warning.deleteItem.presentation)
+            implementation(projects.feature.search.warning.deleteAll.presentation)
             implementation(projects.feature.themeSelection.presentation)
             implementation(projects.feature.favorites.presentation)
             implementation(projects.feature.search.screen.domain)

@@ -79,7 +79,12 @@ class SearchViewModel(
 
             SearchUiEvent.OnChangeSearchBarPositionClick -> onChangeSearchBarPositionClick()
 
-            SearchUiEvent.OnDeleteHistoryClick,
+            SearchUiEvent.OnDeleteHistoryClick -> {
+                hideMenu()
+                viewModelScope.launch {
+                    _uiAction.send(SearchUiAction.NavigateToDeleteAllSearchHistory)
+                }
+            }
             SearchUiEvent.OnDismissMenuClick,
                 -> hideMenu()
 

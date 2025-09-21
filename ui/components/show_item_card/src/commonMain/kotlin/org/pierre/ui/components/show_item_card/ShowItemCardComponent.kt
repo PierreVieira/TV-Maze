@@ -75,11 +75,12 @@ private fun LeftContent(
             val minImageHeight = 96.dp
             val imageModifier = Modifier
                 .width(64.dp)
+                .heightIn(min = minImageHeight)
             image?.ToContent(
-                modifier = imageModifier.height(minImageHeight),
+                modifier = imageModifier,
             ) { safeImage ->
                 PictureCommon(
-                    modifier = imageModifier.heightIn(min = minImageHeight),
+                    modifier = imageModifier,
                     url = safeImage,
                     contentDescription = null,
                 )

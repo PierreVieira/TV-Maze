@@ -36,11 +36,11 @@ fun PictureCommon(
 
     AsyncImage(
         modifier = modifier,
-        model = url?.takeIf { it.isNotBlank() } ?: getDefaultPlaceholder(),
+        model = url?.takeIf { it.isNotBlank() } ?: getDefaultImage(),
         contentDescription = contentDescription,
         contentScale = contentScale,
-        error = error ?: getDefaultPlaceholder(),
-        placeholder = placeholder ?: getDefaultPlaceholder(),
+        error = error ?: getDefaultImage(),
+        placeholder = placeholder,
         onLoading = {
             isLoading = true
         },
@@ -55,7 +55,7 @@ fun PictureCommon(
 }
 
 @Composable
-private fun getDefaultPlaceholder(): Painter = painterResource(
+private fun getDefaultImage(): Painter = painterResource(
     if (isAppInDarkTheme()) {
         Res.drawable.img_fallback_dark
     } else {

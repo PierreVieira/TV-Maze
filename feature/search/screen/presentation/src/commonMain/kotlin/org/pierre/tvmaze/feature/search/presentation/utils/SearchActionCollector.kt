@@ -16,7 +16,8 @@ import tvmaze.feature.search.screen.presentation.generated.resources.search_erro
 fun SearchActionCollector(
     uiAction: Flow<SearchUiAction>,
     snackbarHostState: SnackbarHostState,
-    goToDeleteSearchHistoryItem: (id: Long, name: String) -> Unit
+    goToDeleteSearchHistoryItem: (id: Long, name: String) -> Unit,
+    goToDeleteAllSearchHistory: () -> Unit,
 ) {
     val emptyQueryMsg = stringResource(Res.string.search_error_empty_query)
     val networkErrorMsg = stringResource(Res.string.search_error_network)
@@ -38,6 +39,7 @@ fun SearchActionCollector(
                 action.id,
                 action.name
             )
+            SearchUiAction.NavigateToDeleteAllSearchHistory -> goToDeleteAllSearchHistory()
         }
     }
 }

@@ -14,7 +14,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "Navigation"
+            baseName = "SearchWarningDeleteAllDomain"
             isStatic = true
         }
     }
@@ -25,34 +25,26 @@ kotlin {
         commonMain.dependencies {
             // Compose
             implementation(compose.runtime)
-            implementation(compose.ui)
             implementation(compose.foundation)
-
-            // Navigation
-            implementation(libs.navigation.compose)
-
-            // Features
-            implementation(projects.feature.main)
-            implementation(projects.feature.search.warning.deleteItem.presentation)
-            implementation(projects.feature.search.warning.deleteAll.presentation)
-
-            // Core
-            implementation(projects.core.utils)
-
-            // UI
-            implementation(projects.ui.utils)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.uiToolingPreview)
 
             // Koin
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
-            implementation(libs.koinComposeViewModel)
 
+            // Core
+            implementation(projects.core.utils)
+            implementation(projects.core.model.common)
         }
     }
 }
 
 android {
-    namespace = "org.pierre.tvmaze.ui.navigation"
+    namespace = "org.pierre.feature.search.warning.delete_all.domain"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

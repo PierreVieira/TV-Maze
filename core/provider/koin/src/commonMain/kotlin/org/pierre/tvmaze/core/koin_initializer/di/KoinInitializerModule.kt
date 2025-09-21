@@ -6,6 +6,9 @@ import org.koin.core.module.Module
 import org.pierre.feature.search.warning.delete_item.data.di.deleteItemSearchDataModule
 import org.pierre.feature.search.warning.delete_item.domain.di.deleteItemSearchDomainModule
 import org.pierre.feature.search.warning.delete_item.presentation.di.deleteItemSearchPresentationModule
+import org.pierre.feature.search.warning.delete_all.data.di.deleteAllSearchDataModule
+import org.pierre.feature.search.warning.delete_all.domain.di.deleteAllSearchDomainModule
+import org.pierre.feature.search.warning.delete_all.presentation.di.deleteAllSearchPresentationModule
 import org.pierre.tvmaze.core.data_store_provider.di.dataStoreProviderModule
 import org.pierre.tvmaze.core.room_provider.di.roomModule
 import org.pierre.tvmaze.feature.main.di.mainModule
@@ -38,6 +41,9 @@ fun commonKoinInitializer(
             deleteItemSearchDataModule,
             deleteItemSearchDomainModule,
             deleteItemSearchPresentationModule,
+            deleteAllSearchDataModule,
+            deleteAllSearchDomainModule,
+            deleteAllSearchPresentationModule,
             themeSelectionDataModule,
             themeSelectionDomainModule,
             themeSelectionPresentationModule,
