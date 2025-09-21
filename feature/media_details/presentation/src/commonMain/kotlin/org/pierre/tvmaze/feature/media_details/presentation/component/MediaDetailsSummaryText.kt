@@ -31,7 +31,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
-import org.pierre.tvmaze.model.common.media.MediaItemModel
+import org.pierre.tvmaze.model.data_status.DataStatus
 import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
 import tvmaze.feature.media_details.presentation.generated.resources.Res
 import tvmaze.feature.media_details.presentation.generated.resources.media_details_show_less
@@ -40,11 +40,11 @@ import tvmaze.feature.media_details.presentation.generated.resources.media_detai
 @Composable
 internal fun MediaDetailsSummaryText(
     modifier: Modifier = Modifier,
-    mediaItemModel: MediaItemModel,
+    summary: DataStatus<String>,
     isExpanded: Boolean,
     onEvent: (MediaDetailsUiEvent) -> Unit,
 ) {
-    mediaItemModel.summary?.ToContent(
+    summary.ToContent(
         modifier = modifier
             .fillMaxWidth()
             .height(80.dp),

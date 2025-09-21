@@ -10,7 +10,7 @@ import org.pierre.tvmaze.feature.favorites.presentation.FavoritesScreen
 import org.pierre.tvmaze.feature.favorites.presentation.model.FavoritesUiAction
 import org.pierre.tvmaze.feature.favorites.presentation.viewmodel.FavoritesViewModel
 import org.pierre.tvmaze.feature.main.presentation.model.BottomNavRoute
-import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsRoute
+import org.pierre.tvmaze.model.common.route.MediaDetailsRoute
 import org.pierre.tvmaze.ui.utils.ActionCollector
 
 fun NavGraphBuilder.favorites(appNavHostController: NavHostController) {

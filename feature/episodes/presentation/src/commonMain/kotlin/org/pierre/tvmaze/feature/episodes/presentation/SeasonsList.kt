@@ -1,4 +1,4 @@
-package org.pierre.tvmaze.feature.episodes.presentation.component
+package org.pierre.tvmaze.feature.episodes.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,26 +21,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.feature.episodes.domain.model.SeasonModel
+import org.pierre.tvmaze.feature.episodes.presentation.model.SeasonsUiEvent
 import org.pierre.tvmaze.model.common.episode.EpisodeModel
 import org.pierre.tvmaze.model.data_status.DataStatus
-import org.pierre.tvmaze.model.data_status.toLoadedInformation
 import org.pierre.tvmaze.ui.components.icon_button.CommonIconButton
 import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
 
-fun LazyListScope.episodesSeasonsList(
+fun LazyListScope.seasonsList(
     seasons: List<SeasonModel>,
-    onEpisodeCheckedChange: (EpisodeModel) -> Unit,
-    collapsedSeasons: Set<Int>,
-    onToggleSeason: (Int) -> Unit,
+    onEvent: (SeasonsUiEvent) -> Unit,
 ) {
     items(seasons) { season ->
-        val isCollapsed =
-            season.number.toLoadedInformation()?.data?.let(collapsedSeasons::contains) ?: false
         SeasonBlock(
             season = season,
-            isCollapsed = isCollapsed,
-            onToggleSeason = onToggleSeason,
-            onEpisodeCheckedChange = onEpisodeCheckedChange,
+            onEvent = onEvent,
         )
         HorizontalDivider()
     }
@@ -48,23 +42,22 @@ fun LazyListScope.episodesSeasonsList(
 }
 
 @Composable
-private fun SeasonBlock(
+internal fun SeasonBlock(
     season: SeasonModel,
-    isCollapsed: Boolean,
-    onToggleSeason: (Int) -> Unit,
-    onEpisodeCheckedChange: (EpisodeModel) -> Unit,
+    onEvent: (SeasonsUiEvent) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
+        val isCollapsed = season.isCollapsed
         SeasonHeader(
             number = season.number,
             isCollapsed = isCollapsed,
-            onToggleSeason = onToggleSeason,
+            onToggleSeason = { onEvent(SeasonsUiEvent.ToggleSeason(it)) },
         )
         if (!isCollapsed) {
             season.episodes.forEach { episode ->
                 EpisodeRow(
                     episode = episode,
-                    onCheckedChange = { onEpisodeCheckedChange(episode) },
+                    onCheckedChange = { onEvent(SeasonsUiEvent.ToggleEpisodeWatched(episode)) },
                 )
             }
         }
@@ -83,7 +76,10 @@ private fun SeasonHeader(
             .clickable(enabled = number is DataStatus.Loaded) {
                 (number as? DataStatus.Loaded)?.data?.let(onToggleSeason)
             }
-            .padding(horizontal = 8.dp, vertical = 12.dp),
+            .padding(
+                horizontal = 8.dp,
+                vertical = 12.dp
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
@@ -127,7 +123,6 @@ private fun EpisodeRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        // Episode number and name with shimmer support
         Column(modifier = Modifier.weight(1f)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -149,7 +144,6 @@ private fun EpisodeRow(
             }
         }
 
-        // Watched checkbox with shimmer handling
         val watchedStatus = episode.isWatched
         watchedStatus.ToContent(modifier = Modifier) { checked ->
             Checkbox(

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 kotlin {
@@ -20,7 +21,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            // Core
             implementation(projects.core.model.dataStatus)
+
+            // Kotlin Serialization
+            implementation(libs.kotlinSerializationJson)
         }
     }
 }

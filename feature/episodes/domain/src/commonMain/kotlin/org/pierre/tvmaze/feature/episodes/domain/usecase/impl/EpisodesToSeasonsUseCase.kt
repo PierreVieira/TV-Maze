@@ -25,6 +25,7 @@ class EpisodesToSeasonsUseCase : EpisodesToSeason {
                 mediaId = mediaId,
                 number = DataStatus.Loaded(seasonNumber),
                 episodes = seasonEpisodes,
+                isCollapsed = true,
             )
         }
     }

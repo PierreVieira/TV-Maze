@@ -1,4 +1,4 @@
-package org.pierre.tvmaze.feature.media_details.presentation.model
+package org.pierre.tvmaze.model.common.route
 
 import kotlinx.serialization.Serializable
 

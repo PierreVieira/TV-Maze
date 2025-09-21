@@ -10,14 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
-import org.pierre.tvmaze.model.common.media.MediaItemModel
+import org.pierre.tvmaze.model.data_status.DataStatus
 
 @Composable
 internal fun MediaDetailsGenresText(
-    mediaItemModel: MediaItemModel,
+    genres: DataStatus<List<String>>,
     modifier: Modifier = Modifier,
 ) {
-    mediaItemModel.genres?.ToContent(
+    genres.ToContent(
         modifier = modifier
             .fillMaxWidth(0.6f)
             .height(16.dp),

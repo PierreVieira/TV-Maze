@@ -7,15 +7,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
-import org.pierre.tvmaze.model.common.media.MediaItemModel
+import org.pierre.tvmaze.model.common.media.StarsModel
+import org.pierre.tvmaze.model.data_status.DataStatus
 import org.pierre.ui.components.stars.StarsComponent
 
 @Composable
 internal fun MediaDetailsStarsRow(
-    mediaItemModel: MediaItemModel,
+    stars: DataStatus<StarsModel>,
     modifier: Modifier = Modifier,
 ) {
-    mediaItemModel.stars?.ToContent(
+    stars.ToContent(
         modifier = modifier
             .fillMaxWidth(0.4f)
             .height(16.dp),

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.feature.media_details.presentation.component.MediaDetailsContent
 import org.pierre.tvmaze.feature.media_details.presentation.component.MediaPosterSection
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
-import org.pierre.tvmaze.model.common.media.MediaItemModel
+import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiState
 import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
 
 private const val POSTER_WEIGHT = 0.42f
@@ -26,8 +26,7 @@ private const val DETAILS_WEIGHT = 0.58f
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MediaDetailsScreen(
-    mediaItemModel: MediaItemModel,
-    isSummaryExpanded: Boolean,
+    state: MediaDetailsUiState,
     onEvent: (MediaDetailsUiEvent) -> Unit,
     itemsOnBottom: LazyListScope.() -> Unit,
 ) {
@@ -44,22 +43,19 @@ fun MediaDetailsScreen(
 
             when {
                 isLandscape -> TwoPaneRow(
-                    mediaItemModel = mediaItemModel,
-                    isSummaryExpanded = isSummaryExpanded,
+                    state = state,
                     onEvent = onEvent,
                     itemsOnBottom = itemsOnBottom,
                 )
 
                 !isLargeScreen -> SmallScreenLayout(
-                    mediaItemModel = mediaItemModel,
-                    isSummaryExpanded = isSummaryExpanded,
+                    state = state,
                     onEvent = onEvent,
                     itemsOnBottom = itemsOnBottom,
                 )
 
                 else -> TwoPaneRow(
-                    mediaItemModel = mediaItemModel,
-                    isSummaryExpanded = isSummaryExpanded,
+                    state = state,
                     onEvent = onEvent,
                     itemsOnBottom = itemsOnBottom,
                 )
@@ -70,8 +66,7 @@ fun MediaDetailsScreen(
 
 @Composable
 private fun TwoPaneRow(
-    mediaItemModel: MediaItemModel,
-    isSummaryExpanded: Boolean,
+    state: MediaDetailsUiState,
     onEvent: (MediaDetailsUiEvent) -> Unit,
     itemsOnBottom: LazyListScope.() -> Unit,
 ) {
@@ -81,15 +76,14 @@ private fun TwoPaneRow(
                 .weight(POSTER_WEIGHT)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
-            mediaItemModel = mediaItemModel,
+            mediaItemModel = state.itemModel,
             onEvent = onEvent,
         )
         MediaDetailsContent(
             modifier = Modifier
                 .weight(DETAILS_WEIGHT)
                 .fillMaxSize(),
-            mediaItemModel = mediaItemModel,
-            isSummaryExpanded = isSummaryExpanded,
+            state = state,
             onEvent = onEvent,
             itemsOnBottom = itemsOnBottom
         )
@@ -98,8 +92,7 @@ private fun TwoPaneRow(
 
 @Composable
 private fun SmallScreenLayout(
-    mediaItemModel: MediaItemModel,
-    isSummaryExpanded: Boolean,
+    state: MediaDetailsUiState,
     onEvent: (MediaDetailsUiEvent) -> Unit,
     itemsOnBottom: LazyListScope.() -> Unit,
 ) {
@@ -108,7 +101,7 @@ private fun SmallScreenLayout(
         itemsOnTop = {
             item {
                 MediaPosterSection(
-                    mediaItemModel = mediaItemModel,
+                    mediaItemModel = state.itemModel,
                     onEvent = onEvent,
                 )
             }
@@ -116,8 +109,7 @@ private fun SmallScreenLayout(
                 VerticalSpacer()
             }
         },
-        mediaItemModel = mediaItemModel,
-        isSummaryExpanded = isSummaryExpanded,
+        state = state,
         onEvent = onEvent,
         itemsOnBottom = itemsOnBottom
     )

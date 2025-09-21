@@ -11,7 +11,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.pierre.feature.search.warning.delete_item.presentation.model.DeleteSearchItemDialogRoute
 import org.pierre.feature.search.warning.delete_all.presentation.model.DeleteAllSearchDialogRoute
 import org.pierre.tvmaze.feature.main.presentation.model.BottomNavRoute
-import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsRoute
+import org.pierre.tvmaze.model.common.route.MediaDetailsRoute
 import org.pierre.tvmaze.feature.search.presentation.SearchScreen
 import org.pierre.tvmaze.feature.search.presentation.utils.SearchActionCollector
 import org.pierre.tvmaze.feature.search.presentation.viewmodel.SearchViewModel
