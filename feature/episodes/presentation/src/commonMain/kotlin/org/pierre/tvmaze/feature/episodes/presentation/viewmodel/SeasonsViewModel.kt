@@ -28,15 +28,26 @@ class SeasonsViewModel(
     private val _seasons = MutableStateFlow(loadingSeasonsFactory.create())
     val seasons: StateFlow<List<SeasonModel>> = _seasons.asStateFlow()
 
-    private val mediaId: Long = savedStateHandle.toRoute<MediaDetailsRoute>().id
+    private var lastWatchedOverlay: List<SeasonModel> = emptyList()
+
+    private val mediaId: Long = runCatching {
+        savedStateHandle.toRoute<MediaDetailsRoute>().id
+    }.getOrElse {
+        savedStateHandle.get<Long>("id") ?: 0L
+    }
 
     init {
         viewModelScope.launch {
             useCases.getEpisodesBySeason(mediaId).onSuccess { loadedSeasons ->
                 _seasons.value = loadedSeasons
+                // Re-apply any watched overlay that might have arrived earlier
+                if (lastWatchedOverlay.isNotEmpty()) {
+                    applyWatchedOverlay(lastWatchedOverlay)
+                }
             }
         }
         observe(useCases.getWatchedEpisodesBySeasonFlow(mediaId)) { watchedSeasons ->
+            lastWatchedOverlay = watchedSeasons
             applyWatchedOverlay(watchedSeasons)
         }
     }
