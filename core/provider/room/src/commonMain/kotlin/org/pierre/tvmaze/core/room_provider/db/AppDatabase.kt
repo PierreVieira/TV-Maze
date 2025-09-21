@@ -10,7 +10,7 @@ import org.pierre.tvmaze.core.room_provider.entity.SearchHistoryItemEntity
 
 @Database(
     entities = [SearchHistoryItemEntity::class, FavoriteShowEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false,
 )
 @ConstructedBy(DatabaseConstructor::class)

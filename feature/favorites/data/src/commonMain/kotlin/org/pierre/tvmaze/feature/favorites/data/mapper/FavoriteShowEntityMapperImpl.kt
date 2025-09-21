@@ -24,7 +24,6 @@ class FavoriteShowEntityMapperImpl : FavoriteShowEntityMapper {
             startYear = startYear,
             endYear = endYear,
             averageRating = averageRating,
-            isFavorite = true,
         )
     }
 }
