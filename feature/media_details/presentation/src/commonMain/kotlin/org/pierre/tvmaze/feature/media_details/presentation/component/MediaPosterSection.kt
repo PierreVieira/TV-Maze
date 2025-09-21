@@ -2,6 +2,7 @@ package org.pierre.tvmaze.feature.media_details.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -18,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -32,6 +34,7 @@ import org.pierre.tvmaze.ui.components.icon_button.FavoriteIconButton
 
 @Composable
 internal fun MediaPosterSection(
+    modifier: Modifier = Modifier,
     mediaItemModel: MediaItemModel,
     onEvent: (MediaDetailsUiEvent) -> Unit,
 ) {
@@ -39,10 +42,9 @@ internal fun MediaPosterSection(
     var backdropColor by remember { mutableStateOf(neutralColor) }
 
     val posterShape = RectangleShape
-    val loadedId = mediaItemModel.id.toLoadedData()
 
     BoxWithConstraints(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(backdropColor)
     ) {
@@ -60,46 +62,63 @@ internal fun MediaPosterSection(
                 .padding(top = 0.dp),
             contentAlignment = Alignment.Center
         ) {
-            mediaItemModel.images?.ToContent(
-                modifier = posterModifier
-                    .graphicsLayer {
-                        shape = posterShape
-                        clip = true
-                        shadowElevation = 12.dp.toPx()
-                    },
-                variant = ShimmerVariant.Rectangle(posterShape),
-            ) { images ->
-                AsyncImage(
-                    model = images.original,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = posterModifier
-                )
-            }
+            PosterImage(mediaItemModel = mediaItemModel, modifier = posterModifier, shape = posterShape)
+            PosterActionsOverlay(mediaItemModel = mediaItemModel, onEvent = onEvent)
+        }
+    }
+}
 
-            Row(
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                ArrowBackIconButton(onClick = { onEvent(MediaDetailsUiEvent.OnBackClick) })
+@Composable
+private fun PosterImage(
+    mediaItemModel: MediaItemModel,
+    modifier: Modifier,
+    shape: Shape,
+) {
+    mediaItemModel.images?.ToContent(
+        modifier = modifier
+            .graphicsLayer {
+                this.shape = shape
+                clip = true
+                shadowElevation = 12.dp.toPx()
+            },
+        variant = ShimmerVariant.Rectangle(shape),
+    ) { images ->
+        AsyncImage(
+            model = images.original,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = modifier
+        )
+    }
+}
 
-                Box(modifier = Modifier.weight(1f))
+@Composable
+private fun BoxScope.PosterActionsOverlay(
+    mediaItemModel: MediaItemModel,
+    onEvent: (MediaDetailsUiEvent) -> Unit,
+) {
+    val loadedId = mediaItemModel.id.toLoadedData()
+    Row(
+        modifier = Modifier
+            .align(Alignment.TopStart)
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        ArrowBackIconButton(onClick = { onEvent(MediaDetailsUiEvent.OnBackClick) })
 
-                mediaItemModel.isFavorite.ToContent(
-                    modifier = Modifier
-                        .padding(end = 0.dp)
-                        .size(24.dp),
-                    variant = ShimmerVariant.Heart(),
-                ) { isFav ->
-                    FavoriteIconButton(
-                        isFavorite = isFav,
-                        onClick = { loadedId?.let { onEvent(MediaDetailsUiEvent.OnFavoriteClick(it)) } },
-                    )
-                }
-            }
+        Box(modifier = Modifier.weight(1f))
+
+        mediaItemModel.isFavorite.ToContent(
+            modifier = Modifier
+                .padding(end = 0.dp)
+                .size(24.dp),
+            variant = ShimmerVariant.Heart(),
+        ) { isFav ->
+            FavoriteIconButton(
+                isFavorite = isFav,
+                onClick = { loadedId?.let { onEvent(MediaDetailsUiEvent.OnFavoriteClick(it)) } },
+            )
         }
     }
 }

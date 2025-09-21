@@ -53,12 +53,13 @@ import tvmaze.feature.media_details.presentation.generated.resources.media_detai
 
 @Composable
 internal fun MediaDetailsContent(
+    modifier: Modifier = Modifier,
     mediaItemModel: MediaItemModel,
     isSummaryExpanded: Boolean,
     onEvent: (MediaDetailsUiEvent) -> Unit,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 16.dp, vertical = 12.dp)
             .fillMaxWidth()
     ) {
