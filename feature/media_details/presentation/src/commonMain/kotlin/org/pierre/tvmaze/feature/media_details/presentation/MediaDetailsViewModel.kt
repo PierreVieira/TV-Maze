@@ -29,6 +29,8 @@ class MediaDetailsViewModel(
     private val toggleFavorite: ToggleFavorite,
 ) : ViewModel() {
 
+    private var favorites = emptyList<MediaItemModel>()
+
     private val _uiAction = Channel<MediaDetailsUiAction>()
     val uiAction: Flow<MediaDetailsUiAction> = _uiAction.receiveAsFlow()
 
@@ -43,16 +45,22 @@ class MediaDetailsViewModel(
     init {
         // Observe favorites and update the isFavorite flag for the current media id
         observe(getFavoritesFlow()) { favorites ->
-            val isFav = favorites.any { it.id.toLoadedData() == mediaId }
-            _uiState.value = _uiState.value.copy(isFavorite = DataStatus.Loaded(isFav))
+            this.favorites = favorites
+            updateIsFavorite()
         }
         // Load details initially
         viewModelScope.launch {
             val result = getMediaDetails(mediaId)
             result.onSuccess { model ->
                 _uiState.value = model
+                updateIsFavorite()
             }
         }
+    }
+
+    private fun updateIsFavorite() {
+        val isFav = favorites.any { it.id.toLoadedData() == mediaId }
+        _uiState.value = _uiState.value.copy(isFavorite = DataStatus.Loaded(isFav))
     }
 
     fun onEvent(event: MediaDetailsUiEvent) {
