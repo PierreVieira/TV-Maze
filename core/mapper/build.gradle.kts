@@ -26,6 +26,7 @@ kotlin {
 
             // Core
             implementation(projects.core.dto)
+            implementation(projects.core.utils)
             implementation(projects.core.model.common)
             implementation(projects.core.model.dataStatus)
         }

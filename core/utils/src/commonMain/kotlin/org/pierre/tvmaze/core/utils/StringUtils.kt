@@ -29,3 +29,17 @@ fun String.toUpperCamelCase(): String =
                     if (ch.isLowerCase()) ch.titlecase() else ch.toString()
                 }
         }
+
+/**
+ * Tries to extract a 4-digit year from an ISO-like date string (e.g., "2016-07-06").
+ * Falls back to the first 4 chars if they form an Int, otherwise returns null.
+ */
+fun String?.safeYearOrNull(): Int? {
+    if (this.isNullOrBlank()) return null
+    // Fast path: "YYYY-MM-DD"
+    this.takeIf { it.length >= 4 }?.substring(0, 4)?.toIntOrNull()?.let { return it }
+
+    // Fallback: find a 4-digit year anywhere
+    val match = Regex("""\b(19|20)\d{2}\b""").find(this) ?: return null
+    return match.value.toIntOrNull()
+}

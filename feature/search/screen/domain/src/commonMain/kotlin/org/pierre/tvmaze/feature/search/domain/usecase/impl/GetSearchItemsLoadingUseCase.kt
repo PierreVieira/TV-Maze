@@ -8,14 +8,13 @@ internal class GetSearchItemsLoadingUseCase : GetSearchItemsLoading {
     override fun invoke(): List<ShowItemModel> {
         val loadingItem = DataStatusUtils.run {
             ShowItemModel(
-                id = 0L,
+                id = loading,
                 name = loading,
                 image = loading,
-                premieredYear = loading,
-                endedYear = loading,
                 stars = loading,
                 isFavorite = loading,
                 averageRanting = loading,
+                dates = loading,
             )
         }
         return List(size = 8) { loadingItem }

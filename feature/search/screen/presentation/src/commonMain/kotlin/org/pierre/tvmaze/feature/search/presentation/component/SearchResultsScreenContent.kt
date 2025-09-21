@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.core.utils.isLastIndex
 import org.pierre.tvmaze.feature.search.presentation.model.SearchContent
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
+import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.ui.components.show_item_card.ShowItemCardComponent
 
 @Composable
@@ -24,12 +25,18 @@ internal fun SearchResultsScreenContent(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         itemsIndexed(model.data) { index, searchItem ->
-            val itemId = searchItem.id
+            val itemId = searchItem.id.toLoadedData()
             ShowItemCardComponent(
                 modifier = Modifier.fillMaxWidth(),
                 showItemModel = searchItem,
-                onCardClick = { onEvent(SearchUiEvent.OnSearchResultItemClick(itemId)) },
-                onFavoriteClick = { onEvent(SearchUiEvent.OnFavoriteSearchResultItemClick(itemId)) },
+                onCardClick = {
+                    itemId?.let { onEvent(SearchUiEvent.OnSearchResultItemClick(it)) }
+                },
+                onFavoriteClick = {
+                    itemId?.let {
+                        onEvent(SearchUiEvent.OnFavoriteSearchResultItemClick(it))
+                    }
+                },
             )
             if (model.data.isLastIndex(index)) {
                 lastItem()

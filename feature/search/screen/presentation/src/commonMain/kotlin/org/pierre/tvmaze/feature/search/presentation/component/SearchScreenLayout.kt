@@ -37,7 +37,7 @@ internal fun SearchScreenLayout(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     searchBarComponent()
-                    VerticalSpacer(8)
+                    VerticalSpacer()
                 }
             }
         },
