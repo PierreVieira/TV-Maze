@@ -1,10 +1,10 @@
 package org.pierre.tvmaze.feature.media_details.data.repository
 
 import io.ktor.client.request.get
-import org.pierre.tvmaze.dto.MediaDto
+import org.pierre.tvmaze.dto.media.MediaDto
 import org.pierre.tvmaze.feature.media_details.domain.repository.MediaItemRepository
 import org.pierre.tvmaze.mapper.MediaItemModelMapper
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.network.data.handler.RequestHandler
 
 class MediaItemRepositoryImpl(

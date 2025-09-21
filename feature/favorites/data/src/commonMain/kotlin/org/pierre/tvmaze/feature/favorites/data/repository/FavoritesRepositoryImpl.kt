@@ -6,7 +6,7 @@ import org.pierre.tvmaze.core.room_provider.dao.FavoriteMediasDao
 import org.pierre.tvmaze.feature.favorites.data.mapper.FavoriteShowEntityMapper
 import org.pierre.tvmaze.feature.favorites.data.mapper.FavoriteShowModelMapper
 import org.pierre.tvmaze.feature.favorites.domain.repository.FavoritesRepository
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.toLoadedData
 
 class FavoritesRepositoryImpl(

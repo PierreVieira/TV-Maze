@@ -14,7 +14,7 @@ import org.pierre.tvmaze.feature.favorites.domain.usecase.GetFavoritesFlow
 import org.pierre.tvmaze.feature.favorites.domain.usecase.ToggleFavorite
 import org.pierre.tvmaze.feature.favorites.presentation.model.FavoritesUiAction
 import org.pierre.tvmaze.feature.favorites.presentation.model.FavoritesUiEvent
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.utils.observe
 

@@ -17,7 +17,7 @@ import org.pierre.tvmaze.feature.media_details.domain.usecase.GetMediaDetails
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsRoute
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiAction
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.DataStatus
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.utils.observe

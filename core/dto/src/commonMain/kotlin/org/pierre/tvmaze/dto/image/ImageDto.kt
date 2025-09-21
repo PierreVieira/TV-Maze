@@ -1,4 +1,4 @@
-package org.pierre.tvmaze.dto
+package org.pierre.tvmaze.dto.image
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

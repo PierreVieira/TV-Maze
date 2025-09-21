@@ -22,7 +22,7 @@ import coil3.compose.AsyncImage
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.components.icon_button.ArrowBackIconButton
 import org.pierre.tvmaze.ui.components.icon_button.FavoriteIconButton

@@ -18,7 +18,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 import org.pierre.core.model.theme.Theme
-import org.pierre.tvmaze.model.common.StarsModel
+import org.pierre.tvmaze.model.common.media.StarsModel
 import org.pierre.tvmaze.ui.theme.preview.PreviewTheme
 
 @Composable

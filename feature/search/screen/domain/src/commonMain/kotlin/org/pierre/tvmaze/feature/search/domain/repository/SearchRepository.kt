@@ -2,7 +2,7 @@ package org.pierre.tvmaze.feature.search.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 
 interface SearchRepository {
     fun getRecentSearchesFlow(): Flow<List<SearchHistoryItemModel>>

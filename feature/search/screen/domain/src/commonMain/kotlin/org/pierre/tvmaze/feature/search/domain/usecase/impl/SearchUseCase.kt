@@ -5,7 +5,7 @@ import org.pierre.tvmaze.feature.search.domain.model.exception.EmptySearchQueryE
 import org.pierre.tvmaze.feature.search.domain.repository.SearchRepository
 import org.pierre.tvmaze.feature.search.domain.usecase.SaveRecentSearch
 import org.pierre.tvmaze.feature.search.domain.usecase.Search
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.DataStatus
 import org.pierre.tvmaze.model.data_status.toLoadedData
 

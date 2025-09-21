@@ -1,9 +1,9 @@
 package org.pierre.tvmaze.mapper.impl
 
-import org.pierre.tvmaze.dto.MediaResultDto
+import org.pierre.tvmaze.dto.media.MediaResultDto
 import org.pierre.tvmaze.mapper.MediaItemModelMapper
 import org.pierre.tvmaze.mapper.MediaResultMapper
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 
 class MediaResultMapperImpl(
     private val mediaItemModelMapper: MediaItemModelMapper

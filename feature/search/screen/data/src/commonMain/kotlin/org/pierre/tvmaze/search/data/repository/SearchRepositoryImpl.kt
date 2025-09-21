@@ -5,11 +5,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.pierre.tvmaze.core.room_provider.dao.LastSearchesDao
 import org.pierre.tvmaze.core.room_provider.entity.SearchHistoryItemEntity
-import org.pierre.tvmaze.dto.MediaResultDto
+import org.pierre.tvmaze.dto.media.MediaResultDto
 import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
 import org.pierre.tvmaze.feature.search.domain.repository.SearchRepository
 import org.pierre.tvmaze.mapper.MediaResultMapper
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.network.data.handler.RequestHandler
 import org.pierre.tvmaze.search.data.mapper.SearchHistoryItemMapper
 

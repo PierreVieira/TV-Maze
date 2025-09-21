@@ -40,8 +40,8 @@ import org.jetbrains.compose.resources.stringResource
 import org.pierre.tvmaze.components.shimmer.ToContent
 import org.pierre.tvmaze.components.shimmer.model.ShimmerVariant
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
-import org.pierre.tvmaze.model.common.MediaItemDatesModel
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemDatesModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.ui.components.spacer.VerticalSpacer
 import org.pierre.ui.components.stars.StarsComponent
 import tvmaze.feature.media_details.presentation.generated.resources.Res

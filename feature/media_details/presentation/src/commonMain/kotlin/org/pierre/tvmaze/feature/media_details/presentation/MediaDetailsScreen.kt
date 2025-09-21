@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import org.pierre.tvmaze.feature.media_details.presentation.component.MediaDetailsContent
 import org.pierre.tvmaze.feature.media_details.presentation.component.MediaPosterSection
 import org.pierre.tvmaze.feature.media_details.presentation.model.MediaDetailsUiEvent
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 
 private const val POSTER_WEIGHT = 0.42f
 private const val DETAILS_WEIGHT = 0.58f

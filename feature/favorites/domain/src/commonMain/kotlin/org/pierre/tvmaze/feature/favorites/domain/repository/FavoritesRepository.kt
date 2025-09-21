@@ -1,7 +1,7 @@
 package org.pierre.tvmaze.feature.favorites.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 
 interface FavoritesRepository {
     suspend fun toggleFavorite(show: MediaItemModel): Result<Unit>

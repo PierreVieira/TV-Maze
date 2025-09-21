@@ -2,7 +2,7 @@ package org.pierre.tvmaze.feature.search.presentation.model
 
 import org.jetbrains.compose.resources.StringResource
 import org.pierre.tvmaze.feature.search.domain.model.SearchHistoryItemModel
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import tvmaze.feature.search.screen.presentation.generated.resources.Res
 import tvmaze.feature.search.screen.presentation.generated.resources.no_history_for_specific_query
 import tvmaze.feature.search.screen.presentation.generated.resources.no_history_message

@@ -1,4 +1,4 @@
-package org.pierre.tvmaze.model.common
+package org.pierre.tvmaze.model.common.media
 
 data class StarsModel(
     val fullStarsAmount: Int,

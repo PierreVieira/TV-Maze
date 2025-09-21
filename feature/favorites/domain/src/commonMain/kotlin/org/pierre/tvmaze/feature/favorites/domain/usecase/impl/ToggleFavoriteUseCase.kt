@@ -2,7 +2,7 @@ package org.pierre.tvmaze.feature.favorites.domain.usecase.impl
 
 import org.pierre.tvmaze.feature.favorites.domain.repository.FavoritesRepository
 import org.pierre.tvmaze.feature.favorites.domain.usecase.ToggleFavorite
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 
 class ToggleFavoriteUseCase(
     private val repository: FavoritesRepository,

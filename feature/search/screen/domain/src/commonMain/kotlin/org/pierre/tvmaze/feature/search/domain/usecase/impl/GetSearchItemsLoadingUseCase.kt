@@ -1,7 +1,7 @@
 package org.pierre.tvmaze.feature.search.domain.usecase.impl
 
 import org.pierre.tvmaze.feature.search.domain.usecase.GetSearchItemsLoading
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.DataStatusUtils
 
 internal class GetSearchItemsLoadingUseCase : GetSearchItemsLoading {

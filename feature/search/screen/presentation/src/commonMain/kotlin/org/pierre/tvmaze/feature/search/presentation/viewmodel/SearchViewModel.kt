@@ -18,7 +18,7 @@ import org.pierre.tvmaze.feature.search.presentation.model.SearchFactories
 import org.pierre.tvmaze.feature.search.presentation.model.SearchState
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiAction
 import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
-import org.pierre.tvmaze.model.common.MediaItemModel
+import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.DataStatus
 import org.pierre.tvmaze.model.data_status.toLoadedData
 import org.pierre.tvmaze.ui.utils.observe

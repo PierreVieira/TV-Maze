@@ -2,7 +2,7 @@ package org.pierre.tvmaze.mapper.impl
 
 import org.pierre.tvmaze.core.utils.safeYearOrNull
 import org.pierre.tvmaze.mapper.MediaItemDatesMapper
-import org.pierre.tvmaze.model.common.MediaItemDatesModel
+import org.pierre.tvmaze.model.common.media.MediaItemDatesModel
 
 internal class MediaItemDatesMapperImpl: MediaItemDatesMapper {
     override fun map(

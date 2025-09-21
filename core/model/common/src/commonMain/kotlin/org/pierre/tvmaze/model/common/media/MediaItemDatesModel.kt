@@ -1,4 +1,4 @@
-package org.pierre.tvmaze.model.common
+package org.pierre.tvmaze.model.common.media
 
 sealed interface MediaItemDatesModel {
     val startYear: Int
