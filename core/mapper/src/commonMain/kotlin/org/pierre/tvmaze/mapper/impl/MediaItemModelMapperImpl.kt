@@ -10,7 +10,7 @@ import org.pierre.tvmaze.model.common.media.MediaItemModel
 import org.pierre.tvmaze.model.data_status.DataStatus
 import org.pierre.tvmaze.model.data_status.toLoadedStatus
 
-class MediaItemModelMapperImpl(
+internal class MediaItemModelMapperImpl(
     private val starsMapper: StarsMapper,
     private val datesMapper: MediaItemDatesMapper,
     private val htmlTextCleaner: HtmlTextCleaner,

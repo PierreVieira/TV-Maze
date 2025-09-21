@@ -5,7 +5,7 @@ import org.pierre.tvmaze.mapper.MediaItemModelMapper
 import org.pierre.tvmaze.mapper.MediaResultMapper
 import org.pierre.tvmaze.model.common.media.MediaItemModel
 
-class MediaResultMapperImpl(
+internal class MediaResultMapperImpl(
     private val mediaItemModelMapper: MediaItemModelMapper
 ) : MediaResultMapper {
 

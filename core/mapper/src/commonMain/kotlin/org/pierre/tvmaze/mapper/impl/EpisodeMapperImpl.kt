@@ -6,7 +6,7 @@ import org.pierre.tvmaze.mapper.MediaModelMapper
 import org.pierre.tvmaze.model.common.episode.EpisodeModel
 import org.pierre.tvmaze.model.data_status.toLoadedStatus
 
-class EpisodeMapperImpl(
+internal class EpisodeMapperImpl(
     private val mediaModelMapper: MediaModelMapper,
 ) : EpisodeMapper {
     override fun map(
@@ -20,6 +20,7 @@ class EpisodeMapperImpl(
             number = number?.toLoadedStatus(),
             mediaId = mediaId,
             image = image?.let(mediaModelMapper::map)?.toLoadedStatus(),
+            isWatched = false.toLoadedStatus()
         )
     }
 }

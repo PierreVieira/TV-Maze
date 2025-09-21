@@ -10,4 +10,5 @@ data class EpisodeModel(
     val season: DataStatus<Int>?,
     val number: DataStatus<Int>?,
     val image: DataStatus<ImagesModel>?,
+    val isWatched: DataStatus<Boolean>?
 )

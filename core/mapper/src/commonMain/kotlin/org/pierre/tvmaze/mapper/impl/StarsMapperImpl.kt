@@ -4,7 +4,7 @@ import org.pierre.tvmaze.mapper.StarsMapper
 import org.pierre.tvmaze.model.common.media.StarsModel
 import kotlin.math.floor
 
-class StarsMapperImpl : StarsMapper {
+internal class StarsMapperImpl : StarsMapper {
     override fun map(average: Double): StarsModel {
         // Clamp between 0.0 and 10.0, since TVMaze ratings are 0–10
         val safeAverage = average.coerceIn(

@@ -25,6 +25,9 @@ kotlin {
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
 
+            // Coroutines
+            implementation(libs.kotlinx.coroutines.core)
+
             // Core
             implementation(projects.core.model.common)
         }

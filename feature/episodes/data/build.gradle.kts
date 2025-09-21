@@ -29,10 +29,13 @@ kotlin {
             implementation(libs.koinCore)
 
             // Core
+            implementation(libs.ktor.client.core)
             implementation(projects.core.network)
             implementation(projects.core.dto)
             implementation(projects.core.model.common)
+            implementation(projects.core.model.dataStatus)
             implementation(projects.core.mapper)
+            implementation(projects.core.provider.room)
 
             // Features
             implementation(projects.feature.episodes.domain)
