@@ -23,6 +23,9 @@ import org.pierre.tvmaze.feature.theme_selection.domain.di.themeSelectionDomainM
 import org.pierre.tvmaze.mapper.di.mapperModule
 import org.pierre.tvmaze.network.di.networkModule
 import org.pierre.tvmaze.search.data.di.searchDataModule
+import org.pierre.tvmaze.feature.media_details.presentation.di.mediaDetailsPresentationModule
+import org.pierre.tvmaze.feature.media_details.domain.di.mediaDetailsDomainModule
+import org.pierre.tvmaze.feature.media_details.data.di.mediaDetailsDataModule
 
 fun commonKoinInitializer(
     extraModules: List<Module>,
@@ -53,6 +56,9 @@ fun commonKoinInitializer(
             themeSelectionDataModule,
             themeSelectionDomainModule,
             themeSelectionPresentationModule,
+            mediaDetailsDataModule,
+            mediaDetailsDomainModule,
+            mediaDetailsPresentationModule,
         )
         modules(coreModules + featureModules + extraModules)
     }

@@ -44,6 +44,9 @@ kotlin {
             implementation(projects.feature.themeSelection.data)
             implementation(projects.feature.themeSelection.domain)
             implementation(projects.feature.themeSelection.presentation)
+            implementation(projects.feature.mediaDetails.data)
+            implementation(projects.feature.mediaDetails.domain)
+            implementation(projects.feature.mediaDetails.presentation)
 
             // Core dependencies
             implementation(projects.core.provider.dataStore)
