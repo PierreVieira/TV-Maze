@@ -12,14 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -38,15 +33,10 @@ internal fun MediaPosterSection(
     mediaItemModel: MediaItemModel,
     onEvent: (MediaDetailsUiEvent) -> Unit,
 ) {
-    val neutralColor = MaterialTheme.colorScheme.surfaceVariant
-    var backdropColor by remember { mutableStateOf(neutralColor) }
-
-    val posterShape = RectangleShape
-
     BoxWithConstraints(
         modifier = modifier
             .fillMaxWidth()
-            .background(backdropColor)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
     ) {
         val posterWidthFraction = 0.72f
 
@@ -58,11 +48,13 @@ internal fun MediaPosterSection(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(max = maxHeight / 2)
-                .padding(top = 0.dp),
+                .heightIn(max = maxHeight / 2),
             contentAlignment = Alignment.Center
         ) {
-            PosterImage(mediaItemModel = mediaItemModel, modifier = posterModifier, shape = posterShape)
+            PosterImage(
+                mediaItemModel = mediaItemModel,
+                modifier = posterModifier,
+            )
             PosterActionsOverlay(mediaItemModel = mediaItemModel, onEvent = onEvent)
         }
     }
@@ -72,7 +64,6 @@ internal fun MediaPosterSection(
 private fun PosterImage(
     mediaItemModel: MediaItemModel,
     modifier: Modifier,
-    shape: Shape,
 ) {
     mediaItemModel.images?.ToContent(
         modifier = modifier
@@ -81,7 +72,7 @@ private fun PosterImage(
                 clip = true
                 shadowElevation = 12.dp.toPx()
             },
-        variant = ShimmerVariant.Rectangle(shape),
+        variant = ShimmerVariant.Rectangle(RectangleShape),
     ) { images ->
         AsyncImage(
             model = images.original,
