@@ -15,33 +15,33 @@ import org.pierre.tvmaze.feature.search.presentation.model.SearchUiEvent
 internal fun ColumnScope.SearchScreenContent(
     model: SearchContent,
     onEvent: (SearchUiEvent) -> Unit,
+    lastItem: @Composable () -> Unit = {},
 ) {
+    val successContentModifier = Modifier
+        .weight(1f)
+        .widthIn(max = 400.dp)
+        .padding(horizontal = 16.dp)
+        .fillMaxWidth()
     when (model) {
+        is SearchContent.SearchResults -> SearchResultsScreenContent(
+            modifier = successContentModifier,
+            model = model,
+            onEvent = onEvent,
+            lastItem = lastItem,
+        )
+
+        is SearchContent.History -> SearchHistoryScreenContent(
+            modifier = successContentModifier,
+            model = model,
+            onEvent = onEvent,
+            lastItem = lastItem,
+        )
+
         is SearchContent.Error -> SearchErrorScreenContent(
             modifier = Modifier
                 .widthIn(max = 600.dp)
                 .fillMaxSize(),
             model = model
-        )
-
-        is SearchContent.SearchResults -> SearchResultsScreenContent(
-            modifier = Modifier
-                .weight(1f)
-                .widthIn(max = 400.dp)
-                .fillMaxWidth()
-                .padding(16.dp),
-            model = model,
-            onEvent = onEvent
-        )
-
-        is SearchContent.History -> SearchHistoryScreenContent(
-            modifier = Modifier
-                .weight(1f)
-                .widthIn(max = 400.dp)
-                .fillMaxWidth()
-                .padding(16.dp),
-            model = model,
-            onEvent = onEvent,
         )
     }
 }

@@ -9,7 +9,7 @@ import tvmaze.feature.search.screen.presentation.generated.resources.Res
 import tvmaze.feature.search.screen.presentation.generated.resources.search_history_header_title
 
 @Composable
-internal fun SearchHistoryHeaderTitle(modifier: Modifier) {
+internal fun SearchHistoryHeaderTitle(modifier: Modifier = Modifier) {
     Text(
         modifier = modifier,
         text = stringResource(Res.string.search_history_header_title),
