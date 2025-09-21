@@ -1,0 +1,5 @@
+<resources>
+    <string name="show_item_current">Current</string>
+    <string name="show_item_no_dates">No dates available</string>
+    <string name="show_item_no_stars">No rating available</string>
+</resources>

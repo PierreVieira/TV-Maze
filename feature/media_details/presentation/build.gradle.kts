@@ -32,13 +32,31 @@ kotlin {
             implementation(compose.materialIconsExtended)
             implementation(compose.components.uiToolingPreview)
 
+            // Navigation
+            implementation(libs.navigation.compose)
+
             // Koin (feature DI)
             implementation(project.dependencies.platform(libs.koinBom))
             implementation(libs.koinCore)
+            implementation(libs.koinComposeViewModel)
+
+            // Coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network)
+
+            // Core models
+            implementation(projects.core.model.common)
+            implementation(projects.core.model.dataStatus)
+
+            // Features
+            implementation(projects.feature.mediaDetails.domain)
+            implementation(projects.feature.favorites.domain)
 
             // Components
             implementation(projects.ui.utils)
             implementation(projects.ui.components.spacer)
+            implementation(projects.ui.components.stars)
+            implementation(projects.ui.components.shimmer)
             implementation(projects.ui.components.iconButton)
             implementation(projects.ui.components.mediaItemCard)
         }

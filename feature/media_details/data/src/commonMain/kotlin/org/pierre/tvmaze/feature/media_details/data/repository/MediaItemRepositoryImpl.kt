@@ -12,14 +12,16 @@ class MediaItemRepositoryImpl(
     private val requestHandler: RequestHandler,
 ) : MediaItemRepository {
     override suspend fun getDetails(id: Long): Result<MediaItemModel> =
-        requestHandler.call<MediaDto> {
-            get("/search/shows/$id")
-        }.fold(
-            onSuccess = { successResponse ->
-                mediaItemModelMapper.map(successResponse)?.let {
-                    Result.success(it)
-                } ?: Result.failure(IllegalArgumentException("Invalid response"))
-            },
-            onFailure = { Result.failure(it) }
-        )
+        requestHandler
+            .call<MediaDto> { get("/shows/$id") }
+            .fold(
+                onSuccess = { successResponse ->
+                    mediaItemModelMapper.map(successResponse)?.let {
+                        Result.success(it)
+                    } ?: Result.failure(IllegalArgumentException("Invalid response"))
+                },
+                onFailure = {
+                    Result.failure(it)
+                }
+            )
 }

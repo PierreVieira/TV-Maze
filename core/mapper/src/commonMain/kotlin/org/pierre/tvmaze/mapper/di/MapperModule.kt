@@ -11,10 +11,13 @@ import org.pierre.tvmaze.mapper.impl.MediaItemDatesMapperImpl
 import org.pierre.tvmaze.mapper.impl.MediaItemModelMapperImpl
 import org.pierre.tvmaze.mapper.impl.MediaResultMapperImpl
 import org.pierre.tvmaze.mapper.impl.MediaMapperImpl
+import org.pierre.tvmaze.mapper.HtmlTextCleaner
+import org.pierre.tvmaze.mapper.impl.HtmlTextCleanerImpl
 
 val mapperModule = module {
     factoryOf(::MediaResultMapperImpl).bind<MediaResultMapper>()
     factoryOf(::MediaMapperImpl).bind<StarsMapper>()
     factoryOf(::MediaItemDatesMapperImpl).bind<MediaItemDatesMapper>()
+    factoryOf(::HtmlTextCleanerImpl).bind<HtmlTextCleaner>()
     factoryOf(::MediaItemModelMapperImpl).bind<MediaItemModelMapper>()
 }

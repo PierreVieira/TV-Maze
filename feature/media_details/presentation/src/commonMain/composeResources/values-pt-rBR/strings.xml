@@ -1,0 +1,5 @@
+<resources>
+    <string name="show_item_current">Em exibição</string>
+    <string name="show_item_no_dates">Sem datas disponíveis</string>
+    <string name="show_item_no_stars">Sem avaliação disponível</string>
+</resources>

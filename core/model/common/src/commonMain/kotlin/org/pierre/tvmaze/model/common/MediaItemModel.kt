@@ -10,4 +10,6 @@ data class MediaItemModel(
     val stars: DataStatus<StarsModel>?,
     val isFavorite: DataStatus<Boolean>,
     val averageRanting: DataStatus<Double>?,
+    val summary: DataStatus<String>?,
+    val genres: DataStatus<List<String>>?,
 )

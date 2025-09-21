@@ -28,6 +28,8 @@ class FavoriteShowModelMapperImpl : FavoriteShowModelMapper {
             stars = starsModel?.let { DataStatus.Loaded(it) },
             isFavorite = DataStatus.Loaded(true),
             averageRanting = averageRating?.let { DataStatus.Loaded(it) },
+            summary = null,
+            genres = null,
         )
     }
 }

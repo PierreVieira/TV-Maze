@@ -15,6 +15,8 @@ internal class GetSearchItemsLoadingUseCase : GetSearchItemsLoading {
                 isFavorite = loading,
                 averageRanting = loading,
                 dates = loading,
+                summary = loading,
+                genres = loading,
             )
         }
         return List(size = 8) { loadingItem }

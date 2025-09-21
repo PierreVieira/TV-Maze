@@ -39,6 +39,7 @@ kotlin {
 
             // Core
             implementation(projects.core.utils)
+            implementation(projects.core.model.common)
 
             // UI
             implementation(projects.ui.utils)
