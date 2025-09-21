@@ -1,15 +1,52 @@
 package org.pierre.tvmaze.feature.favorites.presentation
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import org.pierre.tvmaze.feature.favorites.presentation.model.FavoritesUiEvent
+import org.pierre.tvmaze.model.common.ShowItemModel
+import org.pierre.tvmaze.model.data_status.toLoadedData
+import org.pierre.ui.components.show_item_card.ShowItemCardComponent
 
 @Composable
-fun FavoritesScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Favorites")
+fun FavoritesScreen(
+    items: List<ShowItemModel>,
+    onEvent: (FavoritesUiEvent) -> Unit,
+) {
+    Scaffold { contentPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .padding(contentPadding),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            items(
+                items = items,
+                key = { item ->
+                    item.run {
+                        id.toLoadedData() ?: name.toLoadedData() ?: hashCode()
+                    }
+                }
+            ) { item ->
+                ShowItemCardComponent(
+                    modifier = Modifier.fillMaxWidth(),
+                    showItemModel = item,
+                    onCardClick = { safeId ->
+                        onEvent(FavoritesUiEvent.OnItemClick(safeId))
+                    },
+                    onFavoriteClick = { safeId ->
+                        onEvent(FavoritesUiEvent.OnFavoriteItemClick(safeId))
+                    },
+                )
+            }
+        }
     }
 }

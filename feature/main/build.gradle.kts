@@ -42,6 +42,7 @@ kotlin {
 
             // Core dependencies
             implementation(projects.core.utils)
+            implementation(projects.core.model.common)
 
             // Feature dependencies
             implementation(projects.feature.search.warning.deleteItem.presentation)

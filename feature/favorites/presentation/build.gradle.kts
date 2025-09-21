@@ -28,9 +28,21 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.animation)
 
             // Core
             implementation(projects.core.utils)
+            implementation(projects.core.model.common)
+            implementation(projects.core.model.dataStatus)
+
+            // Feature domain
+            implementation(projects.feature.favorites.domain)
+
+            // UI Components
+            implementation(projects.ui.components.showItemCard)
+
+            // UI Utils (observe extension)
+            implementation(projects.ui.utils)
 
             // Koin
             implementation(project.dependencies.platform(libs.koinBom))
