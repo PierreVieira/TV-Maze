@@ -47,6 +47,9 @@ kotlin {
             implementation(projects.feature.mediaDetails.data)
             implementation(projects.feature.mediaDetails.domain)
             implementation(projects.feature.mediaDetails.presentation)
+            implementation(projects.feature.episodes.data)
+            implementation(projects.feature.episodes.domain)
+            implementation(projects.feature.episodes.presentation)
 
             // Core dependencies
             implementation(projects.core.provider.dataStore)

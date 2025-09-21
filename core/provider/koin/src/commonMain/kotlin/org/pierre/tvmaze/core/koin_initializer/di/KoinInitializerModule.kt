@@ -26,6 +26,9 @@ import org.pierre.tvmaze.search.data.di.searchDataModule
 import org.pierre.tvmaze.feature.media_details.presentation.di.mediaDetailsPresentationModule
 import org.pierre.tvmaze.feature.media_details.domain.di.mediaDetailsDomainModule
 import org.pierre.tvmaze.feature.media_details.data.di.mediaDetailsDataModule
+import org.pierre.tvmaze.feature.episodes.data.di.episodesDataModule
+import org.pierre.tvmaze.feature.episodes.domain.di.episodesDomainModule
+import org.pierre.tvmaze.feature.episodes.presentation.di.episodesPresentationModule
 
 fun commonKoinInitializer(
     extraModules: List<Module>,
@@ -59,6 +62,9 @@ fun commonKoinInitializer(
             mediaDetailsDataModule,
             mediaDetailsDomainModule,
             mediaDetailsPresentationModule,
+            episodesDataModule,
+            episodesDomainModule,
+            episodesPresentationModule,
         )
         modules(coreModules + featureModules + extraModules)
     }
