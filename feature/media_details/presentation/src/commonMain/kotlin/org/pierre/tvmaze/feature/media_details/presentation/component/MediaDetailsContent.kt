@@ -1,5 +1,6 @@
 package org.pierre.tvmaze.feature.media_details.presentation.component
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -19,54 +20,33 @@ internal fun MediaDetailsContent(
     itemsOnTop: LazyListScope.() -> Unit = {},
     itemsOnBottom: LazyListScope.() -> Unit = {},
 ) {
-    val horizontalPaddingModifier = Modifier.padding(horizontal = 16.dp)
     LazyColumn(modifier = modifier) {
         itemsOnTop()
         item {
-            MediaDetailsTitle(
-                name = mediaItemModel.name,
-                modifier = horizontalPaddingModifier,
-            )
-        }
-        item {
-            VerticalSpacer(8)
-        }
-        item {
-            mediaItemModel.dates?.let {
-                MediaDetailsDatesRow(
-                    dates = it,
-                    modifier = horizontalPaddingModifier,
+            Column(Modifier.padding(horizontal = 16.dp)) {
+                MediaDetailsTitle(
+                    name = mediaItemModel.name,
                 )
+                VerticalSpacer(8)
+                mediaItemModel.dates?.let {
+                    MediaDetailsDatesRow(
+                        dates = it,
+                    )
+                }
+                VerticalSpacer(8)
+                MediaDetailsGenresText(
+                    mediaItemModel = mediaItemModel,
+                )
+                VerticalSpacer(12)
+                MediaDetailsStarsRow(mediaItemModel)
+                VerticalSpacer(12)
+                MediaDetailsSummaryText(
+                    mediaItemModel = mediaItemModel,
+                    isExpanded = isSummaryExpanded,
+                    onEvent = onEvent
+                )
+                VerticalSpacer()
             }
-        }
-        item {
-            VerticalSpacer(8)
-        }
-        item {
-            MediaDetailsGenresText(
-                mediaItemModel = mediaItemModel,
-                modifier = horizontalPaddingModifier,
-            )
-        }
-        item {
-            VerticalSpacer(12)
-        }
-        item {
-            MediaDetailsStarsRow(mediaItemModel)
-        }
-        item {
-            VerticalSpacer(12)
-        }
-        item {
-            MediaDetailsSummaryText(
-                modifier = horizontalPaddingModifier,
-                mediaItemModel = mediaItemModel,
-                isExpanded = isSummaryExpanded,
-                onEvent = onEvent
-            )
-        }
-        item {
-            VerticalSpacer()
         }
         itemsOnBottom()
     }

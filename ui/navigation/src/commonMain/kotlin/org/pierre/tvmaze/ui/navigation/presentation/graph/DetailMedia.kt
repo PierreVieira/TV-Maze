@@ -20,15 +20,15 @@ import org.pierre.tvmaze.ui.utils.ActionCollector
 
 internal fun NavGraphBuilder.detailMedia(navHostController: NavHostController) {
     composable<MediaDetailsRoute> {
-        val viewModel: MediaDetailsViewModel = koinViewModel()
-        val state by viewModel.uiState.collectAsState()
-        val seasons by viewModel.seasons.collectAsState()
-        val isSummaryExpanded by viewModel.isSummaryExpanded.collectAsState()
+        val mediaDetailsViewModel: MediaDetailsViewModel = koinViewModel()
+        val state by mediaDetailsViewModel.uiState.collectAsState()
+        val seasons by mediaDetailsViewModel.seasons.collectAsState()
+        val isSummaryExpanded by mediaDetailsViewModel.isSummaryExpanded.collectAsState()
         val initiallyCollapsed: Set<Int> = remember(seasons) {
             seasons.mapNotNull { it.number.toLoadedInformation()?.data }.toSet()
         }
         var collapsedSeasons: Set<Int> by remember(seasons) { mutableStateOf(initiallyCollapsed) }
-        ActionCollector(viewModel.uiAction) { action ->
+        ActionCollector(mediaDetailsViewModel.uiAction) { action ->
             when (action) {
                 MediaDetailsUiAction.NavigateBack -> navHostController.navigateUp()
             }
@@ -36,11 +36,11 @@ internal fun NavGraphBuilder.detailMedia(navHostController: NavHostController) {
         MediaDetailsScreen(
             mediaItemModel = state,
             isSummaryExpanded = isSummaryExpanded,
-            onEvent = viewModel::onEvent,
+            onEvent = mediaDetailsViewModel::onEvent,
             itemsOnBottom = {
                 episodesSeasonsList(
                     seasons = seasons,
-                    onEpisodeCheckedChange = { viewModel.onEvent(MediaDetailsUiEvent.OnToggleEpisodeWatched(it)) },
+                    onEpisodeCheckedChange = { mediaDetailsViewModel.onEvent(MediaDetailsUiEvent.OnToggleEpisodeWatched(it)) },
                     onToggleSeason = { seasonNumber ->
                         collapsedSeasons = if (collapsedSeasons.contains(seasonNumber)) {
                             collapsedSeasons - seasonNumber
