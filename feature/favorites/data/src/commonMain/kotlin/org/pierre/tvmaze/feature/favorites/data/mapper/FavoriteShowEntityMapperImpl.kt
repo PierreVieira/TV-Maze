@@ -9,7 +9,7 @@ class FavoriteShowEntityMapperImpl : FavoriteShowEntityMapper {
     override fun mapOrNull(model: MediaItemModel): FavoriteMediaEntity? = with(model) {
         val id = id.toLoadedData() ?: return null
         val name = name.toLoadedData() ?: return null
-        val imageUrl = image?.toLoadedData()
+        val imagesUrl = images?.toLoadedData()
         val datesLoaded = dates?.toLoadedData()
         val (startYear, endYear) = when (datesLoaded) {
             is MediaItemDatesModel.Running -> datesLoaded.startYear to null
@@ -23,7 +23,8 @@ class FavoriteShowEntityMapperImpl : FavoriteShowEntityMapper {
         return FavoriteMediaEntity(
             id = id,
             name = name,
-            imageUrl = imageUrl,
+            originalImageUrl = imagesUrl?.original,
+            mediumImageUrl = imagesUrl?.medium,
             startYear = startYear,
             endYear = endYear,
             averageRating = averageRating,

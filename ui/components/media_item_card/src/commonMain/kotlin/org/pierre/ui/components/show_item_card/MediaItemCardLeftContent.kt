@@ -27,12 +27,12 @@ internal fun MediaItemCardLeftContent(
             val imageModifier = Modifier
                 .width(64.dp)
                 .heightIn(min = minImageHeight)
-            image?.ToContent(
+            images?.ToContent(
                 modifier = imageModifier,
-            ) { safeImage ->
+            ) { safeImages ->
                 PictureCommon(
                     modifier = imageModifier,
-                    url = safeImage,
+                    url = safeImages.medium,
                     contentDescription = null,
                 )
             } ?: Spacer(

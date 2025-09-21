@@ -1,6 +1,7 @@
 package org.pierre.tvmaze.feature.favorites.data.mapper
 
 import org.pierre.tvmaze.core.room_provider.entity.FavoriteMediaEntity
+import org.pierre.tvmaze.model.common.MediaImagesModel
 import org.pierre.tvmaze.model.common.MediaItemDatesModel
 import org.pierre.tvmaze.model.common.MediaItemModel
 import org.pierre.tvmaze.model.common.StarsModel
@@ -23,7 +24,12 @@ class FavoriteShowModelMapperImpl : FavoriteShowModelMapper {
         return MediaItemModel(
             id = DataStatus.Loaded(id),
             name = DataStatus.Loaded(name),
-            image = imageUrl?.let { DataStatus.Loaded(it) },
+            images = DataStatus.Loaded(
+                data = MediaImagesModel(
+                    medium = mediumImageUrl,
+                    original = originalImageUrl,
+                ),
+            ),
             dates = dates?.let { DataStatus.Loaded(it) },
             stars = starsModel?.let { DataStatus.Loaded(it) },
             isFavorite = DataStatus.Loaded(true),

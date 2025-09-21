@@ -1,9 +1,11 @@
 package org.pierre.tvmaze.feature.favorites.presentation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
@@ -20,7 +22,9 @@ fun FavoritesScreen(
     items: List<MediaItemModel>,
     onEvent: (FavoritesUiEvent) -> Unit,
 ) {
-    Scaffold { contentPadding ->
+    Scaffold(
+        contentWindowInsets = WindowInsets.safeDrawing,
+    ) { contentPadding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()

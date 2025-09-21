@@ -10,7 +10,7 @@ internal class GetSearchItemsLoadingUseCase : GetSearchItemsLoading {
             MediaItemModel(
                 id = loading,
                 name = loading,
-                image = loading,
+                images = loading,
                 stars = loading,
                 isFavorite = loading,
                 averageRanting = loading,

@@ -89,7 +89,7 @@ class MediaDetailsViewModel(
     private fun createLoadingModel(): MediaItemModel = MediaItemModel(
         id = DataStatus.Loading,
         name = DataStatus.Loading,
-        image = DataStatus.Loading,
+        images = DataStatus.Loading,
         dates = DataStatus.Loading,
         stars = DataStatus.Loading,
         isFavorite = DataStatus.Loading,

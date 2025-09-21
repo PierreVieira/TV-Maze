@@ -11,7 +11,8 @@ import androidx.room.PrimaryKey
 data class FavoriteMediaEntity(
     @PrimaryKey val id: Long,
     val name: String,
-    val imageUrl: String?,
+    val originalImageUrl: String?,
+    val mediumImageUrl: String?,
     val startYear: Int?,
     val endYear: Int?,
     val averageRating: Double?,
