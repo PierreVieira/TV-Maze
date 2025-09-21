@@ -68,9 +68,9 @@ internal fun MediaDetailsContent(
         VerticalSpacer(8)
         GenresText(mediaItemModel)
         VerticalSpacer(12)
-        SummaryText(mediaItemModel, isSummaryExpanded, onEvent)
-        VerticalSpacer(12)
         StarsRow(mediaItemModel)
+        VerticalSpacer(12)
+        SummaryText(mediaItemModel, isSummaryExpanded, onEvent)
     }
 }
 
@@ -228,6 +228,9 @@ private fun StarsRow(mediaItemModel: MediaItemModel) {
             .height(16.dp),
         variant = ShimmerVariant.StarsRow(spacing = 6.dp),
     ) { stars ->
-        StarsComponent(stars)
+        StarsComponent(
+            starsModel = stars,
+            starSize = 24.dp
+        )
     }
 }

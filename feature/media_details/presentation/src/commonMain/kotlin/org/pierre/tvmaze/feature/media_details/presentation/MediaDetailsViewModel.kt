@@ -43,12 +43,10 @@ class MediaDetailsViewModel(
     private val mediaId: Long = savedStateHandle.toRoute<MediaDetailsRoute>().id
 
     init {
-        // Observe favorites and update the isFavorite flag for the current media id
         observe(getFavoritesFlow()) { favorites ->
             this.favorites = favorites
             updateIsFavorite()
         }
-        // Load details initially
         viewModelScope.launch {
             val result = getMediaDetails(mediaId)
             result.onSuccess { model ->

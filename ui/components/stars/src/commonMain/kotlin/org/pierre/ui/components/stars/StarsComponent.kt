@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
@@ -23,6 +24,7 @@ import org.pierre.tvmaze.ui.theme.preview.PreviewTheme
 @Composable
 fun StarsComponent(
     starsModel: StarsModel,
+    starSize: Dp = 16.dp,
     modifier: Modifier = Modifier,
     tint: Color = MaterialTheme.colorScheme.primary,
 ) {
@@ -31,12 +33,14 @@ fun StarsComponent(
             StarComponent(
                 imageVector = Icons.Filled.StarRate,
                 tint = tint,
+                starSize = starSize
             )
         }
         if (starsModel.showInAHalf) {
             StarComponent(
                 imageVector = Icons.AutoMirrored.Filled.StarHalf,
                 tint = tint,
+                starSize = starSize
             )
         }
         val emptyStars = 5 - starsModel.fullStarsAmount - if (starsModel.showInAHalf) 1 else 0
@@ -44,6 +48,7 @@ fun StarsComponent(
             StarComponent(
                 imageVector = Icons.Outlined.StarRate,
                 tint = tint,
+                starSize = starSize,
             )
         }
     }
@@ -51,6 +56,7 @@ fun StarsComponent(
 
 @Composable
 private fun StarComponent(
+    starSize: Dp,
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     tint: Color,
@@ -59,7 +65,7 @@ private fun StarComponent(
         imageVector = imageVector,
         contentDescription = null,
         tint = tint,
-        modifier = modifier.size(16.dp),
+        modifier = modifier.size(starSize),
     )
 }
 
