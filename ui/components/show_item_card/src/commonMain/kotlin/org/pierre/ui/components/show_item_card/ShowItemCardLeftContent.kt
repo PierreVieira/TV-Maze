@@ -2,6 +2,7 @@ package org.pierre.ui.components.show_item_card
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
@@ -33,7 +34,9 @@ internal fun ShowItemCardLeftContent(
                     url = safeImage,
                     contentDescription = null,
                 )
-            }
+            } ?: Spacer(
+                modifier = imageModifier
+            )
             HorizontalSpacer(16)
             Column {
                 VerticalSpacer(8)
