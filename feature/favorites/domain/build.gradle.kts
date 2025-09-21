@@ -27,6 +27,7 @@ kotlin {
 
             // Core
             implementation(projects.core.utils)
+            implementation(projects.core.model.common)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

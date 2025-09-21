@@ -27,6 +27,9 @@ kotlin {
 
             // Core
             implementation(projects.core.utils)
+            implementation(projects.core.provider.room)
+            implementation(projects.core.model.dataStatus)
+            implementation(projects.core.model.common)
 
             // Feature
             implementation(projects.feature.favorites.domain)
