@@ -1,6 +1,7 @@
 # TV Maze - Aplicativo de Séries de TV
 
-Vídeo demonstrativo das features: https://youtu.be/bbFSuiOfIx4
+- Vídeo demonstrativo das features: https://youtu.be/bbFSuiOfIx4
+- APK: https://drive.google.com/file/d/1NY3esYOI4AJiQHf1jIJTT1zkR7roh-_5/view?usp=sharing
 
 Este é um projeto **Kotlin Multiplatform**/**Compose Multiplatform** que tem como objetivo criar uma experiência interativa e completa para explorar, pesquisar e gerenciar séries de TV. O aplicativo utiliza a API pública [The TV Maze](https://www.tvmaze.com/api) para fornecer informações detalhadas sobre séries e episódios.
 
